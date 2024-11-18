@@ -5,19 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class RequestList extends Model
 {
     use HasFactory;
 
-    protected $table = 'user';
-    protected $primaryKey = 'userID';
+    protected $table = 'request_list';
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-        'image',
+        'pantiID',
+        'productID',
     ];
 }
