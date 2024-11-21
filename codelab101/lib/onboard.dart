@@ -30,10 +30,10 @@ class OnboardingScreen extends StatelessWidget {
                   height: 120,
                 ),
                 const SizedBox(width: 16.0),
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Selamat datang di',
                         style: TextStyle(
@@ -129,15 +129,15 @@ class OnboardingScreen2 extends StatelessWidget {
           children: [
             const SizedBox(height: 50.0), // Jarak atas
             // Header dengan Ikon dan Teks
-            Column(
+            const Column(
               children: [
                 Icon(
                   Icons.favorite, // Ikon cinta untuk estetika
                   color: Colors.red,
                   size: 40.0,
                 ),
-                const SizedBox(height: 10.0),
-                const Text(
+                SizedBox(height: 10.0),
+                Text(
                   'Dengan berdonasi, Anda dapat menolong anak-anak panti asuhan.',
                   style: TextStyle(
                     fontSize: 20.0,
