@@ -5,21 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TransactionDetail extends Model
+class RequestProduct extends Model
 {
     use HasFactory;
 
-    protected $table = 'transaction_detail';
-    protected $primaryKey = 'transactionID';
+    protected $table = 'request_product';
     public $timestamps = false;
 
     protected $fillable = [
-        'userID',
+        'requestID',
         'productID',
-        'bundleID',
-        'date',
-        'price_total',
-        'method',
-        'time',
+        'requested_qty',
+        'donated_qty',
+        'status_approval',
     ];
 }

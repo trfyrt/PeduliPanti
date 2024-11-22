@@ -10,10 +10,10 @@ class RequestList extends Model
     use HasFactory;
 
     protected $table = 'request_list';
+    protected $primaryKey = 'requestID';
     public $timestamps = false;
 
     protected $fillable = [
         'pantiID',
-        'productID',
     ];
 }

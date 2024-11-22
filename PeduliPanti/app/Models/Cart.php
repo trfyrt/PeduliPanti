@@ -10,12 +10,10 @@ class Cart extends Model
     use HasFactory;
 
     protected $table = 'cart';
+    protected $primaryKey = 'cartID';
     public $timestamps = false;
 
     protected $fillable = [
         'userID',
-        'productID',
-        'bundleID',
-        'quantity',
     ];
 }

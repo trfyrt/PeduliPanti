@@ -20,8 +20,7 @@ class PantiDetail extends Model
         'child_number',
         'founding_date',
         'donation_total',
-        'value',
+        'priority_value',
         'description',
-        'image',
     ];
 }
