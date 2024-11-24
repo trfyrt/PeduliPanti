@@ -23,7 +23,7 @@ return new class  extends Migration
             $table->increments('userID');
             $table->string('name', 45);
             $table->string('email', 45);
-            $table->string('password', 45);
+            $table->text('password');
             $table->string('role', 45);
             $table->binary('image')->nullable();
 
