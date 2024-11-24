@@ -18,4 +18,20 @@ class TransactionOrder extends Model
         'method',
         'order_status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userID', 'userID');
+    }
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class, 'cartID', 'cartID');
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(History::class, 'transactionID', 'transactionID');
+    }
+    
 }

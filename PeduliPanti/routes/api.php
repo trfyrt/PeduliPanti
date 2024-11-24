@@ -24,16 +24,17 @@ Route::get('/user', function (Request $request) {
 // api/v1
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function(){
     Route::apiResource('bundle', BundleController::class);
-    Route::apiResource('bundle_product', BundleProductController::class);
     Route::apiResource('cart', CartController::class);
-    Route::apiResource('cart_product_bundle', CartProductBundleController::class);
     Route::apiResource('category', CategoryController::class);
-    Route::apiResource('history', HistoryController::class);
     Route::apiResource('panti_detail', PantiDetailController::class);
     Route::apiResource('product', ProductController::class);
     Route::apiResource('rab', RABController::class);
     Route::apiResource('request_list', RequestListController::class);
-    Route::apiResource('request_product', RequestProductController::class);
     Route::apiResource('transaction_order', TransactionOrderController::class);
     Route::apiResource('user', UserController::class);
+    
+    // Route::apiResource('bundle_product', BundleProductController::class);
+    // Route::apiResource('cart_product_bundle', CartProductBundleController::class);
+    // Route::apiResource('history', HistoryController::class);
+    // Route::apiResource('request_product', RequestProductController::class);
 });

@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cart extends Model
 {
@@ -16,4 +19,31 @@ class Cart extends Model
     protected $fillable = [
         'userID',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userID', 'userID');
+    }    
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'cart_product_bundle')
+            ->withPivot('quantity', 'total_price', 'pantiID')
+            ->whereNotNull('productID');
+    }
+    
+    public function bundles()
+    {
+        return $this->belongsToMany(Bundle::class, 'cart_product_bundle')
+            ->withPivot('quantity', 'total_price', 'pantiID')
+            ->whereNotNull('bundleID');
+    }
+    
+    public function requestLists()
+    {
+        return $this->belongsToMany(RequestList::class, 'cart_product_bundle')
+            ->withPivot('quantity', 'total_price', 'pantiID')
+            ->whereNotNull('requestID');
+    }
+        
 }

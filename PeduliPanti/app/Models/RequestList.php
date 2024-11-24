@@ -16,4 +16,16 @@ class RequestList extends Model
     protected $fillable = [
         'pantiID',
     ];
+
+    public function panti()
+    {
+        return $this->belongsTo(PantiDetail::class, 'pantiID', 'pantiID');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'request_product', 'requestID', 'productID')
+                    ->withPivot('requested_qty', 'donated_qty', 'status_approval');
+    }
+    
 }
