@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,
                 'password' => bcrypt('password'), // Default password
-                'role' => $faker->randomElement(['admin', 'user']),
+                'role' => $faker->randomElement(['admin', 'donatur', 'panti', 'dinsos']),
                 'image' => null, // You can add a default image if needed
             ]);
         }
