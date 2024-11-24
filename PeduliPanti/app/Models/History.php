@@ -17,4 +17,19 @@ class History extends Model
         'pantiID',
         'userID',
     ];
+
+    public function transaction()
+    {
+        return $this->belongsTo(TransactionOrder::class, 'transactionID', 'transactionID');
+    }
+
+    public function panti()
+    {
+        return $this->belongsTo(PantiDetail::class, 'pantiID', 'pantiID');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userID', 'userID');
+    }
 }
