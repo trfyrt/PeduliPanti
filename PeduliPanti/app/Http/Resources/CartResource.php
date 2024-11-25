@@ -11,10 +11,10 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->cartID,
-            'user' => new UserResource($this->whenLoaded('user')), // Relasi ke User
-            'products' => ProductResource::collection($this->whenLoaded('products')), // Produk singular
-            'bundles' => BundleResource::collection($this->whenLoaded('bundles')), // Bundles
-            'requestLists' => RequestListResource::collection($this->whenLoaded('requestLists')), // Request lists
+            'user' => new UserResource($this->whenLoaded('user')),
+            'products' => ProductResource::collection($this->whenLoaded('products')),
+            'bundles' => BundleResource::collection($this->whenLoaded('bundles')),
+            'requestLists' => RequestListResource::collection($this->whenLoaded('requestLists')),
         ];
     }
 }

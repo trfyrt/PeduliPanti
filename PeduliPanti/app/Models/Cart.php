@@ -27,23 +27,19 @@ class Cart extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'cart_product_bundle')
-            ->withPivot('quantity', 'total_price', 'pantiID')
-            ->whereNotNull('productID');
+        return $this->belongsToMany(Product::class, 'cart_product_bundle', 'cartID', 'productID')
+            ->withPivot('quantity', 'total_price', 'pantiID');
     }
     
     public function bundles()
     {
-        return $this->belongsToMany(Bundle::class, 'cart_product_bundle')
-            ->withPivot('quantity', 'total_price', 'pantiID')
-            ->whereNotNull('bundleID');
+        return $this->belongsToMany(Bundle::class, 'cart_product_bundle', 'cartID', 'bundleID')
+            ->withPivot('quantity', 'total_price', 'pantiID');
     }
     
     public function requestLists()
     {
-        return $this->belongsToMany(RequestList::class, 'cart_product_bundle')
-            ->withPivot('quantity', 'total_price', 'pantiID')
-            ->whereNotNull('requestID');
-    }
-        
+        return $this->belongsToMany(RequestList::class, 'cart_product_bundle', 'cartID', 'requestID')
+            ->withPivot('quantity', 'total_price', 'pantiID');
+    }        
 }

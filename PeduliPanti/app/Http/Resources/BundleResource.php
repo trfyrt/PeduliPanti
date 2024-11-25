@@ -15,6 +15,13 @@ class BundleResource extends JsonResource
             'description' => $this->description,
             'price' => $this->price,
             'products' => ProductResource::collection($this->whenLoaded('products')), // Relasi ke products
+            'pivot' => $this->whenPivotLoaded('cart_product_bundle', function () {
+                return [
+                    'quantity' => $this->pivot->quantity,
+                    'total_price' => $this->pivot->total_price,
+                    'pantiID' => $this->pivot->pantiID,
+                ];
+            }),
         ];
     }
 }
