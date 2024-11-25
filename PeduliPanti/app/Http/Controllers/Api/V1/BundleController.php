@@ -77,10 +77,13 @@ class BundleController extends Controller
     {
         // Menemukan Bundle yang akan dihapus
         $bundle = Bundle::findOrFail($id);
-
+    
+        // Menghapus data terkait di junction table (bundle_product)
+        $bundle->products()->detach();
+    
         // Menghapus Bundle
         $bundle->delete();
-
+    
         // Mengembalikan response sukses
         return response()->json(['message' => 'Bundle deleted successfully'], 200);
     }
