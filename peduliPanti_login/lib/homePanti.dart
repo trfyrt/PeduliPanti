@@ -263,6 +263,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+              SizedBox(height: 80), // Added space below to prevent navbar from covering cards
             ],
           ),
         ),
