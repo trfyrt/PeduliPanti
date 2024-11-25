@@ -36,7 +36,7 @@ class RABController extends Controller
     {
         $validated = $request->validate([
             'pantiID' => 'required|integer',
-            'pdf' => 'nullable|file',
+            'pdf' => 'nullable|file|mimes:pdf|max:2048',
             'status' => 'required|string',
         ]);
         $rab = RAB::findOrFail($id);

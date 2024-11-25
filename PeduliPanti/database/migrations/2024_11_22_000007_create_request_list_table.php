@@ -25,7 +25,7 @@ return new class  extends Migration
             $table->unsignedInteger('productID');
             $table->integer('requested_qty');
             $table->integer('donated_qty');
-            $table->string('status_approval', 45)->default('Pending');
+            $table->string('status_approval', 45)->default('pending');
             
             $table->index(["productID"], 'productID_idx');
             

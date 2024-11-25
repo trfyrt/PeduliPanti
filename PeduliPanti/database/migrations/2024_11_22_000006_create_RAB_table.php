@@ -23,7 +23,7 @@ return new class  extends Migration
             $table->increments('RABID');
             $table->unsignedInteger('pantiID');
             $table->binary('pdf');
-            $table->string('status', 45);
+            $table->string('status', 45)->default('pending');
 
             $table->index(["pantiID"], 'pantiID_idx');
 
