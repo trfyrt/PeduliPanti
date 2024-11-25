@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                     barGroups: [
                       BarChartGroupData(x: 0, barRods: [
                         BarChartRodData(
-                          toY: 15000 / 100000 * 100,
+                          toY: 10,
                           color: const Color.fromARGB(255, 164, 196, 253),
                           width: 24,
                           borderRadius: BorderRadius.circular(2),
