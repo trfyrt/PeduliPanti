@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:peduliPanti/profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,17 +17,39 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0; // Track the selected index
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index; // Update the selected index
+    });
+    if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfilePage()),
+      );
+    } else {
+      print("Tab ke-$index ditekan");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 251, 251),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0,), // Adjusted padding
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 16), // Added padding above search and notification
               Row(
                 children: [
                   Expanded(
@@ -196,7 +219,7 @@ class HomePage extends StatelessWidget {
                 child: Text(
                   "Request Barang",
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 164, 196, 253),
+                    color: Colors.black,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -254,10 +277,8 @@ class HomePage extends StatelessWidget {
           TabItem(icon: Icons.person, title: 'Profil'),
         ],
         style: TabStyle.fixedCircle,
-        initialActiveIndex: 0,
-        onTap: (int i) {
-          print("Tab ke-$i ditekan");
-        },
+        initialActiveIndex: _selectedIndex, // Set the active index
+        onTap: _onItemTapped, // Use the method to handle tap
       ),
     );
   }
@@ -303,7 +324,7 @@ class DonationCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 164, 196, 253),
+                  color: Colors.black, // Changed to black
                 ),
               ),
             ),
@@ -314,13 +335,13 @@ class DonationCard extends StatelessWidget {
                 Text(
                   "Rp.${collectedDonation}/Rp.${targetDonation}",
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 164, 196, 253),
+                    color: Colors.black, // Changed to black
                   ),
                 ),
                 Text(
                   "${(collectedDonation / targetDonation * 100).toStringAsFixed(0)}%",
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 164, 196, 253),
+                    color: Colors.black, // Changed to black
                   ),
                 ),
               ],
