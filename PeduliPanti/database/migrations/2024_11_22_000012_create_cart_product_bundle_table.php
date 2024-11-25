@@ -22,9 +22,9 @@ return new class  extends Migration
             $table->engine = 'InnoDB';
             $table->unsignedInteger('cartID');
             $table->unsignedInteger('pantiID');
-            $table->unsignedInteger('requestID');
-            $table->unsignedInteger('productID');
-            $table->unsignedInteger('bundleID');
+            $table->unsignedInteger('requestID')->nullable();
+            $table->unsignedInteger('productID')->nullable();
+            $table->unsignedInteger('bundleID')->nullable();
             $table->integer('quantity');
             $table->integer('total_price');
 

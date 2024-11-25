@@ -14,6 +14,13 @@ class RequestListResource extends JsonResource
             'pantiID' => $this->pantiID,
             'panti' => new PantiDetailResource($this->whenLoaded('panti')), // Relasi panti
             'products' => ProductResource::collection($this->whenLoaded('products')), // Relasi products
+            'pivot' => $this->whenPivotLoaded('cart_product_bundle', function () {
+                return [
+                    'quantity' => $this->pivot->quantity,
+                    'total_price' => $this->pivot->total_price,
+                    'pantiID' => $this->pivot->pantiID,
+                ];
+            }),
         ];
     }
 }
