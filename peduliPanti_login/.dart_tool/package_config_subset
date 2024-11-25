@@ -114,10 +114,6 @@ vm_service
 3.3
 file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5/
 file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5/lib/
-peduliPanti
-3.5
-file:///C:/Users/ASUS/Downloads/TopUp_Game_Apps-main/TopUp_Game_Apps-main/
-file:///C:/Users/ASUS/Downloads/TopUp_Game_Apps-main/TopUp_Game_Apps-main/lib/
 sky_engine
 3.2
 file:///D:/flutter/src/flutter/bin/cache/pkg/sky_engine/
@@ -130,4 +126,8 @@ flutter_test
 3.3
 file:///D:/flutter/src/flutter/packages/flutter_test/
 file:///D:/flutter/src/flutter/packages/flutter_test/lib/
+peduliPanti
+3.5
+file:///D:/xampp/htdocs/PeduliPanti/peduliPanti_login/
+file:///D:/xampp/htdocs/PeduliPanti/peduliPanti_login/lib/
 2
