@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:peduliPanti/editProfile.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,124 +12,6 @@ class _ProfilePageState extends State<ProfilePage> {
       "Panti asuhan ini memberikan perlindungan dan pendidikan kepada anak-anak yang membutuhkan. Kami berkomitmen untuk menciptakan lingkungan yang aman dan mendukung bagi mereka.";
   String address =
       "Jl. Contoh Alamat No. 123, Kota, Provinsi"; // New address variable
-
-  void _editDescription() {
-    TextEditingController controller = TextEditingController(text: description);
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Edit Deskripsi"),
-          content: Container(
-            width: 400, // Set a fixed width for the dialog
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: controller,
-                  maxLines: null, // Allow the TextField to expand vertically
-                  maxLength: 100, // Limit the number of characters to 100
-                  decoration: InputDecoration(
-                    hintText: "Masukkan deskripsi baru",
-                    counterText:
-                        '${controller.text.length}/100', // Show character count
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text("Maksimal 100 karakter"), // Inform about character limit
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (controller.text.length <= 100) {
-                  // Check length before saving
-                  setState(() {
-                    description = controller.text; // Update the description
-                  });
-                  Navigator.of(context).pop();
-                } else {
-                  // Optionally show a message if the limit is exceeded
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text(
-                            "Deskripsi tidak boleh lebih dari 100 karakter")),
-                  );
-                }
-              },
-              child: Text("Simpan"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Batal"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _editAddress() {
-    TextEditingController controller = TextEditingController(text: address);
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Edit Alamat"),
-          content: Container(
-            width: 400, // Set a fixed width for the dialog
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: controller,
-                  maxLines: null, // Allow the TextField to expand vertically
-                  maxLength: 100, // Limit the number of characters to 100
-                  decoration: InputDecoration(
-                    hintText: "Masukkan alamat baru",
-                    counterText:
-                        '${controller.text.length}/100', // Show character count
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text("Maksimal 100 karakter"), // Inform about character limit
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (controller.text.length <= 100) {
-                  // Check length before saving
-                  setState(() {
-                    address = controller.text; // Update the address
-                  });
-                  Navigator.of(context).pop();
-                } else {
-                  // Optionally show a message if the limit is exceeded
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text(
-                            "Alamat tidak boleh lebih dari 100 karakter")),
-                  );
-                }
-              },
-              child: Text("Simpan"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Batal"),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.4,
                     decoration: BoxDecoration(
                       color: Colors.lightBlue[100],
                       borderRadius:
@@ -171,6 +54,19 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text("Jumlah Anak: 25"),
                             ],
                           ),
+                          SizedBox(height: 8), // Add space before the button
+                          ElevatedButton(
+                            onPressed: () {
+                              // Navigate to EditProfilePage when pressed
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditProfilePage(),
+                                ),
+                              );
+                            },
+                            child: Text("Edit Profile"),
+                          ),
                         ],
                       ),
                     ),
@@ -189,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Removed Expanded and ListView to allow overall scrolling
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0), // Add horizontal padding to cards
+                        horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
                       child: Row(
                         children: [
@@ -236,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0), // Add horizontal padding to cards
+                        horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
                       child: Row(
                         children: [
@@ -283,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0), // Add horizontal padding to cards
+                        horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
                       child: Row(
                         children: [
@@ -330,10 +226,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Card untuk Deskripsi Panti Asuhan
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0), // Tambahkan padding horizontal
+                        horizontal: 20.0), // Tambahkan padding horizontal
                     child: Container(
-                      height: 200, // Tentukan tinggi tetap untuk card deskripsi
-                      width: 500,
+                      constraints: BoxConstraints(
+                        minHeight: 100, // Minimum height for description card
+                      ),
+                      width: double.infinity, // Use double.infinity for full width
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -350,11 +248,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 description,
                                 style: TextStyle(fontSize: 14),
                               ),
-                              SizedBox(height: 8),
-                              ElevatedButton(
-                                onPressed: _editDescription,
-                                child: Text("Edit"),
-                              ),
                             ],
                           ),
                         ),
@@ -365,10 +258,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 8), // Jarak sebelum card alamat
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0), // Tambahkan padding horizontal
+                        horizontal: 20.0), // Tambahkan padding horizontal
                     child: Container(
-                      height: 150, // Tentukan tinggi tetap untuk card alamat
-                      width: 500,
+                      constraints: BoxConstraints(
+                        minHeight: 100, // Minimum height for address card
+                      ),
+                      width: double.infinity, // Use double.infinity for full width
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -384,11 +279,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text(
                                 address,
                                 style: TextStyle(fontSize: 14),
-                              ),
-                              SizedBox(height: 8),
-                              ElevatedButton(
-                                onPressed: _editAddress,
-                                child: Text("Edit"),
                               ),
                             ],
                           ),
