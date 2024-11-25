@@ -15,6 +15,10 @@ class RequestList extends Model
 
     protected $fillable = [
         'pantiID',
+        'productID',
+        'requested_qty',
+        'donated_qty',
+        'status_approval',
     ];
 
     public function panti()
@@ -24,8 +28,7 @@ class RequestList extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'request_product', 'requestID', 'productID')
-                    ->withPivot('requested_qty', 'donated_qty', 'status_approval');
+        return $this->belongsTo(Product::class, 'requestID', 'productID');
     }
     
 }
