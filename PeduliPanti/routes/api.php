@@ -32,6 +32,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('request_list', RequestListController::class);
     Route::apiResource('transaction_order', TransactionOrderController::class);
     Route::apiResource('user', UserController::class);
+
+    Route::patch('request_list/{id}/status', [RequestListController::class, 'updateStatus']);
+
     
     // Route::apiResource('bundle_product', BundleProductController::class);
     // Route::apiResource('cart_product_bundle', CartProductBundleController::class);

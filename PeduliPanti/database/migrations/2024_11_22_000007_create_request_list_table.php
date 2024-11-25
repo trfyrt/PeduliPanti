@@ -22,9 +22,19 @@ return new class  extends Migration
             $table->engine = 'InnoDB';
             $table->increments('requestID');
             $table->unsignedInteger('pantiID');
-
+            $table->unsignedInteger('productID');
+            $table->integer('requested_qty');
+            $table->integer('donated_qty');
+            $table->string('status_approval', 45)->default('Pending');
+            
+            $table->index(["productID"], 'productID_idx');
+            
             $table->index(["pantiID"], 'pantiID_idx');
 
+            $table->foreign('productID')
+                ->references('productID')->on('product')
+                ->onDelete('no action')
+                ->onUpdate('no action');
 
             $table->foreign('pantiID')
                 ->references('pantiID')->on('panti_detail')

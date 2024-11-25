@@ -34,8 +34,7 @@ class Product extends Model
 
     public function requests()
     {
-        return $this->belongsToMany(RequestList::class, 'request_product', 'productID', 'requestID')
-                    ->withPivot('requested_qty', 'donated_qty', 'status_approval');
+        return $this->hasMany(RequestList::class, 'productID', 'productID');
     }
     
 }
