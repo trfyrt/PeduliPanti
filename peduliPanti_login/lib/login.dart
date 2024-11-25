@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:peduliPanti/dashboard.dart';
+import 'package:peduliPanti/homePanti.dart'; // Changed import to homePanti.dart
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginApp extends StatelessWidget {
@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DashboardApp()),
+                              builder: (context) => HomePage()), // Changed to HomePage
                         );
                       },
                       style: ElevatedButton.styleFrom(
