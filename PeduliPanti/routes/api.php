@@ -1,25 +1,17 @@
 <?php
 
-use App\Http\Controllers\Api\V1\BundleController;
-use App\Http\Controllers\Api\V1\BundleProductController;
-use App\Http\Controllers\Api\V1\CartController;
-use App\Http\Controllers\Api\V1\CartProductBundleController;
-use App\Http\Controllers\Api\V1\CategoryController;
-use App\Http\Controllers\Api\V1\HistoryController;
-use App\Http\Controllers\Api\V1\PantiDetailController;
-use App\Http\Controllers\Api\V1\ProductController;
-use App\Http\Controllers\Api\V1\RABController;
-use App\Http\Controllers\Api\V1\RequestListController;
-use App\Http\Controllers\Api\V1\RequestProductController;
-use App\Http\Controllers\Api\V1\TransactionOrderController;
 use App\Http\Controllers\Api\V1\UserController;
-use App\Models\TransactionDetail;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::post('/role-request', [UserController::class, 'requestRoleUpgrade']);
+    Route::post('/process-role-request/{requestId}', [UserController::class, 'processRoleRequest']);
+});
 
 // api/v1
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function(){
@@ -41,3 +33,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     // Route::apiResource('history', HistoryController::class);
     // Route::apiResource('request_product', RequestProductController::class);
 });
+Route::post('/register', [UserController::class, 'store']);
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
