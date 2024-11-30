@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/gestures.dart';
+import 'package:pedulipanti/homeDonatur.dart';
 
 class RegistApp extends StatelessWidget {
   const RegistApp({super.key});
@@ -280,11 +281,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeDonaturApp()),
+                          );
                         },
                         child: Text(
                           "Daftar",
