@@ -22,24 +22,24 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('rab', RABController::class);
     Route::apiResource('request_list', RequestListController::class);
     Route::apiResource('transaction_order', TransactionOrderController::class);
-    Route::apiResource('user', UserController::class);
-
-    Route::patch('request_list/{id}/status', [RequestListController::class, 'updateStatus']);
-
     
+    Route::patch('request_list/{id}/status', [RequestListController::class, 'updateStatus']);
+    
+    
+    // Route::apiResource('user', UserController::class);
     // Route::apiResource('bundle_product', BundleProductController::class);
     // Route::apiResource('cart_product_bundle', CartProductBundleController::class);
     // Route::apiResource('history', HistoryController::class);
     // Route::apiResource('request_product', RequestProductController::class);
 });
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/users', [UserController::class, 'index']);
-    Route::get('/users/{id}', [UserController::class, 'show']);
-    Route::post('/users', [UserController::class, 'store']);
-    Route::put('/users/{id}', [UserController::class, 'update']);
-    Route::delete('/users/{id}', [UserController::class, 'destroy']);
-    Route::post('/role-request', [UserController::class, 'requestRoleUpgrade']);
-    Route::post('/process-role-request/{requestId}', [UserController::class, 'processRoleRequest']);
+    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::post('/user', [UserController::class, 'store']);
+    Route::put('/user/{id}', [UserController::class, 'update']);
+    Route::delete('/user/{id}', [UserController::class, 'destroy']);
+    Route::post('/role_request', [UserController::class, 'requestRoleUpgrade']);
+    Route::post('/process_role_request/{requestId}', [UserController::class, 'processRoleRequest']);
 });
 
 Route::post('/register', [UserController::class, 'store']);
