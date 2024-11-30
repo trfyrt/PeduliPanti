@@ -24,6 +24,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('transaction_order', TransactionOrderController::class);
     
     Route::patch('request_list/{id}/status', [RequestListController::class, 'updateStatus']);
+
+    Route::post('/register', [UserController::class, 'store']);
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');    
     
     
     // Route::apiResource('user', UserController::class);
@@ -42,6 +46,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/process_role_request/{requestId}', [UserController::class, 'processRoleRequest']);
 });
 
-Route::post('/register', [UserController::class, 'store']);
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
