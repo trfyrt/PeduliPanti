@@ -25,16 +25,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('rab', RABController::class);
     Route::apiResource('request_list', RequestListController::class);
     Route::apiResource('transaction_order', TransactionOrderController::class);
-    Route::apiResource('user', UserController::class);
-
-    Route::patch('request_list/{id}/status', [RequestListController::class, 'updateStatus']);
-
     
+    Route::patch('request_list/{id}/status', [RequestListController::class, 'updateStatus']);
+    
+    
+    // Route::apiResource('user', UserController::class);
     // Route::apiResource('bundle_product', BundleProductController::class);
     // Route::apiResource('cart_product_bundle', CartProductBundleController::class);
     // Route::apiResource('history', HistoryController::class);
     // Route::apiResource('request_product', RequestProductController::class);
 });
+
 Route::post('/register', [UserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
