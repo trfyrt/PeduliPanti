@@ -1,25 +1,24 @@
 <?php
-
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, Notifiable, HasFactory;
 
     protected $table = 'user';
     protected $primaryKey = 'userID';
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-        'image',
+        'name', 'email', 'password', 'role', 'image', 'status'
     ];
+
+    protected $hidden = ['password'];
 
     public function cart()
     {
@@ -40,5 +39,9 @@ class User extends Model
     {
         return $this->hasMany(History::class, 'userID', 'userID');
     }
-    
+
+    public function roleRequests()
+    {
+        return $this->hasMany(RoleRequest::class, 'user_id', 'userID');
+    }
 }
