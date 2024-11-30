@@ -21,14 +21,16 @@ return new class  extends Migration
         Schema::create('panti_detail', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('pantiID');
+            $table->text('name');
             $table->unsignedInteger('organizer');
             $table->text('address');
-            $table->integer('child_number');
-            $table->date('founding_date');
-            $table->integer('donation_total')->default('0');
-            $table->integer('priority_value');
-            $table->text('description');
-
+            $table->integer('child_number')->default('10');
+            $table->date('founding_date')->nullable();
+            $table->integer('donation_total')->default('5000000');
+            $table->integer('priority_value')->nullable();
+            $table->text('description')->nullable();
+            $table->json('origin');
+            
             $table->index(["organizer"], 'userID_idx');
 
 

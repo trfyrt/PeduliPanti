@@ -22,6 +22,11 @@ class PantiDetail extends Model
         'donation_total',
         'priority_value',
         'description',
+        'origin',
+    ];
+
+    protected $casts = [
+        'origin' => 'array'
     ];
 
     public function organizer()

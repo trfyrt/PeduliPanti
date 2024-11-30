@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('rab', RABController::class);
     Route::apiResource('request_list', RequestListController::class);
     Route::apiResource('transaction_order', TransactionOrderController::class);
+
+    Route::patch('panti_detail/{id}/calculate', [PantiDetailController::class, 'calculatePriorities']);
     
     Route::patch('request_list/{id}/status', [RequestListController::class, 'updateStatus']);
 
