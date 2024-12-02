@@ -17,6 +17,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // api/v1
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function(){
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/user', [UserController::class, 'index']);
+        Route::get('/user/{id}', [UserController::class, 'show']);
+        Route::post('/user', [UserController::class, 'store']);
+        Route::put('/user/{id}', [UserController::class, 'update']);
+        Route::delete('/user/{id}', [UserController::class, 'destroy']);
+        Route::post('/role_request', [UserController::class, 'requestRoleUpgrade']);
+        Route::post('/process_role_request/{requestId}', [UserController::class, 'processRoleRequest']);
+    });
+    
     Route::apiResource('bundle', BundleController::class);
     Route::apiResource('cart', CartController::class);
     Route::apiResource('category', CategoryController::class);
