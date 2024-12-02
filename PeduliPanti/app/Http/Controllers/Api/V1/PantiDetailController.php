@@ -143,12 +143,12 @@ class PantiDetailController extends Controller
     {
         // Konversi jarak ke skor (semakin jauh, semakin besar skornya)
         // Misalnya: jarak > 50 km dapat skor 100, jarak <= 5 km dapat skor 0
-        if ($distance > 50) {
+        if ($distance > 10) {
             return 100;
-        } elseif ($distance <= 5) {
+        } elseif ($distance <= 3) {
             return 0;
         } else {
-            return ($distance / 50) * 100;
+            return ($distance / 10) * 100;
         }
     }
     
