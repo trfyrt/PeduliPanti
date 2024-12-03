@@ -11,7 +11,7 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->cartID,
-            'user' => UserResource::collection($this->whenLoaded('user')),
+            'user' => new UserResource($this->whenLoaded('user')), // Relasi user
             'products' => ProductResource::collection($this->whenLoaded('products')),
             'bundles' => BundleResource::collection($this->whenLoaded('bundles')),
             'requestLists' => RequestListResource::collection($this->whenLoaded('requestLists')),

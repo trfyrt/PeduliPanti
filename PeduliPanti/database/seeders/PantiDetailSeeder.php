@@ -15,6 +15,7 @@ class PantiDetailSeeder extends Seeder
         foreach (range(1, 5) as $index) {
             PantiDetail::create([
                 'pantiID' => $index,
+                'name' => $faker->word,
                 'organizer' => rand(1, 10), // Assuming you have 10 users
                 'address' => $faker->address,
                 'child_number' => rand(10, 50),

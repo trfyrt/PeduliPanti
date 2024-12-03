@@ -14,7 +14,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        $carts = Cart::with('products', 'bundles', 'requestLists')->get();
+        $carts = Cart::with('user', 'products', 'bundles', 'requestLists')->get();
         return CartResource::collection($carts);
     }
 

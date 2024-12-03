@@ -11,7 +11,7 @@ class PantiDetailController extends Controller
 {
     public function index()
     {
-        $pantiDetails = PantiDetail::with('organizer', 'requestLists', 'RABs', 'histories')->get();
+        $pantiDetails = PantiDetail::with( 'requestLists', 'RABs', 'histories')->get();
         return PantiDetailResource::collection($pantiDetails);
     }
 
