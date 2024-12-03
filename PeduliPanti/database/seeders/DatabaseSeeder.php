@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             BundleSeeder::class,
             CartSeeder::class,
-            PantiDetailSeeder::class,
+            // PantiDetailSeeder::class,
             RequestListSeeder::class,
             TransactionOrderSeeder::class,
             // HistorySeeder::class,
