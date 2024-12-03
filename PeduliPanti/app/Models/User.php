@@ -15,7 +15,7 @@ class User extends Authenticatable
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'image', 'status'
+        'name', 'email', 'password', 'role', 'image'
     ];
 
     protected $hidden = ['password'];
@@ -38,10 +38,5 @@ class User extends Authenticatable
     public function histories()
     {
         return $this->hasMany(History::class, 'userID', 'userID');
-    }
-
-    public function roleRequests()
-    {
-        return $this->hasMany(RoleRequest::class, 'user_id', 'userID');
     }
 }
