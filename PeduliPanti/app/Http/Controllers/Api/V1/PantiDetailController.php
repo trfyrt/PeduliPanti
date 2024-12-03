@@ -24,7 +24,7 @@ class PantiDetailController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'organizer' => 'required|integer',
+            'organizer' => 'required|integer|exists:user,userID',
             'name' => 'required|string',
             'address' => 'required|string',
             'origin' => 'required|array', // Validasi sebagai array
