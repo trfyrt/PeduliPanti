@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:peduliPanti/editProfile.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,6 +11,19 @@ class _ProfilePageState extends State<ProfilePage> {
       "Panti asuhan ini memberikan perlindungan dan pendidikan kepada anak-anak yang membutuhkan. Kami berkomitmen untuk menciptakan lingkungan yang aman dan mendukung bagi mereka.";
   String address =
       "Jl. Contoh Alamat No. 123, Kota, Provinsi"; // New address variable
+
+  int _selectedIndex = 2; // Track the selected index
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index; // Update the selected index
+    });
+    if (index == 0) {
+      Navigator.pop(context);
+    } else if (index == 1) {
+      print("Tab Cek RAB ditekan");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -343,24 +355,26 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
-      bottomNavigationBar: ConvexAppBar(
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color.fromARGB(255, 232, 243, 255),
-        activeColor: const Color.fromARGB(255, 202, 222, 243),
-        color: Colors.black54,
+        selectedItemColor: const Color.fromARGB(255, 202, 222, 243),
+        unselectedItemColor: Colors.black54,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         items: [
-          TabItem(icon: Icons.home, title: 'Utama'),
-          TabItem(icon: Icons.file_copy, title: 'Cek RAB'),
-          TabItem(icon: Icons.person, title: 'Profil'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Utama',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.file_copy),
+            label: 'Cek RAB',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profil',
+          ),
         ],
-        style: TabStyle.fixedCircle,
-        initialActiveIndex: 2,
-        onTap: (int i) {
-          if (i == 0) {
-            Navigator.pop(context);
-          } else if (i == 1) {
-            print("Tab Cek RAB ditekan");
-          }
-        },
       ),
     );
   }
