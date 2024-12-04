@@ -35,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
+
   @override
   final List<Map<String, dynamic>> data = [
     {"nama": "Panti Asuhan 1", "jumlah": 50, "progress": 0.5},
