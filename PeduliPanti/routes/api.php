@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthenticatedSessionController;
+use App\Models\TransactionOrder;
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -35,6 +36,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('rab', RABController::class);
     Route::apiResource('request_list', RequestListController::class);
     Route::apiResource('transaction_order', TransactionOrderController::class);
+
+    Route::get('/history/{id}', [TransactionOrder::class, 'showByUser']);
 
     Route::patch('panti_detail/{id}/calculate', [PantiDetailController::class, 'calculatePriorities']);
     
