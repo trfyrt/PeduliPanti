@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BundleResource;
 use App\Models\Bundle;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class BundleController extends Controller
@@ -29,47 +30,46 @@ class BundleController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input request
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'price' => 'required|numeric',
             'product_ids' => 'required|array',
         ]);
-
-        // Membuat Bundle baru
-        $bundle = Bundle::create($validated);
-
-        // Attach produk terkait
-        $bundle->products()->attach($request->product_ids);
-
-        // Mengembalikan response dengan resource Bundle
+    
+        // Menjumlah harga dari setiap product
+        $products = Product::whereIn('productID', $validated['product_ids'])->get();
+        $totalPrice = $products->sum('price');
+        $bundleData = array_merge($validated, ['price' => $totalPrice]);
+    
+        $bundle = Bundle::create($bundleData);
+    
+        $bundle->products()->attach($validated['product_ids']);
+    
         return new BundleResource($bundle);
     }
 
     public function update(Request $request, $id)
     {
-        // Validasi input request
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'price' => 'required|numeric',
             'product_ids' => 'nullable|array',
         ]);
-
-        // Menemukan Bundle yang akan diperbarui
+    
         $bundle = Bundle::findOrFail($id);
-
-        // Memperbarui informasi Bundle
-        $bundle->update($validated);
-
-        // Jika ada perubahan pada produk, update produk yang terhubung
+    
         if ($request->has('product_ids')) {
-            // Sync produk baru dengan Bundle
-            $bundle->products()->sync($request->product_ids);
+            $products = Product::whereIn('productID', $validated['product_ids'])->get();
+    
+            $totalPrice = $products->sum('price');
+    
+            $bundle->products()->sync($validated['product_ids']);
+        } else {
+            $totalPrice = $bundle->price;
         }
-
-        // Mengembalikan response dengan resource Bundle
+    
+        $bundle->update(array_merge($validated, ['price' => $totalPrice]));
+    
         return new BundleResource($bundle);
     }
 
