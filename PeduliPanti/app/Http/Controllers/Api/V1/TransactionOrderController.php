@@ -52,4 +52,17 @@ class TransactionOrderController extends Controller
         $transaction->delete();
         return response()->json(['message' => 'TransactionOrder deleted successfully'], 200);
     }
+
+    public function showByUser($id)
+    {
+        $transactions = TransactionOrder::where('userID', $id)->get();
+
+        if ($transactions->isEmpty()) {
+            return response()->json([
+                'message' => 'No transactions found for this user.'
+            ], 404);
+        }
+        
+        return TransactionOrderResource::collection($transactions);;
+    }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\PantiDetailController;
 use App\Http\Controllers\Api\V1\RequestListController;
 use App\Http\Controllers\Api\V1\TransactionOrderController;
 use App\Http\Controllers\Api\V1\AuthenticatedSessionController;
+use App\Models\TransactionOrder;
 
 // api/v1
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function(){
@@ -32,6 +33,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('rab', RABController::class);
     Route::apiResource('request_list', RequestListController::class);
     Route::apiResource('transaction_order', TransactionOrderController::class);
+
+    Route::get('/history/{id}', [TransactionOrder::class, 'showByUser']);
 
     Route::patch('panti_detail/{id}/calculate', [PantiDetailController::class, 'calculatePriorities']);
     
