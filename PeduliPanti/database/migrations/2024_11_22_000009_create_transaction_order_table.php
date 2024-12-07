@@ -20,7 +20,7 @@ return new class  extends Migration
         Schema::dropIfExists('transaction_order');
         Schema::create('transaction_order', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->string('transactionID', 45)->primary();
+            $table->increments('transactionID');
             $table->unsignedInteger('userID');
             $table->unsignedInteger('cartID');
             $table->string('method', 45);

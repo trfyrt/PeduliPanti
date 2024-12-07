@@ -90,35 +90,35 @@ class CartController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Validasi input request
         $validated = $request->validate([
-            'userID' => 'required|integer',
             'products' => 'array',
             'products.*.productID' => 'required|integer',
             'products.*.quantity' => 'required|integer|min:1',
             'products.*.pantiID' => 'required|integer',
-
+    
             'bundles' => 'array',
             'bundles.*.bundleID' => 'required|integer',
             'bundles.*.quantity' => 'required|integer|min:1',
             'bundles.*.pantiID' => 'required|integer',
-
+    
             'requestLists' => 'array',
             'requestLists.*.requestID' => 'required|integer',
             'requestLists.*.quantity' => 'required|integer|min:1',
         ]);
-
-        // Find the Cart to update
+    
+        // Temukan keranjang berdasarkan ID
         $cart = Cart::findOrFail($id);
-
-        // Update Cart details (if needed)
-        $cart->update(['userID' => $validated['userID']]);
-
-        // Detach existing relationships to remove old items
+    
+        // Simpan nilai userID agar tidak berubah
+        $userID = $cart->userID;
+    
+        // Hapus hubungan lama untuk memperbarui barang di keranjang
         $cart->products()->detach();
         $cart->bundles()->detach();
         $cart->requestLists()->detach();
-
-        // Attach new Products
+    
+        // Tambahkan produk baru ke keranjang
         if (isset($validated['products'])) {
             foreach ($validated['products'] as $productData) {
                 $product = Product::findOrFail($productData['productID']);
@@ -130,8 +130,8 @@ class CartController extends Controller
                 ]);
             }
         }
-
-        // Attach new Bundles
+    
+        // Tambahkan bundle baru ke keranjang
         if (isset($validated['bundles'])) {
             foreach ($validated['bundles'] as $bundleData) {
                 $bundle = Bundle::findOrFail($bundleData['bundleID']);
@@ -143,24 +143,27 @@ class CartController extends Controller
                 ]);
             }
         }
-
-        // Attach new Request Lists
+    
+        // Tambahkan request list baru ke keranjang
         if (isset($validated['requestLists'])) {
             foreach ($validated['requestLists'] as $requestData) {
                 $requestList = RequestList::findOrFail($requestData['requestID']);
                 $pantiID = $requestList->pantiID; 
                 $cart->requestLists()->attach($requestList->requestID, [
                     'quantity' => $requestData['quantity'],
-                    'total_price' => 0, // Total price could be calculated dynamically based on other logic
+                    'total_price' => 0, // Harga total bisa dihitung sesuai logika lain
                     'pantiID' => $pantiID,
                 ]);
             }
         }
-
-        // Return updated cart resource
+    
+        // Pastikan userID tetap tidak berubah
+        $cart->userID = $userID;
+    
+        // Kembalikan resource keranjang yang diperbarui
         return new CartResource($cart->load(['products', 'bundles', 'requestLists']));
     }
-
+    
     public function destroy($id)
     {
         // Find the Cart by ID

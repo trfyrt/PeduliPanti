@@ -20,7 +20,7 @@ return new class  extends Migration
         Schema::dropIfExists('history');
         Schema::create('history', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->string('transactionID', 45);
+            $table->unsignedInteger('transactionID');
             $table->unsignedInteger('pantiID');
             $table->unsignedInteger('userID');
 
