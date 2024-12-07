@@ -18,6 +18,7 @@ class PantiDetailResource extends JsonResource
             'donationTotal' => $this->donation_total,
             'priorityValue' => $this->priority_value,
             'description' => $this->description,
+            'origin' => json_decode($this->origin),
             'requestLists' => RequestListResource::collection($this->whenLoaded('requestLists')), // Relasi requestLists
             'rabs' => RABResource::collection($this->whenLoaded('RABs')), // Relasi RABs
             'histories' => HistoryResource::collection($this->whenLoaded('histories')), // Relasi histories

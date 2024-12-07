@@ -23,22 +23,29 @@ class PantiDetailController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input request
         $validated = $request->validate([
             'organizer' => 'required|integer|exists:user,userID',
             'name' => 'required|string',
             'address' => 'required|string',
             'origin' => 'required|array', // Validasi sebagai array
         ]);
+        
+        // Pastikan 'origin' adalah objek JSON yang benar (misalnya, lat dan lng)
+        if (is_array($validated['origin'])) {
+            $validated['origin'] = (object) $validated['origin']; // Mengonversi array menjadi objek
+        }
     
-        // Encode `origin` menjadi JSON
+        // Encode 'origin' menjadi JSON
         $validated['origin'] = json_encode($validated['origin']);
-    
+        
         // Simpan data ke database
         $pantiDetail = PantiDetail::create($validated);
         
+        // Kembalikan response resource
         return new PantiDetailResource($pantiDetail);
     }
-
+    
     public function update(Request $request, $id)
     {
         $validated = $request->validate([

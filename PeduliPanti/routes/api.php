@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthenticatedSessionController;
-use App\Models\TransactionOrder;
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -24,8 +23,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::post('/user', [UserController::class, 'store']);
         Route::put('/user/{id}', [UserController::class, 'update']);
         Route::delete('/user/{id}', [UserController::class, 'destroy']);
-        Route::post('/role_request', [UserController::class, 'requestRoleUpgrade']);
-        Route::post('/process_role_request/{requestId}', [UserController::class, 'processRoleRequest']);
     });
     
     Route::apiResource('bundle', BundleController::class);
@@ -37,7 +34,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('request_list', RequestListController::class);
     Route::apiResource('transaction_order', TransactionOrderController::class);
 
-    Route::get('/history/{id}', [TransactionOrder::class, 'showByUser']);
+    Route::get('/history/{id}', [TransactionOrderController::class, 'showByUser']);
 
     Route::patch('panti_detail/{id}/calculate', [PantiDetailController::class, 'calculatePriorities']);
     
