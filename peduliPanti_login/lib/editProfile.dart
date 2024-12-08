@@ -35,7 +35,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Profile"),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(255, 196, 218, 255),
         actions: [
           IconButton(
             icon: Icon(Icons.save),
@@ -152,7 +152,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           labelStyle: TextStyle(fontSize: 16), // Increased label font size
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Colors.blueAccent, width: 2),
+            borderSide: BorderSide(color: const Color.fromARGB(255, 181, 208, 255), width: 2),
           ),
           filled: true,
           fillColor: Colors.grey[200],

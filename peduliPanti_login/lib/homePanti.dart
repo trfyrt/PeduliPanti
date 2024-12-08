@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:peduliPanti/profile.dart';
+import 'package:peduliPanti/detailPanti.dart'; // Import the detailPanti.dart file
+import 'package:peduliPanti/reqBarang.dart'; // Import the reqBarang.dart file
 
 void main() {
   runApp(MyApp());
@@ -241,7 +243,10 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
               child: ElevatedButton(
                 onPressed: () {
-                  // Action for requesting items
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RequestPage()), // Navigate to RequestPage
+                  );
                 },
                 child: Text(
                   "Request Barang",
@@ -267,44 +272,84 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                  child: DonationCard(
-                    name: "Nama Panti Asuhan 1",
-                    targetDonation: 100000,
-                    collectedDonation: 15000,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    child: DonationCard(
+                      name: "Nama Panti Asuhan 1",
+                      targetDonation: 100000,
+                      collectedDonation: 15000,
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                  child: DonationCard(
-                    name: "Nama Panti Asuhan 2",
-                    targetDonation: 100000,
-                    collectedDonation: 30000,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    child: DonationCard(
+                      name: "Nama Panti Asuhan 2",
+                      targetDonation: 100000,
+                      collectedDonation: 30000,
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                  child: DonationCard(
-                    name: "Nama Panti Asuhan 3",
-                    targetDonation: 100000,
-                    collectedDonation: 60000,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    child: DonationCard(
+                      name: "Nama Panti Asuhan 3",
+                      targetDonation: 100000,
+                      collectedDonation: 60000,
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                  child: DonationCard(
-                    name: "Nama Panti Asuhan 4",
-                    targetDonation: 100000,
-                    collectedDonation: 80000,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    child: DonationCard(
+                      name: "Nama Panti Asuhan 4",
+                      targetDonation: 100000,
+                      collectedDonation: 80000,
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                  child: DonationCard(
-                    name: "Nama Panti Asuhan 5",
-                    targetDonation: 100000,
-                    collectedDonation: 90000,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    child: DonationCard(
+                      name: "Nama Panti Asuhan 5",
+                      targetDonation: 100000,
+                      collectedDonation: 90000,
+                    ),
                   ),
                 ),
               ],

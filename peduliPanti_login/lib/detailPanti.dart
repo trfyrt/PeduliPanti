@@ -4,11 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'dart:math';
 
-class DetailPantiApp extends StatelessWidget {
+class DetailPanti extends StatelessWidget {
   // const DetailPantiApp({super.key});
-  const DetailPantiApp({super.key});
+  const DetailPanti({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
-                      'assets/img/panti1.png',
+                      'panti1.png',
+                      width: double.infinity, // Full width
+                      fit: BoxFit.cover, // Cover the area
                     ),
                     Container(
                       padding: const EdgeInsets.only(
@@ -617,43 +618,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: const Icon(
-                  FontAwesomeIcons.cartShopping,
+                  FontAwesomeIcons.bell, // Changed from cart to notification icon
                   size: 20,
                 ),
               ),
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-        ),
-        child: BottomAppBar(
-          color: Color.fromARGB(255, 147, 181, 255),
-          child: Container(
-            height: 60, // Tinggi BottomAppBar
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: () {
-                // Aksi ketika tombol ditekan
-                print('Mulai Berdonasi ditekan');
-              },
-              style: ElevatedButton.styleFrom(
-                elevation: 0, // Hilangkan bayangan
-                backgroundColor: Color.fromARGB(255, 147, 181, 255),
-              ),
-              child: Text(
-                'Mulai Berdonasi',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
