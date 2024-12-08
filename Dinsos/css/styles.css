@@ -82,4 +82,50 @@ body {
     font-size: 24px;
     cursor: pointer;
   }
+
+  section {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    background-color: #2f3e46;
+    color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h3 {
+    margin-top: 0;
+  }
+
+  .card p {
+    margin: 5px 0;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .view {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .accept {
+    background-color: #4caf50;
+    color: #fff;
+  }
+
+  .reject {
+    background-color: #f44336;
+    color: #fff;
+  }
   
