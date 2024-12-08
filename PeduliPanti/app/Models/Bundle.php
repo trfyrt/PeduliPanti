@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bundle extends Model
 {
@@ -18,4 +19,11 @@ class Bundle extends Model
         'description',
         'price',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'bundle_product', 'bundleID', 'productID');
+    }
+    
+
 }

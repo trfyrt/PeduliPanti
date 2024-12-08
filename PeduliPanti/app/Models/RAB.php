@@ -18,4 +18,9 @@ class RAB extends Model
         'pdf',
         'status',
     ];
+
+    public function panti()
+    {
+        return $this->belongsTo(PantiDetail::class, 'pantiID', 'pantiID');
+    }
 }

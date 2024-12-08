@@ -20,8 +20,33 @@ class PantiDetail extends Model
         'child_number',
         'founding_date',
         'donation_total',
-        'value',
+        'priority_value',
         'description',
-        'image',
+        'origin',
     ];
+
+    protected $casts = [
+        'origin' => 'array'
+    ];
+
+    public function organizer()
+    {
+        return $this->belongsTo(User::class, 'organizer', 'userID');
+    }
+
+    public function requestLists()
+    {
+        return $this->hasMany(RequestList::class, 'pantiID', 'pantiID');
+    }
+
+    public function RABs()
+    {
+        return $this->hasMany(RAB::class, 'pantiID', 'pantiID');
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(History::class, 'pantiID', 'pantiID');
+    }
+    
 }

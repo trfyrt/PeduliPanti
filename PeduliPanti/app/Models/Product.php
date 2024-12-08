@@ -14,8 +14,27 @@ class Product extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'categoryID',
         'name',
         'price',
         'description',
+        'requestable',
+        'image'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categoryID', 'categoryID');
+    }
+
+    public function bundles()
+    {
+        return $this->belongsToMany(Bundle::class, 'bundle_product', 'productID', 'bundleID');
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(RequestList::class, 'productID', 'productID');
+    }
+    
 }

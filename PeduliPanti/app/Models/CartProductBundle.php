@@ -4,22 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TransactionDetail extends Model
+class CartProductBundle extends Model
 {
     use HasFactory;
 
-    protected $table = 'transaction_detail';
-    protected $primaryKey = 'transactionID';
+    protected $table = 'cart_product_bundle';
     public $timestamps = false;
 
     protected $fillable = [
-        'userID',
+        'cartID',
+        'pantiID',
+        'requestID',
         'productID',
         'bundleID',
-        'date',
-        'price_total',
-        'method',
-        'time',
+        'quantity',
+        'total_price'
     ];
 }

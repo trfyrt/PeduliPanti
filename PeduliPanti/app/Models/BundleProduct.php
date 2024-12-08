@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class BundleDetail extends Model
+class BundleProduct extends Model
 {
     use HasFactory;
 
-    protected $table = 'bundle_detail';
+    protected $table = 'bundle_product';
     public $timestamps = false;
 
     protected $fillable = [

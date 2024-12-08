@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'v11.3.2',
-        'version' => '11.3.2.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '0d6e62c384c297a928d43e70c07f5290d4596dc8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -39,6 +39,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'dedoc/scramble' => array(
+            'pretty_version' => 'v0.11.30',
+            'version' => '0.11.30.0',
+            'reference' => '43d8f7573e83d8dbf080bc76a9f11cfd0318ad74',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../dedoc/scramble',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'dflydev/dot-access-data' => array(
             'pretty_version' => 'v3.0.3',
@@ -386,9 +395,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'v11.3.2',
-            'version' => '11.3.2.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '0d6e62c384c297a928d43e70c07f5290d4596dc8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -429,6 +438,15 @@
             'install_path' => __DIR__ . '/../laravel/sail',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'laravel/sanctum' => array(
+            'pretty_version' => 'v4.0.4',
+            'version' => '4.0.4.0',
+            'reference' => '819782c75aaf2b08da1765503893bd2b8023d3b3',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/sanctum',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'laravel/serializable-closure' => array(
             'pretty_version' => 'v1.3.6',
@@ -524,7 +542,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../myclabs/deep-copy',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
             'pretty_version' => '3.8.2',
@@ -604,6 +622,15 @@
             'reference' => 'e3fac8b24f56113f7cb96af14958c0dd16330f54',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoption/phpoption',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'phpstan/phpdoc-parser' => array(
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'reference' => 'c00d78fb6b29658347f9d37ebe104bffadf36299',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpstan/phpdoc-parser',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -958,6 +985,15 @@
             'install_path' => __DIR__ . '/../sebastian/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'spatie/laravel-package-tools' => array(
+            'pretty_version' => '1.16.6',
+            'version' => '1.16.6.0',
+            'reference' => '1f26942dc1e5c49eacfced34fdbc29ed234bd7b3',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-package-tools',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'spatie/once' => array(
             'dev_requirement' => false,
