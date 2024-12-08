@@ -6,3 +6,7 @@ Updated 26 November 2024
 -------------------------------------------
 Updated 04 Desember 2024
 - Slicing Halaman Home untuk Yayasan (Masih Progress, push sementara)
+-------------------------------------------
+Updated 08 November 2024
+
+- Slicing Register Page for Yayasan and Admin.
