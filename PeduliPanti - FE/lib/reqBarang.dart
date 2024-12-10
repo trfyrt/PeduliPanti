@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peduliPanti/notifikasi.dart'; // Import the notification page
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,7 +28,7 @@ class _RequestPageState extends State<RequestPage> {
         title: const Text('Req Barang Kebutuhan', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
         backgroundColor: const Color.fromARGB(255, 232, 243, 255), // Adjusted color to match home page
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black), // Changed to iOS back arrow
           onPressed: () {
             Navigator.pop(context);
           },
@@ -38,7 +39,10 @@ class _RequestPageState extends State<RequestPage> {
           IconButton(
             icon: const Icon(Icons.notifications, color: Colors.black),
             onPressed: () {
-              // Add notification functionality here
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationPage()), // Navigate to notification page
+              );
             },
           ),
         ],
