@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:2:5-33:19
+INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:3:5-36:19
 MERGED from [:image_picker_android] D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-34:19
 MERGED from [:image_picker_android] D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-34:19
 MERGED from [:location] D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-18:19
@@ -30,11 +30,11 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\AS
 	android:name
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-MERGED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-48:12
+MERGED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-48:12
 MERGED from [:image_picker_android] D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-36:12
 MERGED from [:flutter_plugin_android_lifecycle] D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:location] D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-20:12
@@ -73,30 +73,36 @@ INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug
 INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-48:12
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-48:12
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-48:12
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:11-69
-queries
-ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:39:5-44:15
-intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
-ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:40:9-43:18
-action#android.intent.action.PROCESS_TEXT
-ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:41:13-72
+uses-permission#android.permission.INTERNET
+ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:2:5-67
+MERGED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:2:5-67
+MERGED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:2:5-67
 	android:name
-		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:41:21-70
+		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:2:22-64
+queries
+ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:42:5-47:15
+intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
+ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:43:9-46:18
+action#android.intent.action.PROCESS_TEXT
+ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:44:13-72
+	android:name
+		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:44:21-70
 data
-ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:42:13-50
+ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:45:13-50
 	android:mimeType
-		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:42:19-48
+		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:45:19-48
 uses-sdk
 INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
@@ -175,10 +181,6 @@ INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug
 	android:minSdkVersion
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
 		INJECTED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
-uses-permission#android.permission.INTERNET
-ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:6:5-66
-	android:name
-		ADDED from D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:6:22-64
 provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
 ADDED from [:image_picker_android] D:\xampp\htdocs\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-19:20
 	android:grantUriPermissions

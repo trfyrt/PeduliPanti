@@ -6,9 +6,6 @@ import 'package:peduliPanti/reqBarang.dart'; // Import the reqBarang.dart file
 import 'package:peduliPanti/notifikasi.dart'; // Import the notifikasi.dart file
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

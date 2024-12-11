@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:peduliPanti/homePanti.dart'; // Changed import to homePanti.dart
+import 'package:peduliPanti/regist.dart'; // Changed import to homePanti.dart
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginApp extends StatelessWidget {
@@ -172,8 +173,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        // Aksi navigasi
-                                        print("Navigasi ke halaman lain");
+                                        // Aksi navigasi ke halaman regist.dart
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => RegistApp()),
+                                        );
                                       },
                                   ),
                                 ],
