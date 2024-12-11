@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:peduliPanti/profile.dart';
 import 'package:peduliPanti/detailPanti.dart'; // Import the detailPanti.dart file
 import 'package:peduliPanti/reqBarang.dart'; // Import the reqBarang.dart file
+import 'package:peduliPanti/notifikasi.dart'; // Import the notifikasi.dart file
 
 void main() {
   runApp(MyApp());
@@ -88,7 +89,10 @@ class _HomePageState extends State<HomePage> {
                             IconButton(
                               icon: Icon(Icons.notifications, color: Colors.black),
                               onPressed: () {
-                                // Action for notification button
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => NotificationPage()), // Navigate to NotificationPage
+                                );
                               },
                             ),
                             Positioned(

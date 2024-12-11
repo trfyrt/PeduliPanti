@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peduliPanti/editProfile.dart';
+import 'package:peduliPanti/notifikasi.dart'; // Import the notification page
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.4,
                     decoration: BoxDecoration(
-                      color: Colors.lightBlue[100],
+                       color: Colors.blue[50], // Background color
                       borderRadius:
                           BorderRadius.vertical(bottom: Radius.circular(16.0)),
                     ),
@@ -99,6 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
+                      color: const Color.fromARGB(255, 230, 247, 255), // Set card color to light blue
                       child: Row(
                         children: [
                           Expanded(
@@ -146,6 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
+                      color: const Color.fromARGB(255, 230, 247, 255), // Set card color to light blue
                       child: Row(
                         children: [
                           Expanded(
@@ -193,6 +196,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
+                      color: const Color.fromARGB(255, 230, 247, 255), // Set card color to light blue
                       child: Row(
                         children: [
                           Expanded(
@@ -245,6 +249,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       width: double.infinity, // Use double.infinity for full width
                       child: Card(
+                        color: const Color.fromARGB(255, 230, 247, 255), // Set card color to light blue
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
@@ -277,6 +282,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       width: double.infinity, // Use double.infinity for full width
                       child: Card(
+                        color: const Color.fromARGB(255, 230, 247, 255), // Set card color to light blue
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
@@ -306,7 +312,7 @@ class _ProfilePageState extends State<ProfilePage> {
               left: 16, // Position the logout icon to the left
               top: 16,
               child: IconButton(
-                icon: Icon(Icons.logout),
+                icon: Icon(Icons.logout, color: Colors.black), // Changed color to black
                 onPressed: () {
                   // Handle logout action here
                   print("Logout pressed");
@@ -319,9 +325,15 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Stack(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.notifications),
+                    icon: Icon(Icons.notifications, color: Colors.black), // Changed color to black
                     onPressed: () {
-                      print("Notifikasi ditekan");
+                      // Navigate to NotificationPage when pressed
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationPage(),
+                        ),
+                      );
                     },
                   ),
                   Positioned(

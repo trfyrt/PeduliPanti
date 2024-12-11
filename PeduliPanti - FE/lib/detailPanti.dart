@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:peduliPanti/notifikasi.dart'; // Import the notification page
 
 class DetailPanti extends StatelessWidget {
   // const DetailPantiApp({super.key});
@@ -605,11 +606,11 @@ class _MyHomePageState extends State<MyHomePage> {
             right: 15,
             child: GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => CartPage()), // Halaman tujuan
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NotificationPage()), // Navigate to Notifikasi page
+                );
               },
               child: Container(
                 padding: const EdgeInsets.all(12),
