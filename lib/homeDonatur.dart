@@ -1,3 +1,4 @@
+import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
@@ -66,7 +67,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    // Aksi tombol donasi
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const Donasi(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return child; // Tidak ada animasi
+                        },
+                      ),
+                    ); // Halaman utama
                   },
                 ),
               ],

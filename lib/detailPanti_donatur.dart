@@ -70,28 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       print('Latitude: ${_locationData!.latitude}, Longitude: ${_locationData!.longitude}');
     }
   }
-  // _MyHomePageState();
-
-  // // URL Google Maps (ubah sesuai lokasi yang diinginkan)
-  // final String googleMapsUrl = "https://maps.app.goo.gl/i897ZB6Uco8eFWeU7";
-
-  // // Fungsi untuk membuka URL Google Maps
-  // Future<void> _launchMaps() async {
-  //   final Uri url = Uri.parse(googleMapsUrl);
-  //   try {
-  //     print("Mengecek apakah URL dapat diluncurkan...");
-  //     if (await canLaunchUrl(url)) {
-  //       print("Meluncurkan URL...");
-  //       await launchUrl(url, mode: LaunchMode.externalApplication);
-  //     } else {
-  //       print("URL tidak dapat diluncurkan.");
-  //       throw 'Tidak dapat membuka URL: $url';
-  //     }
-  //   } catch (e) {
-  //     print("Error: $e");
-  //   }
-  // }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
