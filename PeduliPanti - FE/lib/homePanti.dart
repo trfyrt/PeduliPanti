@@ -10,6 +10,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -50,7 +54,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 251, 251),
+      backgroundColor: const Color.fromARGB(255, 255, 251, 251),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,20 +69,20 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 16), // Added padding above search and notification
+                    const SizedBox(height: 16), // Added padding above search and notification
                     Row(
                       children: [
                         Expanded(
                           child: TextField(
-                            style: TextStyle(height: 1),
+                            style: const TextStyle(height: 1),
                             decoration: InputDecoration(
                               hintText: 'Search...',
-                              prefixIcon: Icon(Icons.search),
+                              prefixIcon: const Icon(Icons.search),
                               filled: true,
                               fillColor: Colors.transparent,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     color: Colors.transparent, width: 0.1),
                               ),
                             ),
@@ -87,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                         Stack(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.notifications, color: Colors.black),
+                              icon: const Icon(Icons.notifications, color: Colors.black),
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -98,16 +102,16 @@ class _HomePageState extends State<HomePage> {
                             Positioned(
                               right: 0,
                               child: Container(
-                                padding: EdgeInsets.all(2),
-                                decoration: BoxDecoration(
+                                padding: const EdgeInsets.all(2),
+                                decoration: const BoxDecoration(
                                   color: Colors.red,
                                   shape: BoxShape.circle,
                                 ),
-                                constraints: BoxConstraints(
+                                constraints: const BoxConstraints(
                                   minWidth: 16,
                                   minHeight: 16,
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     '1',
                                     style: TextStyle(
@@ -123,18 +127,18 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0), // Added horizontal padding
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Grafik Donasi Tiap Bulan",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           Container(
                             height: 200,
                             padding: const EdgeInsets.all(8.0),
@@ -158,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                                       reservedSize: 28,
                                       getTitlesWidget: (value, _) => Text(
                                         value.toInt().toString(),
-                                        style: TextStyle(fontSize: 10, color: Colors.black),
+                                        style: const TextStyle(fontSize: 10, color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -168,15 +172,15 @@ class _HomePageState extends State<HomePage> {
                                       getTitlesWidget: (value, _) {
                                         switch (value.toInt()) {
                                           case 0:
-                                            return Text("Jan", style: TextStyle(color: Colors.black));
+                                            return const Text("Jan", style: TextStyle(color: Colors.black));
                                           case 1:
-                                            return Text("Feb", style: TextStyle(color: Colors.black));
+                                            return const Text("Feb", style: TextStyle(color: Colors.black));
                                           case 2:
-                                            return Text("Mar", style: TextStyle(color: Colors.black));
+                                            return const Text("Mar", style: TextStyle(color: Colors.black));
                                           case 3:
-                                            return Text("Apr", style: TextStyle(color: Colors.black));
+                                            return const Text("Apr", style: TextStyle(color: Colors.black));
                                           default:
-                                            return Text("");
+                                            return const Text("");
                                         }
                                       },
                                     ),
@@ -216,12 +220,12 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ]),
                                 ],
-                                gridData: FlGridData(show: false),
+                                gridData: const FlGridData(show: false),
                               ),
                             ),
                           ),
-                          SizedBox(height: 16),
-                          Row(
+                          const SizedBox(height: 16),
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Presentase Donasi Bulan Ini", style: TextStyle(color: Colors.black)),
@@ -242,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
               child: ElevatedButton(
@@ -252,39 +256,39 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => RequestPage()), // Navigate to RequestPage
                   );
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),
                 child: Text(
                   "Request Barang",
                   style: TextStyle(
                     color: Colors.black,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),
               ),
             ),
-            SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+            const SizedBox(height: 32),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
               child: Text(
                 "Panti Asuhan",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             ListView(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 1",
                       targetDonation: 100000,
@@ -296,11 +300,11 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 2",
                       targetDonation: 100000,
@@ -312,11 +316,11 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 3",
                       targetDonation: 100000,
@@ -328,11 +332,11 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 4",
                       targetDonation: 100000,
@@ -344,11 +348,11 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 5",
                       targetDonation: 100000,
@@ -358,7 +362,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            SizedBox(height: 80), // Added space below to prevent navbar from covering cards
+            const SizedBox(height: 80), // Added space below to prevent navbar from covering cards
           ],
         ),
       ),
@@ -368,7 +372,7 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: Colors.black54,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Utama',
@@ -392,7 +396,7 @@ class DonationCard extends StatelessWidget {
   final int targetDonation;
   final int collectedDonation;
 
-  const DonationCard({
+  const DonationCard({super.key, 
     required this.name,
     required this.targetDonation,
     required this.collectedDonation,
@@ -401,15 +405,15 @@ class DonationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       elevation: 8,
       shadowColor: Colors.black.withOpacity(0.3),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [
-              const Color.fromARGB(255, 251, 251, 251),
-              const Color.fromARGB(255, 227, 245, 255)
+              Color.fromARGB(255, 251, 251, 251),
+              Color.fromARGB(255, 227, 245, 255)
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -424,32 +428,32 @@ class DonationCard extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Text(
                 name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.black, // Changed to black
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Rp.${collectedDonation}/Rp.${targetDonation}",
-                  style: TextStyle(
+                  "Rp.$collectedDonation/Rp.$targetDonation",
+                  style: const TextStyle(
                     color: Colors.black, // Changed to black
                   ),
                 ),
                 Text(
                   "${(collectedDonation / targetDonation * 100).toStringAsFixed(0)}%",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black, // Changed to black
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             LinearProgressIndicator(
               value: collectedDonation / targetDonation,
               backgroundColor: Colors.grey[300],

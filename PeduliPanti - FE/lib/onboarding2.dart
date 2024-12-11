@@ -39,13 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
               CrossAxisAlignment.start, // Pastikan semua elemen rata kiri
           children: <Widget>[
             Container(
-              margin: EdgeInsets.symmetric(vertical: 50, horizontal: 20), // Reduced vertical margin
+              margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 20), // Reduced vertical margin
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start, // Rata kiri untuk teks di dalam Column
                 children: [
                   RichText(
                     textAlign: TextAlign.center,
-                    text: TextSpan(
+                    text: const TextSpan(
                       children: [
                         TextSpan(
                           text: 'Berdonasi ke panti asuhan manapun',
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   // Menambahkan margin di bagian bawah untuk memberi jarak antara TopUp Game dan teks berikutnya
                   Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10), // Menambahkan jarak atas untuk animasi
+                    margin: const EdgeInsets.only(top: 10, bottom: 10), // Menambahkan jarak atas untuk animasi
                     child: Center( // Centering the Lottie animation
                       child: GestureDetector(
                         onTap: () {
@@ -108,8 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10), // Menambahkan jarak atas di sini
-                    child: Text(
+                    margin: const EdgeInsets.only(top: 10), // Menambahkan jarak atas di sini
+                    child: const Text(
                       'menghubungkan mereka yang memberi dengan penuh kasih dan mereka yang menerima dengan penuh harapan. Bersama, kita menciptakan jembatan kebaikan yang mengubah bantuan menjadi senyuman, dan kepedulian menjadi peluang untuk masa depan yang lebih cerah.',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 14), // Reduced font size
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 
                   Container(
-                    margin: EdgeInsets.only(top: 20), // Margin top untuk seluruh group tombol
+                    margin: const EdgeInsets.only(top: 20), // Margin top untuk seluruh group tombol
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween, // Menyusun tombol ke ujung kiri dan kanan
                       children: [
@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.1), // Warna bayangan
-                                offset: Offset(0, 0), // Posisi bayangan (horizontal, vertical)
+                                offset: const Offset(0, 0), // Posisi bayangan (horizontal, vertical)
                                 blurRadius: 5, // Reduced blur radius
                                 spreadRadius: 1, // Sebaran bayangan
                               ),
@@ -138,19 +138,19 @@ class _MyHomePageState extends State<MyHomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Onboarding1App()),
+                                    builder: (context) => const Onboarding1App()),
                               );
                             },
-                            child: Text('Kembali'),
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10), // Reduced padding
-                              textStyle: TextStyle(fontSize: 14), // Reduced font size
+                              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10), // Reduced padding
+                              textStyle: const TextStyle(fontSize: 14), // Reduced font size
                               backgroundColor: Colors.white, // Warna latar belakang tombol
                               foregroundColor: Colors.blue, // Warna teks tombol
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
+                            child: Text('Kembali'),
                           ),
                         ),
                         Container(
@@ -159,19 +159,19 @@ class _MyHomePageState extends State<MyHomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Onboarding3App()),
+                                    builder: (context) => const Onboarding3App()),
                               );
                             },
-                            child: Text('Lanjut'),
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10), // Reduced padding
-                              textStyle: TextStyle(fontSize: 14), // Reduced font size
+                              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10), // Reduced padding
+                              textStyle: const TextStyle(fontSize: 14), // Reduced font size
                               backgroundColor: Colors.blue, // Warna latar belakang tombol
                               foregroundColor: Colors.white, // Warna teks tombol
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
+                            child: Text('Lanjut'),
                           ),
                         ),
                       ],

@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             // Logo Peduli Panti di atas tengah
             Container(
-              margin: EdgeInsets.only(top: 50), // Margin atas untuk logo
+              margin: const EdgeInsets.only(top: 50), // Margin atas untuk logo
               child: Center(
                 child: Image.asset(
                   'pedulipanti.png', // Ganti dengan path logo yang sesuai
@@ -48,14 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 30), // Margin vertikal untuk teks
+              margin: const EdgeInsets.symmetric(vertical: 30), // Margin vertikal untuk teks
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start, // Rata kiri untuk teks di dalam Column
                 children: [
                   Text(
                     'Login dan nikmati pengalaman donasi tanpa atas',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Color(0xff2979ff),
+                          color: const Color(0xff2979ff),
                           fontWeight: FontWeight.bold, // Warna biru untuk teks
                           fontSize: 24, 
                         ),
@@ -64,13 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text(
                     'Masukkan username dan password.',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Color.fromARGB(255, 72, 78, 90),
+                          color: const Color.fromARGB(255, 72, 78, 90),
                           fontSize: 14, // Warna biru untuk teks
                         ),
                     textAlign: TextAlign.left,
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 10, top: 20), // Mengurangi margin atas dan bawah
+                    margin: const EdgeInsets.only(bottom: 10, top: 20), // Mengurangi margin atas dan bawah
                     decoration: BoxDecoration(
                       color: Colors.white,  
                       borderRadius: BorderRadius.circular(8.0),  
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.black.withOpacity(0.1), 
                           spreadRadius: 2,  
                           blurRadius: 5,  
-                          offset: Offset(0, 0), 
+                          offset: const Offset(0, 0), 
                         ),
                       ],
                     ),
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.black.withOpacity(0.1), 
                           spreadRadius: 2,  
                           blurRadius: 5,  
-                          offset: Offset(0, 0), 
+                          offset: const Offset(0, 0), 
                         ),
                       ],
                     ),
@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 15, bottom: 10),
+                    margin: const EdgeInsets.only(top: 15, bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -146,19 +146,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity, 50), // Panjang tombol mengikuti lebar
+                        minimumSize: const Size(double.infinity, 50), // Panjang tombol mengikuti lebar
                         backgroundColor: Colors.blue, // Warna latar belakang tombol
                         foregroundColor: Colors.white, // Warna teks tombol
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 15), // Padding dalam tombol
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10), // Radius sudut tombol
                         ),
                       ),
-                      child: Text("Masuk"),
+                      child: const Text("Masuk"),
                     ),
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
                         child: Divider(
@@ -189,12 +189,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center, // Pusatkan secara horizontal
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 20),
+                          margin: const EdgeInsets.only(top: 20),
                           child: RichText(
                             textAlign: TextAlign.center, // Pastikan teks dalam RichText diratakan ke tengah
                             text: TextSpan(
                               children: [
-                                TextSpan(
+                                const TextSpan(
                                   text: "Belum punya akun? ", // Teks biasa dengan warna 1
                                   style: TextStyle(
                                     color: Colors.black, // Warna 1
@@ -203,7 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 TextSpan(
                                   text: "Daftar", // Teks dengan warna 2 yang dapat diklik
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.blue, // Warna 2
                                     fontSize: 16,
                                   ),

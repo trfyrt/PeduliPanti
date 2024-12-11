@@ -5,6 +5,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,6 +17,8 @@ class MyApp extends StatelessWidget {
 }
 
 class NotificationPage extends StatelessWidget {
+  const NotificationPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +32,7 @@ class NotificationPage extends StatelessWidget {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios), // Changed to arrow_back_ios
+          icon: const Icon(Icons.arrow_back_ios), // Changed to arrow_back_ios
           onPressed: () {
             Navigator.pop(context); // Navigate back
           },
@@ -49,6 +53,8 @@ class NotificationPage extends StatelessWidget {
 }
 
 class NotificationCard extends StatelessWidget {
+  const NotificationCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,22 +66,22 @@ class NotificationCard extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 4,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
-      child: Row(
+      child: const Row(
         children: [
           Icon(
             Icons.notifications,
             size: 36,
             color: Colors.lightBlue,
           ),
-          const SizedBox(width: 12.0),
+          SizedBox(width: 12.0),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'Barang Panti B sedang dikirim',
                   style: TextStyle(

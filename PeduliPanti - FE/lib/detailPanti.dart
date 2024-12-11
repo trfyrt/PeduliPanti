@@ -33,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Location location = new Location();
+  Location location = Location();
 
   bool _serviceEnabled = false;
   PermissionStatus? _permissionGranted;
@@ -257,9 +257,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Expanded(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: SizedBox(
+                                    child: const SizedBox(
                                       height: 15,
-                                      child: const LinearProgressIndicator(
+                                      child: LinearProgressIndicator(
                                         value: 0.1,
                                         backgroundColor:
                                             Color.fromARGB(255, 229, 229, 229),
@@ -509,7 +509,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  child: Text(
+                                  child: const Text(
                                     'Lokasi',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -518,7 +518,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 Container(
-                                  child: Text(
+                                  child: const Text(
                                     'Lihat Peta',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -530,11 +530,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 5),
+                            margin: const EdgeInsets.only(top: 5),
                             width: MediaQuery.of(context).size.width,
                             height: 150,
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 155, 155, 155),
+                              color: const Color.fromARGB(255, 155, 155, 155),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: ClipRRect(
@@ -543,7 +543,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 children: [
                                   FlutterMap(
                                     mapController: mapController,
-                                    options: MapOptions(
+                                    options: const MapOptions(
                                       initialZoom: 10,
                                       initialCenter:
                                           LatLng(-5.147665, 119.432731),

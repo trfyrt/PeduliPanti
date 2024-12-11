@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
 }
 
 class RequestPage extends StatefulWidget {
+  const RequestPage({super.key});
+
   @override
   _RequestPageState createState() => _RequestPageState();
 }

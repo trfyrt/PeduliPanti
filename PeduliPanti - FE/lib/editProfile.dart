@@ -4,6 +4,8 @@ import 'dart:io';
 
 
 class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
+
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
@@ -34,11 +36,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Profile"),
+        title: const Text("Edit Profile"),
         backgroundColor: const Color.fromARGB(255, 196, 218, 255),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 // Save the changes
@@ -62,14 +64,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     backgroundColor: Colors.grey[300],
                     backgroundImage: profileImage != null
                         ? FileImage(profileImage!)
-                        : AssetImage('assets/pedulipanti.png')
+                        : const AssetImage('assets/pedulipanti.png')
                             as ImageProvider,
                     child: profileImage == null
-                        ? Icon(Icons.camera_alt, color: Colors.white, size: 30)
+                        ? const Icon(Icons.camera_alt, color: Colors.white, size: 30)
                         : null,
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 _buildTextField(
                   label: "Nama Pengurus",
                   initialValue: name,
@@ -83,7 +85,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     name = value;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _buildTextField(
                   label: "Deskripsi",
                   initialValue: description,
@@ -98,7 +100,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     description = value;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _buildTextField(
                   label: "Alamat",
                   initialValue: address,
@@ -112,7 +114,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     address = value;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _buildTextField(
                   label: "Jumlah Anak",
                   initialValue: childrenCount.toString(),
@@ -149,14 +151,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
         initialValue: initialValue,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(fontSize: 16), // Increased label font size
+          labelStyle: const TextStyle(fontSize: 16), // Increased label font size
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: const Color.fromARGB(255, 181, 208, 255), width: 2),
+            borderSide: const BorderSide(color: Color.fromARGB(255, 181, 208, 255), width: 2),
           ),
           filled: true,
           fillColor: Colors.grey[200],
-          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         ),
         maxLines: maxLines,
         keyboardType: keyboardType,

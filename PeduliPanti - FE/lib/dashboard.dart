@@ -13,12 +13,12 @@ class DashboardApp extends StatelessWidget {
       title: 'Topup Game Shop',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 254),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.blue,
           iconTheme: IconThemeData(color: Colors.white),
         ),
         primaryColor: Colors.blue,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       home: const MyHomePage(title: 'Topup Game'),
       debugShowCheckedModeBanner: false,
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -166,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -247,8 +247,8 @@ class GameDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(gameTitle, style: TextStyle(color: Colors.black)),
-        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(gameTitle, style: const TextStyle(color: Colors.black)),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -259,14 +259,14 @@ class GameDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
             
             // Form untuk mengisi user id dan nama
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'User ID',
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Nama',
                 border: OutlineInputBorder(),
@@ -275,7 +275,7 @@ class GameDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
             
             // Dropdown list untuk memilih item topup
-            Text(
+            const Text(
               'Pilih Diamond',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
@@ -290,7 +290,7 @@ class GameDetailPage extends StatelessWidget {
               onChanged: (value) {
                 // Handle selected item
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Diamond',
                 border: OutlineInputBorder(),
               ),
