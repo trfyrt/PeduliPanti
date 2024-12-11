@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:peduliPanti/editProfile.dart';
 import 'package:peduliPanti/notifikasi.dart'; // Import the notification page
+import 'package:peduliPanti/login.dart'; // Import the login page
+import 'package:peduliPanti/homePanti.dart'; // Changed import to homePanti.dart
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,22 +18,136 @@ class _ProfilePageState extends State<ProfilePage> {
   String address =
       "Jl. Contoh Alamat No. 123, Kota, Provinsi"; // New address variable
 
-  int _selectedIndex = 2; // Track the selected index
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index; // Update the selected index
-    });
-    if (index == 0) {
-      Navigator.pop(context);
-    } else if (index == 1) {
-      print("Tab Cek RAB ditekan");
-    }
-  }
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 35),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 147, 181, 255),
+                  tooltip: 'CekRab',
+                  shape: const CircleBorder(),
+                  child: const Icon(
+                    FontAwesomeIcons.handHoldingHeart,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    
+                  },
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: const Text(
+              "Cek RAB",
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(75, 0, 0, 0),
+              spreadRadius: 8,
+              blurRadius: 30,
+              offset: Offset(0, 20),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20)), // Radius sudut untuk isi
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+            unselectedItemColor: Colors.black.withOpacity(0.6),
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              // Navigasi berdasarkan index item yang dipilih
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HomePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // Tidak ada animasi
+                    },
+                  ), // Halaman utama
+                );
+              } else if (index == 1) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HomePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // Tidak ada animasi
+                    },
+                  ), // Halaman utama
+                );
+              } else if (index == 2) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const ProfilePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                label: 'Utama',
+                icon: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(FontAwesomeIcons.house),
+                ),
+              ),
+              
+              BottomNavigationBarItem(
+                label: '',
+                icon: SizedBox.shrink(),
+              ),
+              
+              BottomNavigationBarItem(
+                label: 'Profil',
+                icon: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(FontAwesomeIcons.solidUser),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      backgroundColor: const Color.fromARGB(255, 255, 251, 251),
       body: SingleChildScrollView(
         // Changed to SingleChildScrollView for overall scrolling
         child: Stack(
@@ -316,8 +433,13 @@ class _ProfilePageState extends State<ProfilePage> {
               child: IconButton(
                 icon: const Icon(Icons.logout, color: Colors.black), // Changed color to black
                 onPressed: () {
-                  // Handle logout action here
-                  print("Logout pressed");
+                  // Navigate to LoginPage when pressed
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginApp(),
+                    ),
+                  );
                 },
               ),
             ),
@@ -368,27 +490,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 232, 243, 255),
-        selectedItemColor: const Color.fromARGB(255, 202, 222, 243),
-        unselectedItemColor: Colors.black54,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Utama',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.file_copy),
-            label: 'Cek RAB',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profil',
-          ),
-        ],
       ),
     );
   }

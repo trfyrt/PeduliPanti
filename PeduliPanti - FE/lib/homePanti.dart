@@ -4,6 +4,7 @@ import 'package:peduliPanti/profile.dart';
 import 'package:peduliPanti/detailPanti.dart'; // Import the detailPanti.dart file
 import 'package:peduliPanti/reqBarang.dart'; // Import the reqBarang.dart file
 import 'package:peduliPanti/notifikasi.dart'; // Import the notifikasi.dart file
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,31 +30,165 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0; // Track the selected index
 
-  void _onItemTapped(int index) {
-    if (index != _selectedIndex) { // Only update if the index is different
-      setState(() {
-        _selectedIndex = index; // Update the selected index
-      });
-      if (index == 2) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProfilePage()),
-        ).then((_) {
-          setState(() {
-            _selectedIndex = 0; // Reset to home when coming back from profile
-          });
-        });
-      } else {
-        print("Tab ke-$index ditekan");
-      }
-    }
-  }
+
+  // List of orphanages as a list of maps
+  final List<Map<String, dynamic>> orphanages = [
+    {
+      "name": "Nama Panti Asuhan 1",
+      "targetDonation": 100000,
+      "collectedDonation": 15000,
+    },
+    {
+      "name": "Nama Panti Asuhan 2",
+      "targetDonation": 100000,
+      "collectedDonation": 30000,
+    },
+    {
+      "name": "Nama Panti Asuhan 3",
+      "targetDonation": 100000,
+      "collectedDonation": 60000,
+    },
+    {
+      "name": "Nama Panti Asuhan 4",
+      "targetDonation": 100000,
+      "collectedDonation": 80000,
+    },
+    {
+      "name": "Nama Panti Asuhan 5",
+      "targetDonation": 100000,
+      "collectedDonation": 90000,
+    },
+  ];
+  
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 35),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 147, 181, 255),
+                  tooltip: 'CekRab',
+                  shape: const CircleBorder(),
+                  child: const Icon(
+                    FontAwesomeIcons.handHoldingHeart,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    
+                  },
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: const Text(
+              "Cek RAB",
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(75, 0, 0, 0),
+              spreadRadius: 8,
+              blurRadius: 30,
+              offset: Offset(0, 20),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20)), // Radius sudut untuk isi
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+            unselectedItemColor: Colors.black.withOpacity(0.6),
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              // Navigasi berdasarkan index item yang dipilih
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HomePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // Tidak ada animasi
+                    },
+                  ), // Halaman utama
+                );
+              } else if (index == 1) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HomePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // Tidak ada animasi
+                    },
+                  ), // Halaman utama
+                );
+              } else if (index == 2) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const ProfilePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                label: 'Utama',
+                icon: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(FontAwesomeIcons.house),
+                ),
+              ),
+              
+              BottomNavigationBarItem(
+                label: '',
+                icon: SizedBox.shrink(),
+              ),
+              
+              BottomNavigationBarItem(
+                label: 'Profil',
+                icon: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(FontAwesomeIcons.solidUser),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       backgroundColor: const Color.fromARGB(255, 255, 251, 251),
       body: SingleChildScrollView(
         child: Column(
@@ -276,116 +411,33 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 5),
-            ListView(
+            ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              children: [
-                GestureDetector(
+              itemCount: orphanages.length,
+              itemBuilder: (context, index) {
+                final orphanage = orphanages[index];
+                return GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
                     );
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
-                      name: "Nama Panti Asuhan 1",
-                      targetDonation: 100000,
-                      collectedDonation: 15000,
+                      name: orphanage["name"],
+                      targetDonation: orphanage["targetDonation"],
+                      collectedDonation: orphanage["collectedDonation"],
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
-                    );
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                    child: DonationCard(
-                      name: "Nama Panti Asuhan 2",
-                      targetDonation: 100000,
-                      collectedDonation: 30000,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
-                    );
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                    child: DonationCard(
-                      name: "Nama Panti Asuhan 3",
-                      targetDonation: 100000,
-                      collectedDonation: 60000,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
-                    );
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                    child: DonationCard(
-                      name: "Nama Panti Asuhan 4",
-                      targetDonation: 100000,
-                      collectedDonation: 80000,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const DetailPanti()), // Navigate to DetailPanti
-                    );
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
-                    child: DonationCard(
-                      name: "Nama Panti Asuhan 5",
-                      targetDonation: 100000,
-                      collectedDonation: 90000,
-                    ),
-                  ),
-                ),
-              ],
+                );
+              },
             ),
             const SizedBox(height: 80), // Added space below to prevent navbar from covering cards
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 232, 243, 255),
-        selectedItemColor: const Color.fromARGB(255, 202, 222, 243),
-        unselectedItemColor: Colors.black54,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Utama',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.file_copy),
-            label: 'Cek RAB',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profil',
-          ),
-        ],
       ),
     );
   }
