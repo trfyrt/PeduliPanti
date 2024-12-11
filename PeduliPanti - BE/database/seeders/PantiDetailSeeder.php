@@ -16,13 +16,17 @@ class PantiDetailSeeder extends Seeder
             PantiDetail::create([
                 'pantiID' => $index,
                 'name' => $faker->word,
-                'organizer' => rand(1, 10), // Assuming you have 10 users
+                'organizer' => ($index + 10),
                 'address' => $faker->address,
                 'child_number' => rand(10, 50),
                 'founding_date' => $faker->date,
-                'donation_total' => rand(1000, 10000),
-                'priority_value' => rand(1, 10),
+                'donation_total' => rand(100000, 100000000),
+                'priority_value' => 0,
                 'description' => $faker->paragraph,
+                'origin' => json_encode([
+                    'lat' => $faker->latitude, // Generate random latitude
+                    'lng' => $faker->longitude, // Generate random longitude
+                ]),
             ]);
         }
     }
