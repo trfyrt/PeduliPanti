@@ -43,7 +43,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    
+                    Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HomePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
                   },
                 ),
               ],
