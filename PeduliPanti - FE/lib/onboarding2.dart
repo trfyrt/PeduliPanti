@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
               CrossAxisAlignment.start, // Pastikan semua elemen rata kiri
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 20), // Reduced vertical margin
+              margin: const EdgeInsets.symmetric(vertical: 100, horizontal: 20), // Increased vertical margin for better alignment
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start, // Rata kiri untuk teks di dalam Column
                 children: [
@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // Action to expand the image
                         },
                         child: Lottie.asset(
-                          'donate.json',
+                          'assets/donate.json',
                           fit: BoxFit.contain,
                           height: 350, // Increased height for Lottie animation
                         ),

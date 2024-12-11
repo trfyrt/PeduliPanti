@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
-                      'panti1.png',
+                      'assets/panti1.png',
                       width: double.infinity, // Full width
                       fit: BoxFit.cover, // Cover the area
                     ),
