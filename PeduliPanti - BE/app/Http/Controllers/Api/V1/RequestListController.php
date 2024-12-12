@@ -29,12 +29,12 @@ class RequestListController extends Controller
 
         $requestList = RequestList::create($validated);
 
-        return new RequestListResource($requestList->load(['panti', 'product']));
+        return new RequestListResource($requestList->load(['panti', 'products']));
     }
 
     public function show($id)
     {
-        $requestList = RequestList::with(['panti', 'product'])->findOrFail($id);
+        $requestList = RequestList::with(['panti', 'products'])->findOrFail($id);
         return new RequestListResource($requestList);
     }
 
@@ -51,7 +51,7 @@ class RequestListController extends Controller
         $requestList = RequestList::findOrFail($id);
         $requestList->update($validated);
 
-        return new RequestListResource($requestList->load(['panti', 'product']));
+        return new RequestListResource($requestList->load(['panti', 'products']));
     }
 
     public function updateStatus(Request $request, $id)
