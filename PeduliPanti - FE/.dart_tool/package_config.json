@@ -81,7 +81,7 @@
     },
     {
       "name": "file_selector_linux",
-      "rootUri": "file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_linux-0.9.3+1",
+      "rootUri": "file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_linux-0.9.3+2",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -111,7 +111,7 @@
     },
     {
       "name": "flutter",
-      "rootUri": "file:///D:/flutter/src/flutter/packages/flutter",
+      "rootUri": "file:///D:/flutter/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -135,13 +135,13 @@
     },
     {
       "name": "flutter_test",
-      "rootUri": "file:///D:/flutter/src/flutter/packages/flutter_test",
+      "rootUri": "file:///D:/flutter/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
     {
       "name": "flutter_web_plugins",
-      "rootUri": "file:///D:/flutter/src/flutter/packages/flutter_web_plugins",
+      "rootUri": "file:///D:/flutter/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -171,7 +171,7 @@
     },
     {
       "name": "image_picker_android",
-      "rootUri": "file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+17",
+      "rootUri": "file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+18",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
@@ -345,7 +345,7 @@
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///D:/flutter/src/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///D:/flutter/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -422,16 +422,16 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "peduliPanti",
+      "name": "donatur_peduli_panti",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-07T12:24:08.551968Z",
+  "generated": "2024-12-11T03:25:38.775473Z",
   "generator": "pub",
-  "generatorVersion": "3.5.3",
-  "flutterRoot": "file:///D:/flutter/src/flutter",
-  "flutterVersion": "3.24.3",
+  "generatorVersion": "3.5.1",
+  "flutterRoot": "file:///D:/flutter/flutter",
+  "flutterVersion": "3.24.1",
   "pubCache": "file:///C:/Users/ASUS/AppData/Local/Pub/Cache"
 }

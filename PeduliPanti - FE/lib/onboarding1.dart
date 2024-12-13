@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/gestures.dart';
-import 'package:peduliPanti/onboarding2.dart';
-import 'package:peduliPanti/login.dart';
+import 'onboarding2.dart';
+import 'login.dart';
 
 class Onboarding1App extends StatelessWidget {
   const Onboarding1App({super.key});
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Container(
                       margin: EdgeInsets.only(top: 5, bottom: 10), // Adjusted margin
                       child: Lottie.asset(
-                        'box.json',
+                        'assets/box.json',
                         fit: BoxFit.contain,
                       ),
                     ),

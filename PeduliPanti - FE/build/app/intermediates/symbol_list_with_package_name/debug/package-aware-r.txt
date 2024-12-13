@@ -1,4 +1,4 @@
-com.example.topup_shop
+com.example.donatur_peduli_panti
 anim fragment_fast_out_extra_slow_in
 animator fragment_close_enter
 animator fragment_close_exit
@@ -11,7 +11,10 @@ attr activityName
 attr alpha
 attr alwaysExpand
 attr animationBackgroundColor
+attr buttonSize
+attr circleCrop
 attr clearTop
+attr colorScheme
 attr finishPrimaryWithPlaceholder
 attr finishPrimaryWithSecondary
 attr finishSecondaryWithPrimary
@@ -26,11 +29,14 @@ attr fontProviderSystemFontFamily
 attr fontStyle
 attr fontVariationSettings
 attr fontWeight
+attr imageAspectRatio
+attr imageAspectRatioAdjust
 attr lStar
 attr nestedScrollViewStyle
 attr placeholderActivityName
 attr primaryActivityName
 attr queryPatterns
+attr scopeUris
 attr secondaryActivityAction
 attr secondaryActivityName
 attr shortcutMatchRequired
@@ -48,6 +54,17 @@ color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
 color call_notification_answer_color
 color call_notification_decline_color
+color common_google_signin_btn_text_dark
+color common_google_signin_btn_text_dark_default
+color common_google_signin_btn_text_dark_disabled
+color common_google_signin_btn_text_dark_focused
+color common_google_signin_btn_text_dark_pressed
+color common_google_signin_btn_text_light
+color common_google_signin_btn_text_light_default
+color common_google_signin_btn_text_light_disabled
+color common_google_signin_btn_text_light_focused
+color common_google_signin_btn_text_light_pressed
+color common_google_signin_btn_tint
 color notification_action_color_filter
 color notification_icon_bg_color
 dimen compat_button_inset_horizontal_material
@@ -72,6 +89,27 @@ dimen notification_small_icon_size_as_large
 dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
+drawable common_full_open_on_phone
+drawable common_google_signin_btn_icon_dark
+drawable common_google_signin_btn_icon_dark_focused
+drawable common_google_signin_btn_icon_dark_normal
+drawable common_google_signin_btn_icon_dark_normal_background
+drawable common_google_signin_btn_icon_disabled
+drawable common_google_signin_btn_icon_light
+drawable common_google_signin_btn_icon_light_focused
+drawable common_google_signin_btn_icon_light_normal
+drawable common_google_signin_btn_icon_light_normal_background
+drawable common_google_signin_btn_text_dark
+drawable common_google_signin_btn_text_dark_focused
+drawable common_google_signin_btn_text_dark_normal
+drawable common_google_signin_btn_text_dark_normal_background
+drawable common_google_signin_btn_text_disabled
+drawable common_google_signin_btn_text_light
+drawable common_google_signin_btn_text_light_focused
+drawable common_google_signin_btn_text_light_normal
+drawable common_google_signin_btn_text_light_normal_background
+drawable googleg_disabled_color_18
+drawable googleg_standard_color_18
 drawable ic_call_answer
 drawable ic_call_answer_low
 drawable ic_call_answer_video
@@ -79,6 +117,7 @@ drawable ic_call_answer_video_low
 drawable ic_call_decline
 drawable ic_call_decline_low
 drawable launch_background
+drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -131,14 +170,18 @@ id action_image
 id action_text
 id actions
 id adjacent
+id adjust_height
+id adjust_width
 id always
 id alwaysAllow
 id alwaysDisallow
 id androidx_window_activity_scope
 id async
+id auto
 id blocking
 id bottomToTop
 id chronometer
+id dark
 id dialog_button
 id edit_text_id
 id forever
@@ -146,13 +189,16 @@ id fragment_container_view_tag
 id hide_ime_id
 id icon
 id icon_group
+id icon_only
 id info
 id italic
+id light
 id line1
 id line3
 id locale
 id ltr
 id never
+id none
 id normal
 id notification_background
 id notification_main_column
@@ -162,6 +208,7 @@ id right_icon
 id right_side
 id rtl
 id special_effects_controller_view_tag
+id standard
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
 id tag_accessibility_heading
@@ -185,6 +232,8 @@ id view_tree_on_back_pressed_dispatcher_owner
 id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible_removing_fragment_view_tag
+id wide
+integer google_play_services_version
 integer status_bar_notification_info_maxnum
 layout custom_dialog
 layout ime_base_split_test_activity
@@ -204,6 +253,24 @@ string call_notification_hang_up_action
 string call_notification_incoming_text
 string call_notification_ongoing_text
 string call_notification_screening_text
+string common_google_play_services_enable_button
+string common_google_play_services_enable_text
+string common_google_play_services_enable_title
+string common_google_play_services_install_button
+string common_google_play_services_install_text
+string common_google_play_services_install_title
+string common_google_play_services_notification_channel_name
+string common_google_play_services_notification_ticker
+string common_google_play_services_unknown_issue
+string common_google_play_services_unsupported_text
+string common_google_play_services_update_button
+string common_google_play_services_update_text
+string common_google_play_services_update_title
+string common_google_play_services_updating_text
+string common_google_play_services_wear_update_text
+string common_open_on_phone
+string common_signin_button_text
+string common_signin_button_text_long
 string status_bar_notification_info_overflow
 style LaunchTheme
 style NormalTheme
@@ -224,6 +291,9 @@ styleable Fragment android_name android_id android_tag
 styleable FragmentContainerView android_name android_tag
 styleable GradientColor android_startColor android_endColor android_type android_centerX android_centerY android_gradientRadius android_tileMode android_centerColor android_startX android_startY android_endX android_endY
 styleable GradientColorItem android_color android_offset
+styleable LoadingImageView circleCrop imageAspectRatio imageAspectRatioAdjust
+styleable SignInButton buttonSize colorScheme scopeUris
 styleable SplitPairFilter primaryActivityName secondaryActivityAction secondaryActivityName
 styleable SplitPairRule animationBackgroundColor clearTop finishPrimaryWithSecondary finishSecondaryWithPrimary splitLayoutDirection splitMaxAspectRatioInLandscape splitMaxAspectRatioInPortrait splitMinHeightDp splitMinSmallestWidthDp splitMinWidthDp splitRatio tag
 styleable SplitPlaceholderRule animationBackgroundColor finishPrimaryWithPlaceholder placeholderActivityName splitLayoutDirection splitMaxAspectRatioInLandscape splitMaxAspectRatioInPortrait splitMinHeightDp splitMinSmallestWidthDp splitMinWidthDp splitRatio stickyPlaceholder tag
+xml flutter_image_picker_file_paths

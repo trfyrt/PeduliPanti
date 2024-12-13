@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:peduliPanti/profile.dart';
-import 'package:peduliPanti/detailPanti.dart'; // Import the detailPanti.dart file
-import 'package:peduliPanti/reqBarang.dart'; // Import the reqBarang.dart file
-
-void main() {
-  runApp(MyApp());
-}
+import 'profile.dart';
+import 'detailPanti.dart'; // Import the detailPanti.dart file
+import 'reqBarang.dart'; // Import the reqBarang.dart file
 
 class MyApp extends StatelessWidget {
   @override

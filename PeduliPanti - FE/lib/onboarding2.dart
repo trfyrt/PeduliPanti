@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/gestures.dart';
-import 'package:peduliPanti/onboarding1.dart';
-import 'package:peduliPanti/onboarding3.dart';
+import 'onboarding1.dart';
+import 'onboarding3.dart';
 
 class Onboarding2App extends StatelessWidget {
   const Onboarding2App({super.key});
@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // Action to expand the image
                         },
                         child: Lottie.asset(
-                          'donate.json',
+                          'assets/donate.json',
                           fit: BoxFit.contain,
                           height: 350, // Increased height for Lottie animation
                         ),

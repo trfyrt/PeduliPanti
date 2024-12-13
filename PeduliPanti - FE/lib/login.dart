@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:peduliPanti/homePanti.dart'; // Changed import to homePanti.dart
+import 'homePanti.dart'; // Changed import to homePanti.dart
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginApp extends StatelessWidget {

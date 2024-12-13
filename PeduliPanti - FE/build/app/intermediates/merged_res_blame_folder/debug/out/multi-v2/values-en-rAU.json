@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.topup_shop.app-mergeDebugResources-25:/values-en-rAU/values-en-rAU.xml",
+            "outputFile": "com.example.donatur_peduli_panti.app-mergeDebugResources-27:/values-en-rAU/values-en-rAU.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ASUS\\.gradle\\caches\\transforms-3\\54a4cfbaad86b9ab2273ca8263e4a153\\transformed\\core-1.13.1\\res\\values-en-rAU\\values-en-rAU.xml",
+                    "source": "C:\\Users\\ASUS\\.gradle\\caches\\transforms-3\\6f655a57b4b1224cec38a7c252a742d8\\transformed\\core-1.13.1\\res\\values-en-rAU\\values-en-rAU.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

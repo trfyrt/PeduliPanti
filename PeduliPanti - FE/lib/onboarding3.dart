@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:peduliPanti/login.dart';
+import 'login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Onboarding3App extends StatelessWidget {

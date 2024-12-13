@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.topup_shop.app-mergeDebugResources-25:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.donatur_peduli_panti.app-mergeDebugResources-27:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "D:\\xampp\\htdocs\\PeduliPanti\\peduliPanti_login\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "D:\\Kuliah\\Programming\\Semester 3\\ALP\\PeduliPanti\\PeduliPanti - FE\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

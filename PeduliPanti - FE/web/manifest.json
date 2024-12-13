@@ -1,6 +1,6 @@
 {
-    "name": "topup_shop",
-    "short_name": "topup_shop",
+    "name": "donatur_peduli_panti",
+    "short_name": "donatur_peduli_panti",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

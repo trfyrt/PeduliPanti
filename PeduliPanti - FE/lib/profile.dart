@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peduliPanti/editProfile.dart';
+import 'editProfile.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
