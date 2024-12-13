@@ -3,21 +3,23 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        $categories = [
+            ['categoryID' => 1, 'category_name' => 'Makanan'],
+            ['categoryID' => 2, 'category_name' => 'Minuman'],
+            ['categoryID' => 3, 'category_name' => 'Pakaian'],
+            ['categoryID' => 4, 'category_name' => 'Mainan'],
+            ['categoryID' => 5, 'category_name' => 'Kebersihan'],
+            ['categoryID' => 6, 'category_name' => 'Pendidikan'],
+        ];
 
-        foreach (range(1, 5) as $index) {
-            Category::create([
-                'categoryID' => $index,
-                'category_name' => $faker->word,
-            ]);
+        foreach ($categories as $category) {
+            Category::create($category);
         }
     }
 }
-

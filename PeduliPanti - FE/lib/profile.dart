@@ -243,7 +243,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       constraints: BoxConstraints(
                         minHeight: 100, // Minimum height for description card
                       ),
-                      width: double.infinity, // Use double.infinity for full width
+                      width:
+                          double.infinity, // Use double.infinity for full width
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -275,7 +276,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       constraints: BoxConstraints(
                         minHeight: 100, // Minimum height for address card
                       ),
-                      width: double.infinity, // Use double.infinity for full width
+                      width:
+                          double.infinity, // Use double.infinity for full width
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),

@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         // Memanggil seeder untuk masing-masing tabel
         $this->call([
-            UserSeeder::class,
-            CategorySeeder::class,
-            ProductSeeder::class,
-            BundleSeeder::class,
-            CartSeeder::class,
-            // PantiDetailSeeder::class,
-            RequestListSeeder::class,
-            TransactionOrderSeeder::class,
+            UserSeeder::class, //don
+            CategorySeeder::class, //don
+            ProductSeeder::class, //don
+            BundleSeeder::class, //don
+            CartSeeder::class, //don
+            PantiDetailSeeder::class, //don
+            RequestListSeeder::class, //don
+            // TransactionOrderSeeder::class,
             // HistorySeeder::class,
-            RABSeeder::class,
+            // RABSeeder::class,
         ]);
     }
 }
