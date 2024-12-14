@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Market extends StatefulWidget {
   const Market({super.key});
@@ -22,6 +23,18 @@ class _MarketAppState extends State<Market> {
   }
 }
 
+class Package {
+  final String imagePath;
+  final String name;
+  final String price;
+
+  Package({
+    required this.imagePath,
+    required this.name,
+    required this.price,
+  });
+}
+
 class MarketPage extends StatefulWidget {
   const MarketPage({super.key, required this.title});
 
@@ -32,6 +45,48 @@ class MarketPage extends StatefulWidget {
 }
 
 class _MarketPage extends State<MarketPage> {
+  final List<Package> _packages1 = [
+    Package(
+        imagePath: 'assets/img/MinyakGoreng.png',
+        name: 'Minyak Goreng 1 L',
+        price: 'Rp.20.000'),
+    Package(
+        imagePath: 'assets/img/BotolAqua.png',
+        name: 'Botol Aqua Besar 1 krt',
+        price: 'Rp.50.000'),
+    Package(
+        imagePath: 'assets/img/Beras.png',
+        name: 'Beras Sania 5 kg',
+        price: 'Rp.100.000'),
+  ];
+
+  final PageController _pageController1 = PageController();
+  final List<Package> _packages = [
+    Package(
+        imagePath: 'assets/img/Mainan.png', name: 'Mainan', price: 'Rp.20.000'),
+    Package(
+        imagePath: 'assets/img/Pakaian.png',
+        name: 'Pakaian',
+        price: 'Rp.50.000'),
+    Package(
+        imagePath: 'assets/img/Pendidikan.png',
+        name: 'Pendidikan',
+        price: 'Rp.100.000'),
+  ];
+
+  int _currentPage = 0; // Menyimpan indeks halaman saat ini
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController1.addListener(() {
+      // Mendengarkan perubahan halaman dan memperbarui state
+      setState(() {
+        _currentPage = _pageController1.page?.round() ?? 0;
+      });
+    });
+  }
+
   final List<Map<String, dynamic>> _items = [
     {'name': 'Minyak Goreng 1L', 'price': 'Rp. 17.500', 'quantity': 0},
     {'name': 'Gula Pasir 1kg', 'price': 'Rp. 13.000', 'quantity': 0},
@@ -52,6 +107,8 @@ class _MarketPage extends State<MarketPage> {
     });
   }
 
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +116,7 @@ class _MarketPage extends State<MarketPage> {
         children: [
           SingleChildScrollView(
             child: Container(
-              margin: const EdgeInsets.only(top: 48),
+              margin: const EdgeInsets.only(top: 48, bottom: 80),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,10 +246,12 @@ class _MarketPage extends State<MarketPage> {
                   }).toList(),
                   Container(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
+                          margin: EdgeInsets.only(
+                              left: 20, right: 20, top: 20, bottom: 8),
                           child: Text(
                             'Paket Donasi',
                             style: TextStyle(
@@ -202,35 +261,255 @@ class _MarketPage extends State<MarketPage> {
                             ),
                           ),
                         ),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  child: PageView.builder(
+                                    controller: _pageController1,
+                                    itemCount: _packages.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          child: Image.asset(
+                                            _packages[index].imagePath,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              child: Text(
+                                                '${_packages[_currentPage].name}',
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                '${_packages[_currentPage].price}',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color.fromARGB(
+                                                        255, 147, 181, 255)),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            minimumSize: const Size(150, 20),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 147, 181, 255),
+                                            foregroundColor: Colors.black,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 8),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            print("Tombol Daftar ditekan");
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder: (context) => const HomeDonaturApp(),
+                                            //   ),
+                                            // );
+                                          },
+                                          child: Container(
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  child: Text(
+                                                    "Tambah",
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin:
+                                                      EdgeInsets.only(left: 5),
+                                                  child: Icon(
+                                                    FontAwesomeIcons
+                                                        .cartShopping,
+                                                    size: 18,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Container(
-                          width: double.infinity,
-                          height: 100,
-                          child: Column(
-                            children: [
-                              Container(
-                                child: Row(
+                          margin: EdgeInsets.only(left: 20, right: 20, top: 25),
+                          child: Text(
+                            'Barang Donasi',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 20,
+                              childAspectRatio: 0.7,
+                            ),
+                            shrinkWrap: true,
+                            physics:
+                                NeverScrollableScrollPhysics(), // Nonaktifkan scroll pada GridView
+                            itemCount: _packages1.length,
+                            itemBuilder: (context, index) {
+                              final package1 = _packages1[index];
+                              return Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 5,
+                                      spreadRadius: 1,
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      child: Icon(
-                                        FontAwesomeIcons.angleLeft,
-                                        size: 20,
+                                      height: 140,
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 255, 255, 255),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          package1.imagePath,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
+                                    // Nama Barang
                                     Container(
-                                      
+                                      child: Text(
+                                        '${package1.name}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                    Container(
-                                      child: Icon(
-                                        FontAwesomeIcons.angleRight,
-                                        size: 20,
+                                    // Harga Barang
+                                    Text(
+                                      '${package1.price}',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                    // Tombol Tambah Keranjang
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.blue[200],
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          minimumSize:
+                                              Size(140, 35), // Ukuran tombol
+                                        ),
+                                        onPressed: () {
+                                          print("Keranjang ditambah");
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(right: 5),
+                                              child: Text(
+                                                "Tambah",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            Icon(
+                                              FontAwesomeIcons.cartShopping,
+                                              size: 18,
+                                              color: Colors.black,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                              );
+                            },
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -265,6 +544,39 @@ class _MarketPage extends State<MarketPage> {
               child: const Icon(
                 FontAwesomeIcons.angleLeft,
                 size: 20,
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(25),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey
+                        .withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset:
+                        Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  '10 Barang',
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 147, 181, 255),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
               ),
             ),
           ),
