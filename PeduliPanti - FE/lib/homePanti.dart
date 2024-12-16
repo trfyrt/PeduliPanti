@@ -23,7 +23,8 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0; // Track the selected index
 
   void _onItemTapped(int index) {
-    if (index != _selectedIndex) { // Only update if the index is different
+    if (index != _selectedIndex) {
+      // Only update if the index is different
       setState(() {
         _selectedIndex = index; // Update the selected index
       });
@@ -49,18 +50,22 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [ // Added missing children list
+          children: [
+            // Added missing children list
             Container(
               decoration: BoxDecoration(
                 color: Colors.blue[50], // Background color
                 borderRadius: BorderRadius.circular(15.0), // Rounded corners
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0), // Padding inside the container
+                padding:
+                    const EdgeInsets.all(16.0), // Padding inside the container
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 16), // Added padding above search and notification
+                    SizedBox(
+                        height:
+                            16), // Added padding above search and notification
                     Row(
                       children: [
                         Expanded(
@@ -82,7 +87,8 @@ class _HomePageState extends State<HomePage> {
                         Stack(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.notifications, color: Colors.black),
+                              icon: Icon(Icons.notifications,
+                                  color: Colors.black),
                               onPressed: () {
                                 // Action for notification button
                               },
@@ -117,14 +123,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: 16),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0), // Added horizontal padding
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0), // Added horizontal padding
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Grafik Donasi Tiap Bulan",
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
                           SizedBox(height: 16),
                           Container(
@@ -150,7 +159,8 @@ class _HomePageState extends State<HomePage> {
                                       reservedSize: 28,
                                       getTitlesWidget: (value, _) => Text(
                                         value.toInt().toString(),
-                                        style: TextStyle(fontSize: 10, color: Colors.black),
+                                        style: TextStyle(
+                                            fontSize: 10, color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -160,13 +170,21 @@ class _HomePageState extends State<HomePage> {
                                       getTitlesWidget: (value, _) {
                                         switch (value.toInt()) {
                                           case 0:
-                                            return Text("Jan", style: TextStyle(color: Colors.black));
+                                            return Text("Jan",
+                                                style: TextStyle(
+                                                    color: Colors.black));
                                           case 1:
-                                            return Text("Feb", style: TextStyle(color: Colors.black));
+                                            return Text("Feb",
+                                                style: TextStyle(
+                                                    color: Colors.black));
                                           case 2:
-                                            return Text("Mar", style: TextStyle(color: Colors.black));
+                                            return Text("Mar",
+                                                style: TextStyle(
+                                                    color: Colors.black));
                                           case 3:
-                                            return Text("Apr", style: TextStyle(color: Colors.black));
+                                            return Text("Apr",
+                                                style: TextStyle(
+                                                    color: Colors.black));
                                           default:
                                             return Text("");
                                         }
@@ -178,7 +196,8 @@ class _HomePageState extends State<HomePage> {
                                   BarChartGroupData(x: 0, barRods: [
                                     BarChartRodData(
                                       toY: 10,
-                                      color: const Color.fromARGB(255, 164, 196, 253),
+                                      color: const Color.fromARGB(
+                                          255, 164, 196, 253),
                                       width: 24,
                                       borderRadius: BorderRadius.circular(2),
                                     ),
@@ -186,7 +205,8 @@ class _HomePageState extends State<HomePage> {
                                   BarChartGroupData(x: 1, barRods: [
                                     BarChartRodData(
                                       toY: 30000 / 100000 * 100,
-                                      color: const Color.fromARGB(255, 164, 196, 253),
+                                      color: const Color.fromARGB(
+                                          255, 164, 196, 253),
                                       width: 24,
                                       borderRadius: BorderRadius.circular(2),
                                     ),
@@ -194,7 +214,8 @@ class _HomePageState extends State<HomePage> {
                                   BarChartGroupData(x: 2, barRods: [
                                     BarChartRodData(
                                       toY: 60000 / 100000 * 100,
-                                      color: const Color.fromARGB(255, 164, 196, 253),
+                                      color: const Color.fromARGB(
+                                          255, 164, 196, 253),
                                       width: 24,
                                       borderRadius: BorderRadius.circular(2),
                                     ),
@@ -202,7 +223,8 @@ class _HomePageState extends State<HomePage> {
                                   BarChartGroupData(x: 3, barRods: [
                                     BarChartRodData(
                                       toY: 80000 / 100000 * 100,
-                                      color: const Color.fromARGB(255, 164, 196, 253),
+                                      color: const Color.fromARGB(
+                                          255, 164, 196, 253),
                                       width: 24,
                                       borderRadius: BorderRadius.circular(2),
                                     ),
@@ -216,8 +238,10 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Presentase Donasi Bulan Ini", style: TextStyle(color: Colors.black)),
-                              Text("80%", style: TextStyle(color: Colors.black)),
+                              Text("Presentase Donasi Bulan Ini",
+                                  style: TextStyle(color: Colors.black)),
+                              Text("80%",
+                                  style: TextStyle(color: Colors.black)),
                             ],
                           ),
                           LinearProgressIndicator(
@@ -236,12 +260,15 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 25),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 30.0), // Added horizontal padding
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RequestPage()), // Navigate to RequestPage
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            RequestPage()), // Navigate to RequestPage
                   );
                 },
                 child: Text(
@@ -257,10 +284,14 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 32),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 30.0), // Added horizontal padding
               child: Text(
                 "Panti Asuhan",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
             ),
             SizedBox(height: 5),
@@ -272,11 +303,14 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetailPanti()), // Navigate to DetailPanti
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 1",
                       targetDonation: 100000,
@@ -288,11 +322,14 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetailPanti()), // Navigate to DetailPanti
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 2",
                       targetDonation: 100000,
@@ -304,11 +341,14 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetailPanti()), // Navigate to DetailPanti
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 3",
                       targetDonation: 100000,
@@ -320,11 +360,14 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetailPanti()), // Navigate to DetailPanti
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 4",
                       targetDonation: 100000,
@@ -336,11 +379,14 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailPanti()), // Navigate to DetailPanti
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetailPanti()), // Navigate to DetailPanti
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0), // Added horizontal padding
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0), // Added horizontal padding
                     child: DonationCard(
                       name: "Nama Panti Asuhan 5",
                       targetDonation: 100000,
@@ -350,7 +396,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            SizedBox(height: 80), // Added space below to prevent navbar from covering cards
+            SizedBox(
+                height:
+                    80), // Added space below to prevent navbar from covering cards
           ],
         ),
       ),

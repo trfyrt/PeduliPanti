@@ -1,7 +1,9 @@
+import 'package:donatur_peduli_panti/Services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'homePanti.dart'; // Changed import to homePanti.dart
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'homePanti.dart';
+import 'homeDonatur.dart';
 
 class LoginApp extends StatelessWidget {
   const LoginApp({super.key});
@@ -27,203 +29,172 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+TextEditingController emailController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+
 class _MyHomePageState extends State<MyHomePage> {
+  bool _isLoading = false;
+
+  void _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    await AuthService.login(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      onLoginSuccess: (String role) async {
+        // Navigate based on the role
+        if (role == 'panti_asuhan') {
+          await AuthService.fetchPantiDetails();
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else if (role == 'donatur') {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => HomeDonaturApp()));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Unknown role: $role')),
+          );
+        }
+      },
+      onError: (String error) {
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed: $error')),
+        );
+      },
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0), // Padding untuk margin kiri dan kanan
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start, // Pastikan semua elemen rata kiri
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Logo Peduli Panti di atas tengah
-            Container(
-              margin: EdgeInsets.only(top: 50), // Margin atas untuk logo
-              child: Center(
+            // Logo
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(top: 50),
                 child: Image.asset(
-                  'pedulipanti.png', // Ganti dengan path logo yang sesuai
-                  height: 100, // Tinggi logo
+                  'pedulipanti.png',
+                  height: 100,
                 ),
               ),
             ),
+
+            // Title and Subtitle
             Container(
-              margin: EdgeInsets.symmetric(vertical: 30), // Margin vertikal untuk teks
+              margin: EdgeInsets.symmetric(vertical: 30),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Rata kiri untuk teks di dalam Column
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Login dan nikmati pengalaman donasi tanpa atas',
+                    'Login dan nikmati pengalaman donasi tanpa batas',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           color: Color(0xff2979ff),
-                          fontWeight: FontWeight.bold, // Warna biru untuk teks
-                          fontSize: 24, 
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
                         ),
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    'Masukkan username dan password.',
+                    'Masukkan email dan password.',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           color: Color.fromARGB(255, 72, 78, 90),
-                          fontSize: 14, // Warna biru untuk teks
+                          fontSize: 14,
                         ),
                     textAlign: TextAlign.left,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10, top: 20), // Mengurangi margin atas dan bawah
-                    decoration: BoxDecoration(
-                      color: Colors.white,  
-                      borderRadius: BorderRadius.circular(8.0),  
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1), 
-                          spreadRadius: 2,  
-                          blurRadius: 5,  
-                          offset: Offset(0, 0), 
-                        ),
-                      ],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Nama',
-                        hintStyle: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontSize: 16,
-                        ),
-                        prefixIcon: const Padding(
-                          padding: EdgeInsets.all(15), 
-                          child: FaIcon(
-                            FontAwesomeIcons.solidUser, 
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                      ),
-                    ),
-                  ),
-
-                  // Password TextField dengan margin
-                  Container(
-                    margin: const EdgeInsets.only(top: 10, bottom: 15), // Mengurangi margin atas dan bawah
-                    decoration: BoxDecoration(
-                      color: Colors.white,  
-                      borderRadius: BorderRadius.circular(8.0),  
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1), 
-                          spreadRadius: 2,  
-                          blurRadius: 5,  
-                          offset: Offset(0, 0), 
-                        ),
-                      ],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        hintStyle: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontSize: 16,
-                        ),
-                        prefixIcon: const Padding(
-                          padding: EdgeInsets.all(15), 
-                          child: Icon(Icons.lock, color: Colors.grey, size: 20),
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 15, bottom: 10),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePage()), // Changed to HomePage
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity, 50), // Panjang tombol mengikuti lebar
-                        backgroundColor: Colors.blue, // Warna latar belakang tombol
-                        foregroundColor: Colors.white, // Warna teks tombol
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15), // Padding dalam tombol
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), // Radius sudut tombol
-                        ),
-                      ),
-                      child: Text("Masuk"),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 1, // Ketebalan garis
-                          color: Colors.grey, // Warna garis
-                          endIndent: 10, // Jarak ke teks
-                        ),
-                      ),
-                      Text(
-                        "Atau",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey, // Warna teks
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 1, // Ketebalan garis
-                          color: Colors.grey, // Warna garis
-                          indent: 10, // Jarak dari teks
-                        ),
-                      ),
-                    ],
-                  ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center, // Pusatkan secara vertikal
-                      crossAxisAlignment: CrossAxisAlignment.center, // Pusatkan secara horizontal
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: RichText(
-                            textAlign: TextAlign.center, // Pastikan teks dalam RichText diratakan ke tengah
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Belum punya akun? ", // Teks biasa dengan warna 1
-                                  style: TextStyle(
-                                    color: Colors.black, // Warna 1
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "Daftar", // Teks dengan warna 2 yang dapat diklik
-                                  style: TextStyle(
-                                    color: Colors.blue, // Warna 2
-                                    fontSize: 16,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      // Aksi navigasi
-                                      print("Navigasi ke halaman lain");
-                                    },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ],
               ),
             ),
+
+            // Email Field
+            _buildTextField(
+              controller: emailController,
+              hintText: 'Email',
+              icon: FontAwesomeIcons.solidUser,
+            ),
+
+            // Password Field
+            _buildTextField(
+              controller: passwordController,
+              hintText: 'Password',
+              icon: Icons.lock,
+              obscureText: true,
+            ),
+
+            // Login Button
+            Container(
+              margin: EdgeInsets.only(top: 15, bottom: 10),
+              child: ElevatedButton(
+                onPressed: _isLoading ? null : _login,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: _isLoading
+                    ? CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : Text("Masuk"),
+              ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String hintText,
+    required IconData icon,
+    bool obscureText = false,
+  }) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 0),
+          ),
+        ],
+      ),
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(
+            color: Colors.grey.shade400,
+            fontSize: 16,
+          ),
+          prefixIcon: Padding(
+            padding: EdgeInsets.all(15),
+            child: Icon(icon, color: Colors.grey, size: 20),
+          ),
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );

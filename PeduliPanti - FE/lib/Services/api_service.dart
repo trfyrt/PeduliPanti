@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:peduliPanti/Models/Product.dart';
+import 'package:donatur_peduli_panti/Models/Product.dart';
 
 class ApiService {
   static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
