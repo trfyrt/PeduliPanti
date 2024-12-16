@@ -3,6 +3,14 @@
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthenticatedSessionController;
+use App\Http\Controllers\Api\V1\BundleController;
+use App\Http\Controllers\Api\V1\CartController;
+use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\PantiDetailController;
+use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\RABController;
+use App\Http\Controllers\Api\V1\RequestListController;
+use App\Http\Controllers\Api\V1\TransactionOrderController;
 
 // api/v1
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function(){
