@@ -16,4 +16,4 @@ Updated 08 November 2024
 Updated 16 November 2024
 
 - Fetch Login for Yayasan/Dinsos & Admin (not included API)
-- Fetch Register for Admin (not included API)
+- Fetch Register for Admin & Yayasan/Dinsos (not included API)
