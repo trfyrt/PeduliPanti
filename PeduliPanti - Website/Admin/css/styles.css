@@ -82,4 +82,61 @@ body {
     font-size: 24px;
     cursor: pointer;
   }
+
+  .card-container {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 20px;
+  }
+
+  .card {
+    background-color: #2f4f4f;
+    border-radius: 10px;
+    width: 200px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+  }
+
+  .card-image {
+    background-color: #d3d3d3;
+    height: 150px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    background-color: #556b2f;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .card-info {
+    font-size: 14px;
+  }
+
+  .progress-bar {
+    background-color: #d3d3d3;
+    border-radius: 5px;
+    height: 10px;
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .progress {
+    background-color: #556b2f;
+    height: 100%;
+    width: 20%; /* Adjust this width to represent progress */
+    border-radius: 5px;
+  }
   
