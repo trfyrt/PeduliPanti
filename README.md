@@ -17,3 +17,9 @@ Updated 16 November 2024
 
 - Fetch Login for Yayasan/Dinsos & Admin (not included API)
 - Fetch Register for Admin & Yayasan/Dinsos (not included API)
+
+----------------------------------------------
+Updated 22 November 2024
+
+- Penambahan page History Pembayaran di Admin
+**NOTED** belum di fetch ^^
