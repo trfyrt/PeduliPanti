@@ -17,7 +17,7 @@ form.addEventListener('submit', (event) => {
     }
 
     // Dummy login validation (sesuaikan dengan backend jika diperlukan)
-    if (username === 'admin' && password === 'admin123') {
+    if (username === 'dinsos' && password === 'dinsos123') {
         alert('Login berhasil!');
         window.location.href = 'index.html'; // Redirect ke halaman index.html
     } else {

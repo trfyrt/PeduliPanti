@@ -11,4 +11,18 @@ Updated 08 November 2024
 
 - Slicing Register Page for Yayasan and Admin.
 - Menambahkan main content berupa RAB Submission untuk Page Yayasan/Dinsos (belum bersifat clickable ketika ingin view dan ketika accept/reject)
+
+
+---------------------------------------------
+Updated 16 November 2024
+
+- Fetch Login for Yayasan/Dinsos & Admin (not included API)
+- Fetch Register for Admin & Yayasan/Dinsos (not included API)
+
+----------------------------------------------
+Updated 22 November 2024
+
+- Penambahan page History Pembayaran di Admin
+**NOTED** belum di fetch ^^
+=======
 # PeduliPanti
