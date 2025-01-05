@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peduliPanti/Models/Product.dart';
-import 'package:peduliPanti/Services/api_service.dart';
+import 'package:donatur_peduli_panti/Models/Product.dart';
+import 'package:donatur_peduli_panti/Services/api_service.dart';
+import 'package:donatur_peduli_panti/Services/auth_service.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,37 +23,69 @@ class RequestPage extends StatefulWidget {
 class _RequestPageState extends State<RequestPage> {
   late Future<List<Product>> futureProducts;
   List<int> itemCounts = [];
+  int? pantiID;
 
   @override
   void initState() {
     super.initState();
     futureProducts = ApiService.fetchProducts();
+    _loadPantiDetails();
+  }
+
+  // Function to load pantiDetails from SharedPreferences
+  Future<void> _loadPantiDetails() async {
+    final pantiDetails = await AuthService.getPantiDetails();
+    if (pantiDetails != null) {
+      setState(() {
+        pantiID =
+            pantiDetails['id']; // Get pantiID from the stored pantiDetails
+      });
+    }
   }
 
   Future<void> submitRequests(List<Product> products) async {
+    if (pantiID == null) {
+      // Handle case where pantiID is not available (e.g., not logged in)
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content:
+                const Text('Panti ID is not available. Please log in again.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
     try {
       for (int i = 0; i < products.length; i++) {
         if (itemCounts[i] > 0) {
           // Cek apakah permintaan sudah ada
           int? existingRequestID = await ApiService.getRequestID(
-              1,
-              products[i]
-                  .id); // SUBJECT TO CHANGE Sesuaikan dengan id panti yang sedang login (session)
+              pantiID!, products[i].id); // Use dynamic pantiID here
 
           if (existingRequestID != null) {
             // Jika request sudah ada, lakukan update
             await ApiService.updateRequest(
               requestID: existingRequestID,
-              pantiID:
-                  1, // SUBJECT TO CHANGE Sesuaikan dengan id panti yang sedang login (session)
+              pantiID: pantiID!, // Use dynamic pantiID here
               productID: products[i].id,
               requestedQty: itemCounts[i],
             );
           } else {
             // Jika request belum ada, lakukan store (POST)
             await ApiService.postRequest(
-              pantiID:
-                  1, // SUBJECT TO CHANGE Sesuaikan dengan id panti yang sedang login (session)
+              pantiID: pantiID!, // Use dynamic pantiID here
               productID: products[i].id,
               requestedQty: itemCounts[i],
             );
@@ -174,8 +207,7 @@ class _RequestPageState extends State<RequestPage> {
                                           fallbackHeight: 60,
                                           fallbackWidth: double.infinity,
                                           child: Center(
-                                              child: Text('Foto Barang')),
-                                        ),
+                                              child: Text('Foto Barang'))),
                                 ),
                                 const SizedBox(height: 8.0),
                                 Text(
@@ -240,7 +272,7 @@ class _RequestPageState extends State<RequestPage> {
             );
           }
         },
-      ),l
+      ),
     );
   }
 }

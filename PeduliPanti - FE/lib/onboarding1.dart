@@ -1,3 +1,4 @@
+import 'package:donatur_peduli_panti/regist.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/gestures.dart';
@@ -32,14 +33,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView( // Added SingleChildScrollView to prevent overflow
+      body: SingleChildScrollView(
+        // Added SingleChildScrollView to prevent overflow
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment:
               CrossAxisAlignment.start, // Pastikan semua elemen rata kiri
           children: <Widget>[
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20), // Reduced vertical margin to move content up
+              margin: EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 20), // Reduced vertical margin to move content up
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment
                     .start, // Rata kiri untuk teks di dalam Column
@@ -68,20 +72,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: TextStyle(fontSize: 14), // Reduced font size
                     ),
                   ),
-                  Center( // Centering the Lottie animation
+                  Center(
+                    // Centering the Lottie animation
                     child: Container(
-                      margin: EdgeInsets.only(top: 5, bottom: 10), // Adjusted margin
+                      margin: EdgeInsets.only(
+                          top: 5, bottom: 10), // Adjusted margin
                       child: Lottie.asset(
                         'assets/box.json',
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
-                  Center( // Centering the buttons
+                  Center(
+                    // Centering the buttons
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 8, bottom: 8), // Reduced margin
+                          margin: EdgeInsets.only(
+                              top: 8, bottom: 8), // Reduced margin
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
@@ -94,9 +102,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               minimumSize: Size(350, 45), // Reduced size
                               backgroundColor:
                                   Colors.blue, // Warna latar belakang tombol
-                              foregroundColor: Colors.white, // Warna teks tombol
+                              foregroundColor:
+                                  Colors.white, // Warna teks tombol
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 10), // Reduced padding
+                                  horizontal: 15,
+                                  vertical: 10), // Reduced padding
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.circular(8), // Reduced radius
@@ -135,9 +145,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1), // Warna bayangan
-                                offset: Offset(
-                                    0, 0), // Posisi bayangan (horizontal, vertical)
+                                color: Colors.black
+                                    .withOpacity(0.1), // Warna bayangan
+                                offset: Offset(0,
+                                    0), // Posisi bayangan (horizontal, vertical)
                                 blurRadius: 5, // Reduced blur radius
                                 spreadRadius: 1, // Sebaran bayangan
                               ),
@@ -151,10 +162,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               backgroundColor:
                                   Colors.white, // Warna latar belakang tombol
                               foregroundColor: Colors.blue, // Warna teks tombol
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 15, vertical: 10), // Reduced padding
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                  vertical: 10), // Reduced padding
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8), // Reduced radius
+                                borderRadius:
+                                    BorderRadius.circular(8), // Reduced radius
                               ),
                             ),
                             onPressed: () {
@@ -174,8 +187,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       mainAxisAlignment:
                           MainAxisAlignment.center, // Pusatkan secara vertikal
-                      crossAxisAlignment:
-                          CrossAxisAlignment.center, // Pusatkan secara horizontal
+                      crossAxisAlignment: CrossAxisAlignment
+                          .center, // Pusatkan secara horizontal
                       children: [
                         Container(
                           margin: EdgeInsets.only(top: 15), // Reduced margin
@@ -201,7 +214,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      // Aksi navigasi
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => RegistApp()),
+                                      );
                                     },
                                 ),
                               ],
