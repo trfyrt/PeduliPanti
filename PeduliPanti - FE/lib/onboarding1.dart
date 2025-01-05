@@ -1,4 +1,3 @@
-import 'package:donatur_peduli_panti/regist.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/gestures.dart';
@@ -41,14 +40,14 @@ class _MyHomePageState extends State<MyHomePage> {
               CrossAxisAlignment.start, // Pastikan semua elemen rata kiri
           children: <Widget>[
             Container(
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                   vertical: 20,
                   horizontal: 20), // Reduced vertical margin to move content up
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment
                     .start, // Rata kiri untuk teks di dalam Column
                 children: [
-                  Text(
+                  const Text(
                     'Selamat datang di',
                     textAlign: TextAlign.left,
                     style: TextStyle(
@@ -59,14 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text(
                     'Peduli Panti',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Color(0xff2979ff),
+                          color: const Color(0xff2979ff),
                           fontWeight: FontWeight.bold, // Warna biru untuk teks
                         ),
                     textAlign: TextAlign.left,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 8), // Reduced margin
-                    child: Text(
+                    margin: const EdgeInsets.only(top: 8), // Reduced margin
+                    child: const Text(
                       'tempat bertemunya kepedulian dan harapan, di mana setiap uluran tangan menciptakan senyuman, dan setiap harapan membangun masa depan yang lebih cerah.',
                       textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 14), // Reduced font size
@@ -75,10 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   Center(
                     // Centering the Lottie animation
                     child: Container(
-                      margin: EdgeInsets.only(
+                      margin: const EdgeInsets.only(
                           top: 5, bottom: 10), // Adjusted margin
                       child: Lottie.asset(
-                        'assets/box.json',
+                        'assets/box.json', // Ensure the correct path to the asset
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -88,23 +87,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                               top: 8, bottom: 8), // Reduced margin
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Onboarding2App()),
+                                    builder: (context) =>
+                                        const Onboarding2App()),
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              minimumSize: Size(350, 45), // Reduced size
+                              minimumSize: const Size(350, 45), // Reduced size
                               backgroundColor:
                                   Colors.blue, // Warna latar belakang tombol
                               foregroundColor:
                                   Colors.white, // Warna teks tombol
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 15,
                                   vertical: 10), // Reduced padding
                               shape: RoundedRectangleBorder(
@@ -112,10 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     BorderRadius.circular(8), // Reduced radius
                               ),
                             ),
-                            child: Text("Berikutnya"),
+                            child: const Text("Berikutnya"),
                           ),
                         ),
-                        Row(
+                        const Row(
                           children: [
                             Expanded(
                               child: Divider(
@@ -141,13 +141,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 8), // Reduced margin
+                          margin:
+                              const EdgeInsets.only(top: 8), // Reduced margin
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black
                                     .withOpacity(0.1), // Warna bayangan
-                                offset: Offset(0,
+                                offset: const Offset(0,
                                     0), // Posisi bayangan (horizontal, vertical)
                                 blurRadius: 5, // Reduced blur radius
                                 spreadRadius: 1, // Sebaran bayangan
@@ -158,11 +159,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              minimumSize: Size(350, 45), // Reduced size
+                              minimumSize: const Size(350, 45), // Reduced size
                               backgroundColor:
                                   Colors.white, // Warna latar belakang tombol
                               foregroundColor: Colors.blue, // Warna teks tombol
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 15,
                                   vertical: 10), // Reduced padding
                               shape: RoundedRectangleBorder(
@@ -174,10 +175,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => LoginApp()),
+                                    builder: (context) => const LoginApp()),
                               );
                             },
-                            child: Text("Login"),
+                            child: const Text("Login"),
                           ),
                         ),
                       ],
@@ -191,13 +192,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           .center, // Pusatkan secara horizontal
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 15), // Reduced margin
+                          margin:
+                              const EdgeInsets.only(top: 15), // Reduced margin
                           child: RichText(
                             textAlign: TextAlign
                                 .center, // Pastikan teks dalam RichText diratakan ke tengah
                             text: TextSpan(
                               children: [
-                                TextSpan(
+                                const TextSpan(
                                   text:
                                       "Belum punya akun? ", // Teks biasa dengan warna 1
                                   style: TextStyle(
@@ -208,17 +210,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 TextSpan(
                                   text:
                                       "Daftar", // Teks dengan warna 2 yang dapat diklik
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.blue, // Warna 2
                                     fontSize: 14, // Reduced font size
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => RegistApp()),
-                                      );
+                                      // Aksi navigasi
                                     },
                                 ),
                               ],

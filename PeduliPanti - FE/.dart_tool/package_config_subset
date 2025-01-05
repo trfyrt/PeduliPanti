@@ -74,6 +74,10 @@ file
 3.0
 file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.1/
 file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.1/lib/
+file_picker
+2.17
+file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-5.5.0/
+file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-5.5.0/lib/
 file_selector_linux
 3.3
 file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_linux-0.9.3+2/
@@ -326,6 +330,10 @@ web
 3.4
 file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.1.0/
 file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.1.0/lib/
+win32
+3.5
+file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.10.0/
+file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.10.0/lib/
 wkt_parser
 2.12
 file:///C:/Users/Windows%2010/AppData/Local/Pub/Cache/hosted/pub.dev/wkt_parser-2.0.0/

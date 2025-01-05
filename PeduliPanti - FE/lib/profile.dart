@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'editProfile.dart';
+import 'notifikasi.dart'; // Import the notification page
+import 'login.dart'; // Import the login page
+import 'homePanti.dart'; // Changed import to homePanti.dart
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -12,22 +18,143 @@ class _ProfilePageState extends State<ProfilePage> {
   String address =
       "Jl. Contoh Alamat No. 123, Kota, Provinsi"; // New address variable
 
-  int _selectedIndex = 2; // Track the selected index
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index; // Update the selected index
-    });
-    if (index == 0) {
-      Navigator.pop(context);
-    } else if (index == 1) {
-      print("Tab Cek RAB ditekan");
-    }
-  }
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 35),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 147, 181, 255),
+                  tooltip: 'CekRab',
+                  shape: const CircleBorder(),
+                  child: const Icon(
+                    FontAwesomeIcons.handHoldingHeart,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const HomePage(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return child;
+                        },
+                      ), // Halaman profil
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: const Text(
+              "Cek RAB",
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(75, 0, 0, 0),
+              spreadRadius: 8,
+              blurRadius: 30,
+              offset: Offset(0, 20),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20)), // Radius sudut untuk isi
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+            unselectedItemColor: Colors.black.withOpacity(0.6),
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              // Navigasi berdasarkan index item yang dipilih
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HomePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // Tidak ada animasi
+                    },
+                  ), // Halaman utama
+                );
+              } else if (index == 1) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HomePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // Tidak ada animasi
+                    },
+                  ), // Halaman utama
+                );
+              } else if (index == 2) {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const ProfilePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                label: 'Utama',
+                icon: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(FontAwesomeIcons.house),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: '',
+                icon: SizedBox.shrink(),
+              ),
+              BottomNavigationBarItem(
+                label: 'Profil',
+                icon: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(FontAwesomeIcons.solidUser),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      backgroundColor: const Color.fromARGB(255, 255, 251, 251),
       body: SingleChildScrollView(
         // Changed to SingleChildScrollView for overall scrolling
         child: Stack(
@@ -39,26 +166,27 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.4,
                     decoration: BoxDecoration(
-                      color: Colors.lightBlue[100],
-                      borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(16.0)),
+                      color: Colors.blue[50], // Background color
+                      borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(16.0)),
                     ),
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             radius: 50,
-                            backgroundImage: AssetImage('pedulipanti.png'),
+                            backgroundImage: AssetImage(
+                                'assets/pedulipanti.png'), // Updated asset path
                           ),
-                          SizedBox(height: 16),
-                          Text(
+                          const SizedBox(height: 16),
+                          const Text(
                             "Nama Pengurus: John Doe",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 8),
-                          Row(
+                          const SizedBox(height: 8),
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.child_care),
@@ -66,7 +194,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               Text("Jumlah Anak: 25"),
                             ],
                           ),
-                          SizedBox(height: 8), // Add space before the button
+                          const SizedBox(
+                              height: 8), // Add space before the button
                           ElevatedButton(
                             onPressed: () {
                               // Navigate to EditProfilePage when pressed
@@ -77,42 +206,45 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               );
                             },
-                            child: Text("Edit Profile"),
+                            child: const Text("Edit Profile"),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0), // Add padding to the left
+                  const SizedBox(height: 16),
+                  const Padding(
+                    padding:
+                        EdgeInsets.only(left: 16.0), // Add padding to the left
                     child: Text(
                       "List Kebutuhan:",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   // Removed Expanded and ListView to allow overall scrolling
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
+                      color: const Color.fromARGB(
+                          255, 230, 247, 255), // Set card color to light blue
                       child: Row(
                         children: [
                           Expanded(
                             child: ListTile(
                               contentPadding:
-                                  EdgeInsets.symmetric(vertical: 8.0),
+                                  const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset('pedulipanti.png',
+                                  Image.asset(
+                                      'assets/pedulipanti.png', // Updated asset path
                                       width: 60,
                                       height: 60,
                                       alignment: Alignment.center),
-                                  SizedBox(width: 8),
-                                  Column(
+                                  const SizedBox(width: 8),
+                                  const Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -135,31 +267,34 @@ class _ProfilePageState extends State<ProfilePage> {
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                             alignment: Alignment.center,
-                            margin: EdgeInsets.only(right: 8.0),
+                            margin: const EdgeInsets.only(right: 8.0),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
+                      color: const Color.fromARGB(
+                          255, 230, 247, 255), // Set card color to light blue
                       child: Row(
                         children: [
                           Expanded(
                             child: ListTile(
                               contentPadding:
-                                  EdgeInsets.symmetric(vertical: 8.0),
+                                  const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset('pedulipanti.png',
+                                  Image.asset(
+                                      'assets/pedulipanti.png', // Updated asset path
                                       width: 60,
                                       height: 60,
                                       alignment: Alignment.center),
-                                  SizedBox(width: 8),
-                                  Column(
+                                  const SizedBox(width: 8),
+                                  const Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -182,31 +317,34 @@ class _ProfilePageState extends State<ProfilePage> {
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                             alignment: Alignment.center,
-                            margin: EdgeInsets.only(right: 8.0),
+                            margin: const EdgeInsets.only(right: 8.0),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0), // Add horizontal padding to cards
                     child: Card(
+                      color: const Color.fromARGB(
+                          255, 230, 247, 255), // Set card color to light blue
                       child: Row(
                         children: [
                           Expanded(
                             child: ListTile(
                               contentPadding:
-                                  EdgeInsets.symmetric(vertical: 8.0),
+                                  const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset('pedulipanti.png',
+                                  Image.asset(
+                                      'assets/pedulipanti.png', // Updated asset path
                                       width: 60,
                                       height: 60,
                                       alignment: Alignment.center),
-                                  SizedBox(width: 8),
-                                  Column(
+                                  const SizedBox(width: 8),
+                                  const Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -221,7 +359,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.only(right: 8.0),
                             child: Icon(
                               Icons.access_time,
@@ -233,33 +371,35 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   // New Card for Description at the bottom
                   // Card untuk Deskripsi Panti Asuhan
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0), // Tambahkan padding horizontal
                     child: Container(
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         minHeight: 100, // Minimum height for description card
                       ),
                       width:
                           double.infinity, // Use double.infinity for full width
                       child: Card(
+                        color: const Color.fromARGB(
+                            255, 230, 247, 255), // Set card color to light blue
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Deskripsi Panti Asuhan",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 description,
-                                style: TextStyle(fontSize: 14),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             ],
                           ),
@@ -268,31 +408,33 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
 
-                  SizedBox(height: 8), // Jarak sebelum card alamat
+                  const SizedBox(height: 8), // Jarak sebelum card alamat
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0), // Tambahkan padding horizontal
                     child: Container(
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         minHeight: 100, // Minimum height for address card
                       ),
                       width:
                           double.infinity, // Use double.infinity for full width
                       child: Card(
+                        color: const Color.fromARGB(
+                            255, 230, 247, 255), // Set card color to light blue
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Alamat Panti Asuhan",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 address,
-                                style: TextStyle(fontSize: 14),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             ],
                           ),
@@ -300,7 +442,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 25), // Added space after the address card
+                  const SizedBox(
+                      height: 25), // Added space after the address card
                 ],
               ),
             ),
@@ -308,10 +451,16 @@ class _ProfilePageState extends State<ProfilePage> {
               left: 16, // Position the logout icon to the left
               top: 16,
               child: IconButton(
-                icon: Icon(Icons.logout),
+                icon: const Icon(Icons.logout,
+                    color: Colors.black), // Changed color to black
                 onPressed: () {
-                  // Handle logout action here
-                  print("Logout pressed");
+                  // Navigate to LoginPage when pressed
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginApp(),
+                    ),
+                  );
                 },
               ),
             ),
@@ -321,25 +470,32 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Stack(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.notifications),
+                    icon: const Icon(Icons.notifications,
+                        color: Colors.black), // Changed color to black
                     onPressed: () {
-                      print("Notifikasi ditekan");
+                      // Navigate to NotificationPage when pressed
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationPage(),
+                        ),
+                      );
                     },
                   ),
                   Positioned(
                     right: 0,
                     top: 0,
                     child: Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.all(2),
+                      decoration: const BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,
                       ),
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         minWidth: 16,
                         minHeight: 16,
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           '1',
                           style: TextStyle(
@@ -356,27 +512,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 232, 243, 255),
-        selectedItemColor: const Color.fromARGB(255, 202, 222, 243),
-        unselectedItemColor: Colors.black54,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Utama',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.file_copy),
-            label: 'Cek RAB',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profil',
-          ),
-        ],
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:donatur_peduli_panti/notifikasi.dart';
+
 import 'homePanti.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _locationData = await location.getLocation();
     if (_locationData != null) {
-      print('Latitude: ${_locationData!.latitude}, Longitude: ${_locationData!.longitude}');
+      print(
+          'Latitude: ${_locationData!.latitude}, Longitude: ${_locationData!.longitude}');
     }
   }
   // _MyHomePageState();
@@ -605,11 +608,12 @@ class _MyHomePageState extends State<MyHomePage> {
             right: 15,
             child: GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => CartPage()), // Halaman tujuan
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          NotificationPage()), // Navigate to Notifikasi page
+                );
               },
               child: Container(
                 padding: const EdgeInsets.all(12),
@@ -618,7 +622,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: const Icon(
-                  FontAwesomeIcons.bell, // Changed from cart to notification icon
+                  FontAwesomeIcons
+                      .bell, // Changed from cart to notification icon
                   size: 20,
                 ),
               ),
