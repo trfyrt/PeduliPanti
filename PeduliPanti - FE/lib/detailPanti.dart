@@ -1,5 +1,4 @@
-import 'package:donatur_peduli_panti/notifikasi.dart';
-
+import 'package:donatur_peduli_panti/notifikasiPAN.dart';
 import 'homePanti.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +7,6 @@ import 'package:location/location.dart';
 import 'package:flutter_map/flutter_map.dart';
 
 class DetailPanti extends StatelessWidget {
-  // const DetailPantiApp({super.key});
   const DetailPanti({super.key});
 
   @override
@@ -72,27 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
           'Latitude: ${_locationData!.latitude}, Longitude: ${_locationData!.longitude}');
     }
   }
-  // _MyHomePageState();
-
-  // // URL Google Maps (ubah sesuai lokasi yang diinginkan)
-  // final String googleMapsUrl = "https://maps.app.goo.gl/i897ZB6Uco8eFWeU7";
-
-  // // Fungsi untuk membuka URL Google Maps
-  // Future<void> _launchMaps() async {
-  //   final Uri url = Uri.parse(googleMapsUrl);
-  //   try {
-  //     print("Mengecek apakah URL dapat diluncurkan...");
-  //     if (await canLaunchUrl(url)) {
-  //       print("Meluncurkan URL...");
-  //       await launchUrl(url, mode: LaunchMode.externalApplication);
-  //     } else {
-  //       print("URL tidak dapat diluncurkan.");
-  //       throw 'Tidak dapat membuka URL: $url';
-  //     }
-  //   } catch (e) {
-  //     print("Error: $e");
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

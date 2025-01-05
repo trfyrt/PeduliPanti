@@ -1,6 +1,6 @@
+import 'package:donatur_peduli_panti/notifikasiPAN.dart';
 import 'package:flutter/material.dart';
 import 'editProfile.dart';
-import 'notifikasi.dart'; // Import the notification page
 import 'login.dart'; // Import the login page
 import 'homePanti.dart'; // Changed import to homePanti.dart
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

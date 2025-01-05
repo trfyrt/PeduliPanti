@@ -1,10 +1,10 @@
+import 'package:donatur_peduli_panti/notifikasiPAN.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'profile.dart';
 import 'detailPanti.dart'; // Import the detailPanti.dart file
 import 'reqBarang.dart'; // Import the reqBarang.dart file
 import 'cekRab.dart'; // Import the cekRab.dart file
-import 'notifikasi.dart'; // Import the notifikasi.dart file
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyApp extends StatelessWidget {
