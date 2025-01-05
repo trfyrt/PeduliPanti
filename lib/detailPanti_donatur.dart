@@ -1,4 +1,5 @@
 import 'package:donatur_peduli_panti/homeDonatur.dart';
+import 'package:donatur_peduli_panti/market.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
@@ -616,8 +617,11 @@ class _MyHomePageState extends State<MyHomePage> {
             alignment: Alignment.center,
             child: ElevatedButton(
               onPressed: () {
-                // Aksi ketika tombol ditekan
-                print('Mulai Berdonasi ditekan');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Market()), // Halaman tujuan
+                );
               },
               style: ElevatedButton.styleFrom(
                 elevation: 0, // Hilangkan bayangan

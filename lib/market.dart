@@ -1,6 +1,7 @@
+import 'package:donatur_peduli_panti/donasi.dart';
+import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Market extends StatefulWidget {
   const Market({super.key});
@@ -520,30 +521,60 @@ class _MarketPage extends State<MarketPage> {
           Positioned(
             top: 40,
             right: 15,
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 147, 181, 255),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: const Icon(
-                FontAwesomeIcons.cartShopping,
-                size: 20,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Keranjang(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 147, 181, 255),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const Icon(
+                  FontAwesomeIcons.cartShopping,
+                  size: 20,
+                ),
               ),
             ),
           ),
           Positioned(
             top: 40,
             left: 15,
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 147, 181, 255),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: const Icon(
-                FontAwesomeIcons.angleLeft,
-                size: 20,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Donasi(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 147, 181, 255),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const Icon(
+                  FontAwesomeIcons.angleLeft,
+                  size: 20,
+                ),
               ),
             ),
           ),
@@ -560,12 +591,10 @@ class _MarketPage extends State<MarketPage> {
                     topRight: Radius.circular(15)),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey
-                        .withOpacity(0.3),
+                    color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset:
-                        Offset(0, -2),
+                    offset: Offset(0, -2),
                   ),
                 ],
               ),

@@ -1,4 +1,6 @@
 import 'package:donatur_peduli_panti/donasi.dart';
+import 'package:donatur_peduli_panti/keranjang.dart';
+import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
@@ -131,10 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ), // Halaman utama
                 );
               } else if (index == 1) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => NotificationPage()), // Halaman notifikasi
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Notifikasi(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
               } else if (index == 3) {
                 // Navigator.push(
                 //   context,
@@ -539,17 +548,32 @@ class _MyHomePageState extends State<MyHomePage> {
         Positioned(
           top: 40,
           right: 15,
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 250, 250, 250),
-              borderRadius: BorderRadius.circular(30),
-            ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const Keranjang(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return child;
+                  },
+                ), // Halaman profil
+              );
+            },
             child: Container(
-              margin: const EdgeInsets.only(right: 1),
-              child: const Icon(
-                FontAwesomeIcons.cartShopping,
-                size: 20,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 250, 250, 250),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Container(
+                margin: const EdgeInsets.only(right: 1),
+                child: const Icon(
+                  FontAwesomeIcons.cartShopping,
+                  size: 20,
+                ),
               ),
             ),
           ),
