@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\RABController;
 use App\Http\Controllers\Api\V1\RequestListController;
 use App\Http\Controllers\Api\V1\TransactionOrderController;
+use App\Http\Controllers\Api\V1\OrderController;
 
 // api/v1
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function(){
@@ -21,7 +22,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::put('/user/{id}', [UserController::class, 'update']);
         Route::delete('/user/{id}', [UserController::class, 'destroy']);
     });
-    
+
     Route::apiResource('bundle', BundleController::class);
     Route::apiResource('cart', CartController::class);
     Route::apiResource('category', CategoryController::class);
@@ -34,14 +35,18 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::get('/history/{id}', [TransactionOrderController::class, 'showByUser']);
 
     Route::patch('panti_detail/{id}/calculate', [PantiDetailController::class, 'calculatePriorities']);
-    
+
     Route::patch('request_list/{id}/status', [RequestListController::class, 'updateStatus']);
 
     Route::post('/register', [UserController::class, 'store']);
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');    
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
+
     
-    
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::post('/orders/payment', [OrderController::class, 'payment']);
+    Route::post('/orders/notification', [OrderController::class, 'notificationHandler']);
+
     // Route::apiResource('user', UserController::class);
     // Route::apiResource('bundle_product', BundleProductController::class);
     // Route::apiResource('cart_product_bundle', CartProductBundleController::class);
