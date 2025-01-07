@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // Action to expand the image
                         },
                         child: Lottie.asset(
-                          'assets/donate.json',
+                          'assets/animation/donate.json',
                           fit: BoxFit.contain,
                           height: 350, // Increased height for Lottie animation
                         ),

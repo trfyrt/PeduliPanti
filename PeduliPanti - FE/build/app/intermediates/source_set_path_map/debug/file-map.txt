@@ -1,33 +1,49 @@
 com.example.donatur_peduli_panti.app-jetified-profileinstaller-1.3.1-0 C:\Users\ASUS\.gradle\caches\transforms-3\0340021b3489d80aa8660951d8ecb037\transformed\jetified-profileinstaller-1.3.1\res
 com.example.donatur_peduli_panti.app-lifecycle-runtime-2.7.0-1 C:\Users\ASUS\.gradle\caches\transforms-3\05b4c14d426f1aa9f09ed38b5b65137c\transformed\lifecycle-runtime-2.7.0\res
-com.example.donatur_peduli_panti.app-jetified-activity-1.9.2-2 C:\Users\ASUS\.gradle\caches\transforms-3\53906f9eb95a0e5bb01b7e08fa2676e2\transformed\jetified-activity-1.9.2\res
-com.example.donatur_peduli_panti.app-jetified-core-ktx-1.13.1-3 C:\Users\ASUS\.gradle\caches\transforms-3\5c0d0f8d842981eb762badd4b75fa446\transformed\jetified-core-ktx-1.13.1\res
-com.example.donatur_peduli_panti.app-jetified-lifecycle-viewmodel-savedstate-2.7.0-4 C:\Users\ASUS\.gradle\caches\transforms-3\6cadd9128dea16850a3c6e0f7cd9ed79\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\res
-com.example.donatur_peduli_panti.app-core-1.13.1-5 C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\res
-com.example.donatur_peduli_panti.app-core-runtime-2.2.0-6 C:\Users\ASUS\.gradle\caches\transforms-3\7fb74b8930726ba66e99632c18ba0d2c\transformed\core-runtime-2.2.0\res
-com.example.donatur_peduli_panti.app-jetified-window-1.2.0-7 C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\res
-com.example.donatur_peduli_panti.app-jetified-lifecycle-process-2.7.0-8 C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\res
-com.example.donatur_peduli_panti.app-jetified-lifecycle-livedata-core-ktx-2.7.0-9 C:\Users\ASUS\.gradle\caches\transforms-3\902958fa02c9f6a553cb6e83d34e1c6b\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\res
-com.example.donatur_peduli_panti.app-jetified-startup-runtime-1.1.1-10 C:\Users\ASUS\.gradle\caches\transforms-3\97ce4df35bdce0799646b2c479ce2f0f\transformed\jetified-startup-runtime-1.1.1\res
-com.example.donatur_peduli_panti.app-jetified-window-java-1.2.0-11 C:\Users\ASUS\.gradle\caches\transforms-3\a66ae50dca1e345bddd3f7c7e9aa3204\transformed\jetified-window-java-1.2.0\res
-com.example.donatur_peduli_panti.app-lifecycle-livedata-core-2.7.0-12 C:\Users\ASUS\.gradle\caches\transforms-3\ab0c0df8b85f193a2e02af902f19fb50\transformed\lifecycle-livedata-core-2.7.0\res
-com.example.donatur_peduli_panti.app-jetified-play-services-base-18.3.0-13 C:\Users\ASUS\.gradle\caches\transforms-3\b14e688248f4f6b73eb3693cb7ce517a\transformed\jetified-play-services-base-18.3.0\res
-com.example.donatur_peduli_panti.app-jetified-play-services-basement-18.3.0-14 C:\Users\ASUS\.gradle\caches\transforms-3\c35123e8437b3bf86b4844ec8f7533d5\transformed\jetified-play-services-basement-18.3.0\res
-com.example.donatur_peduli_panti.app-fragment-1.7.1-15 C:\Users\ASUS\.gradle\caches\transforms-3\c3bb2f8d9514997405f7a6ebe1f6c3a4\transformed\fragment-1.7.1\res
-com.example.donatur_peduli_panti.app-jetified-annotation-experimental-1.4.0-16 C:\Users\ASUS\.gradle\caches\transforms-3\cff5e296c92e9b3bea1ff044788c727d\transformed\jetified-annotation-experimental-1.4.0\res
-com.example.donatur_peduli_panti.app-lifecycle-viewmodel-2.7.0-17 C:\Users\ASUS\.gradle\caches\transforms-3\d11697234e241019030a0b7089ad0e2d\transformed\lifecycle-viewmodel-2.7.0\res
-com.example.donatur_peduli_panti.app-lifecycle-livedata-2.7.0-18 C:\Users\ASUS\.gradle\caches\transforms-3\d92782a9b20fc98c78dd11f5b4adaa32\transformed\lifecycle-livedata-2.7.0\res
-com.example.donatur_peduli_panti.app-jetified-savedstate-1.2.1-19 C:\Users\ASUS\.gradle\caches\transforms-3\dafa421bf722146baa086590a2a13c32\transformed\jetified-savedstate-1.2.1\res
-com.example.donatur_peduli_panti.app-jetified-core-1.0.0-20 C:\Users\ASUS\.gradle\caches\transforms-3\dbce10e3c7818bda00db33c724b5d9e1\transformed\jetified-core-1.0.0\res
-com.example.donatur_peduli_panti.app-jetified-tracing-1.2.0-21 C:\Users\ASUS\.gradle\caches\transforms-3\e6cc43d80a218c4c230dc39c3378c3a0\transformed\jetified-tracing-1.2.0\res
-com.example.donatur_peduli_panti.app-debug-22 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\res
-com.example.donatur_peduli_panti.app-main-23 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\res
-com.example.donatur_peduli_panti.app-pngs-24 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\app\generated\res\pngs\debug
-com.example.donatur_peduli_panti.app-resValues-25 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\app\generated\res\resValues\debug
-com.example.donatur_peduli_panti.app-rs-26 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\app\generated\res\rs\debug
-com.example.donatur_peduli_panti.app-mergeDebugResources-27 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.example.donatur_peduli_panti.app-mergeDebugResources-28 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.example.donatur_peduli_panti.app-merged_res-29 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\app\intermediates\merged_res\debug
-com.example.donatur_peduli_panti.app-packaged_res-30 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\debug
-com.example.donatur_peduli_panti.app-packaged_res-31 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\packaged_res\debug
-com.example.donatur_peduli_panti.app-packaged_res-32 D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\packaged_res\debug
+com.example.donatur_peduli_panti.app-preference-1.2.1-2 C:\Users\ASUS\.gradle\caches\transforms-3\0744fc8324b3cce2666c07ed184c61ed\transformed\preference-1.2.1\res
+com.example.donatur_peduli_panti.app-recyclerview-1.0.0-3 C:\Users\ASUS\.gradle\caches\transforms-3\1dce345f69a733f92078a6c1f723a995\transformed\recyclerview-1.0.0\res
+com.example.donatur_peduli_panti.app-jetified-appcompat-resources-1.1.0-4 C:\Users\ASUS\.gradle\caches\transforms-3\35f8c6241582d12b4809553937db58c6\transformed\jetified-appcompat-resources-1.1.0\res
+com.example.donatur_peduli_panti.app-jetified-lifecycle-runtime-ktx-2.7.0-5 C:\Users\ASUS\.gradle\caches\transforms-3\48829133b3ef6ce9d00793161111f4e2\transformed\jetified-lifecycle-runtime-ktx-2.7.0\res
+com.example.donatur_peduli_panti.app-appcompat-1.1.0-6 C:\Users\ASUS\.gradle\caches\transforms-3\4d07cb36d13b0ebf9dffc17582130141\transformed\appcompat-1.1.0\res
+com.example.donatur_peduli_panti.app-jetified-activity-1.9.2-7 C:\Users\ASUS\.gradle\caches\transforms-3\53906f9eb95a0e5bb01b7e08fa2676e2\transformed\jetified-activity-1.9.2\res
+com.example.donatur_peduli_panti.app-jetified-core-ktx-1.13.1-8 C:\Users\ASUS\.gradle\caches\transforms-3\5c0d0f8d842981eb762badd4b75fa446\transformed\jetified-core-ktx-1.13.1\res
+com.example.donatur_peduli_panti.app-jetified-lifecycle-viewmodel-savedstate-2.7.0-9 C:\Users\ASUS\.gradle\caches\transforms-3\6cadd9128dea16850a3c6e0f7cd9ed79\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\res
+com.example.donatur_peduli_panti.app-core-1.13.1-10 C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\res
+com.example.donatur_peduli_panti.app-jetified-lifecycle-viewmodel-ktx-2.7.0-11 C:\Users\ASUS\.gradle\caches\transforms-3\73c44fa57efec8bf66bd08732a268bb7\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\res
+com.example.donatur_peduli_panti.app-core-runtime-2.2.0-12 C:\Users\ASUS\.gradle\caches\transforms-3\7fb74b8930726ba66e99632c18ba0d2c\transformed\core-runtime-2.2.0\res
+com.example.donatur_peduli_panti.app-jetified-window-1.2.0-13 C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\res
+com.example.donatur_peduli_panti.app-jetified-datastore-1.0.0-14 C:\Users\ASUS\.gradle\caches\transforms-3\8222b369152407be577fe99cb0851760\transformed\jetified-datastore-1.0.0\res
+com.example.donatur_peduli_panti.app-jetified-fragment-ktx-1.7.1-15 C:\Users\ASUS\.gradle\caches\transforms-3\86e1b6470a6f13d36b1ccd5515e09ab5\transformed\jetified-fragment-ktx-1.7.1\res
+com.example.donatur_peduli_panti.app-jetified-lifecycle-process-2.7.0-16 C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\res
+com.example.donatur_peduli_panti.app-jetified-lifecycle-livedata-core-ktx-2.7.0-17 C:\Users\ASUS\.gradle\caches\transforms-3\902958fa02c9f6a553cb6e83d34e1c6b\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\res
+com.example.donatur_peduli_panti.app-jetified-datastore-preferences-1.0.0-18 C:\Users\ASUS\.gradle\caches\transforms-3\9748dd6cd2c8ababc6447495d5ba882a\transformed\jetified-datastore-preferences-1.0.0\res
+com.example.donatur_peduli_panti.app-jetified-startup-runtime-1.1.1-19 C:\Users\ASUS\.gradle\caches\transforms-3\97ce4df35bdce0799646b2c479ce2f0f\transformed\jetified-startup-runtime-1.1.1\res
+com.example.donatur_peduli_panti.app-slidingpanelayout-1.2.0-20 C:\Users\ASUS\.gradle\caches\transforms-3\9b9d3ee68ce8cbb69e484301d7fcc223\transformed\slidingpanelayout-1.2.0\res
+com.example.donatur_peduli_panti.app-jetified-window-java-1.2.0-21 C:\Users\ASUS\.gradle\caches\transforms-3\a66ae50dca1e345bddd3f7c7e9aa3204\transformed\jetified-window-java-1.2.0\res
+com.example.donatur_peduli_panti.app-lifecycle-livedata-core-2.7.0-22 C:\Users\ASUS\.gradle\caches\transforms-3\ab0c0df8b85f193a2e02af902f19fb50\transformed\lifecycle-livedata-core-2.7.0\res
+com.example.donatur_peduli_panti.app-jetified-play-services-base-18.3.0-23 C:\Users\ASUS\.gradle\caches\transforms-3\b14e688248f4f6b73eb3693cb7ce517a\transformed\jetified-play-services-base-18.3.0\res
+com.example.donatur_peduli_panti.app-coordinatorlayout-1.0.0-24 C:\Users\ASUS\.gradle\caches\transforms-3\c25286bad7f7229ca79cfa25f490a717\transformed\coordinatorlayout-1.0.0\res
+com.example.donatur_peduli_panti.app-jetified-play-services-basement-18.3.0-25 C:\Users\ASUS\.gradle\caches\transforms-3\c35123e8437b3bf86b4844ec8f7533d5\transformed\jetified-play-services-basement-18.3.0\res
+com.example.donatur_peduli_panti.app-fragment-1.7.1-26 C:\Users\ASUS\.gradle\caches\transforms-3\c3bb2f8d9514997405f7a6ebe1f6c3a4\transformed\fragment-1.7.1\res
+com.example.donatur_peduli_panti.app-transition-1.4.1-27 C:\Users\ASUS\.gradle\caches\transforms-3\c42edf461fb55b5fb60525ba144b7a3d\transformed\transition-1.4.1\res
+com.example.donatur_peduli_panti.app-jetified-savedstate-ktx-1.2.1-28 C:\Users\ASUS\.gradle\caches\transforms-3\cd26dd341ee8161debcda60877103a55\transformed\jetified-savedstate-ktx-1.2.1\res
+com.example.donatur_peduli_panti.app-jetified-annotation-experimental-1.4.0-29 C:\Users\ASUS\.gradle\caches\transforms-3\cff5e296c92e9b3bea1ff044788c727d\transformed\jetified-annotation-experimental-1.4.0\res
+com.example.donatur_peduli_panti.app-lifecycle-viewmodel-2.7.0-30 C:\Users\ASUS\.gradle\caches\transforms-3\d11697234e241019030a0b7089ad0e2d\transformed\lifecycle-viewmodel-2.7.0\res
+com.example.donatur_peduli_panti.app-lifecycle-livedata-2.7.0-31 C:\Users\ASUS\.gradle\caches\transforms-3\d92782a9b20fc98c78dd11f5b4adaa32\transformed\lifecycle-livedata-2.7.0\res
+com.example.donatur_peduli_panti.app-jetified-savedstate-1.2.1-32 C:\Users\ASUS\.gradle\caches\transforms-3\dafa421bf722146baa086590a2a13c32\transformed\jetified-savedstate-1.2.1\res
+com.example.donatur_peduli_panti.app-jetified-core-1.0.0-33 C:\Users\ASUS\.gradle\caches\transforms-3\dbce10e3c7818bda00db33c724b5d9e1\transformed\jetified-core-1.0.0\res
+com.example.donatur_peduli_panti.app-jetified-activity-ktx-1.9.2-34 C:\Users\ASUS\.gradle\caches\transforms-3\dd048d8093cd68f30a37f43abe07ca00\transformed\jetified-activity-ktx-1.9.2\res
+com.example.donatur_peduli_panti.app-jetified-tracing-1.2.0-35 C:\Users\ASUS\.gradle\caches\transforms-3\e6cc43d80a218c4c230dc39c3378c3a0\transformed\jetified-tracing-1.2.0\res
+com.example.donatur_peduli_panti.app-debug-36 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\res
+com.example.donatur_peduli_panti.app-main-37 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\res
+com.example.donatur_peduli_panti.app-pngs-38 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\app\generated\res\pngs\debug
+com.example.donatur_peduli_panti.app-resValues-39 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\app\generated\res\resValues\debug
+com.example.donatur_peduli_panti.app-rs-40 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\app\generated\res\rs\debug
+com.example.donatur_peduli_panti.app-mergeDebugResources-41 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.donatur_peduli_panti.app-mergeDebugResources-42 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.donatur_peduli_panti.app-merged_res-43 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\app\intermediates\merged_res\debug
+com.example.donatur_peduli_panti.app-packaged_res-44 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\packaged_res\debug
+com.example.donatur_peduli_panti.app-packaged_res-45 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\debug
+com.example.donatur_peduli_panti.app-packaged_res-46 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\packaged_res\debug
+com.example.donatur_peduli_panti.app-packaged_res-47 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\packaged_res\debug
+com.example.donatur_peduli_panti.app-packaged_res-48 D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\shared_preferences_android\intermediates\packaged_res\debug

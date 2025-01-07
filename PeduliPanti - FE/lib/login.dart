@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 margin: EdgeInsets.only(top: 50),
                 child: Image.asset(
-                  'pedulipanti.png',
+                  'assets/img/pedulipanti.png',
                   height: 100,
                 ),
               ),
