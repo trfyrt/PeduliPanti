@@ -1,4 +1,10 @@
 import 'package:donatur_peduli_panti/donasi.dart';
+import 'package:donatur_peduli_panti/keranjang.dart';
+import 'package:donatur_peduli_panti/regist.dart';
+import 'package:donatur_peduli_panti/statusBayar.dart';
+import 'package:donatur_peduli_panti/statusKemas.dart';
+import 'package:donatur_peduli_panti/statusKirim.dart';
+import 'package:donatur_peduli_panti/statusSelesai.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
@@ -273,92 +279,153 @@ class _MyHomePageState extends State<MyHomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     // Navigator.push(
-                              //     //   context,
-                              //     //   MaterialPageRoute(builder: (context) => SelesaiPage())
-                              //     // );
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 23, vertical: 20),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      child: Icon(FontAwesomeIcons.wallet,
-                                          color: Color.fromARGB(
-                                              255, 82, 104, 157)),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigasi ke halaman lain
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          StatusBayar(),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        return child; // Tidak ada animasi
+                                      },
                                     ),
-                                    Text(
-                                      'Bayar',
-                                      style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 82, 104, 157)),
-                                    ),
-                                  ],
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 23, vertical: 20),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Icon(FontAwesomeIcons.wallet,
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      ),
+                                      Text(
+                                        'Bayar',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              // },
-                              // ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 23, vertical: 20),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      child: Icon(FontAwesomeIcons.boxesPacking,
-                                          color: Color.fromARGB(
-                                              255, 82, 104, 157)),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigasi ke halaman lain
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          StatusKemas(),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        return child; // Tidak ada animasi
+                                      },
                                     ),
-                                    Text(
-                                      'Dikemas',
-                                      style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 82, 104, 157)),
-                                    )
-                                  ],
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 23, vertical: 20),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Icon(
+                                            FontAwesomeIcons.boxesPacking,
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      ),
+                                      Text(
+                                        'Dikemas',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 23, vertical: 20),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      child: Icon(FontAwesomeIcons.truck,
-                                          color: Color.fromARGB(
-                                              255, 82, 104, 157)),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigasi ke halaman lain
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          StatusKirim(),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        return child; // Tidak ada animasi
+                                      },
                                     ),
-                                    Text(
-                                      'Dikirim',
-                                      style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 82, 104, 157)),
-                                    )
-                                  ],
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 23, vertical: 20),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Icon(FontAwesomeIcons.truck,
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      ),
+                                      Text(
+                                        'Dikirim',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 23, vertical: 20),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      child: Icon(FontAwesomeIcons.box,
-                                          color: Color.fromARGB(
-                                              255, 82, 104, 157)),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigasi ke halaman lain
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          StatusSelesai(),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        return child; // Tidak ada animasi
+                                      },
                                     ),
-                                    Text(
-                                      'Selesai',
-                                      style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 82, 104, 157)),
-                                    )
-                                  ],
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 23, vertical: 20),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Icon(FontAwesomeIcons.box,
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      ),
+                                      Text(
+                                        'Selesai',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -419,24 +486,45 @@ class _MyHomePageState extends State<MyHomePage> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text("Konfirmasi"),
-                                  content:
-                                      Text("Apakah Anda yakin ingin keluar?"),
+                                  title: Text("Konfirmasi Keluar"),
+                                  content: Text(
+                                      "Apakah Anda yakin ingin keluar dari akun Anda?"),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
                                         Navigator.of(context)
                                             .pop(); // Menutup dialog
                                       },
-                                      child: Text("Batal"),
+                                      child: Text(
+                                        "Batal",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      ),
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.of(context)
-                                            .pop(); // Menutup dialog
-                                        // Tambahkan aksi lain seperti logout di sini
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                    secondaryAnimation) =>
+                                                RegistApp(),
+                                            transitionsBuilder: (context,
+                                                animation,
+                                                secondaryAnimation,
+                                                child) {
+                                              return child; // Tidak ada animasi
+                                            },
+                                          ),
+                                        );
                                       },
-                                      child: Text("Keluar"),
+                                      child: Text(
+                                        "Keluar",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 82, 104, 157)),
+                                      ),
                                     ),
                                   ],
                                 );
@@ -488,17 +576,33 @@ class _MyHomePageState extends State<MyHomePage> {
         Positioned(
           top: 40,
           right: 15,
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 250, 250, 250),
-              borderRadius: BorderRadius.circular(30),
-            ),
+          child: GestureDetector(
+            onTap: () {
+              // Navigasi ke halaman lain
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      Keranjang(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return child; // Tidak ada animasi
+                  },
+                ),
+              );
+            },
             child: Container(
-              margin: const EdgeInsets.only(right: 1),
-              child: const Icon(
-                FontAwesomeIcons.cartShopping,
-                size: 20,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 250, 250, 250),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Container(
+                margin: const EdgeInsets.only(right: 1),
+                child: const Icon(
+                  FontAwesomeIcons.cartShopping,
+                  size: 20,
+                ),
               ),
             ),
           ),

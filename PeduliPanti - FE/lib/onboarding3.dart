@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         top: 20,
                         bottom: 20), // Menambahkan jarak atas untuk animasi
                     child: Lottie.asset(
-                      'assets/asset3.json',
+                      'assets/animation/asset3.json',
                       fit: BoxFit.contain,
                       height: 450, // Set a specific height for the animation
                     ),

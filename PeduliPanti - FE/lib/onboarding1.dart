@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       margin: const EdgeInsets.only(
                           top: 5, bottom: 10), // Adjusted margin
                       child: Lottie.asset(
-                        'assets/box.json', // Ensure the correct path to the asset
+                        'assets/animation/box.json', // Ensure the correct path to the asset
                         fit: BoxFit.contain,
                       ),
                     ),

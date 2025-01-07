@@ -1,10 +1,10 @@
 -- Merging decision tree log ---
 application
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:2:5-33:19
-MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-34:19
-MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-34:19
-MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-18:19
-MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-18:19
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:2:5-33:19
+MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-34:19
+MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-34:19
+MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-18:19
+MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-18:19
 MERGED from [com.google.android.gms:play-services-location:21.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\dc5604ebc0b1d7479b91a17708a7b609\transformed\jetified-play-services-location-21.2.0\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-location:21.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\dc5604ebc0b1d7479b91a17708a7b609\transformed\jetified-play-services-location-21.2.0\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-base:18.3.0] C:\Users\ASUS\.gradle\caches\transforms-3\b14e688248f4f6b73eb3693cb7ce517a\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:19:5-23:19
@@ -15,10 +15,10 @@ MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\ASUS
 MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\ASUS\.gradle\caches\transforms-3\c35123e8437b3bf86b4844ec8f7533d5\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:20:5-24:19
 MERGED from [androidx.window:window:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\AndroidManifest.xml:22:5-29:19
 MERGED from [androidx.window:window:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\AndroidManifest.xml:22:5-29:19
-MERGED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:28:5-89
-MERGED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:28:5-89
 MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:28:5-89
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ASUS\.gradle\caches\transforms-3\0340021b3489d80aa8660951d8ecb037\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:23:5-53:19
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ASUS\.gradle\caches\transforms-3\0340021b3489d80aa8660951d8ecb037\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:23:5-53:19
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\ASUS\.gradle\caches\transforms-3\97ce4df35bdce0799646b2c479ce2f0f\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
@@ -28,37 +28,60 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\AS
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
 	android:name
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-MERGED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-36:12
-MERGED from [:flutter_plugin_android_lifecycle] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-20:12
+ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+MERGED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+MERGED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-19:12
+MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-36:12
+MERGED from [:flutter_plugin_android_lifecycle] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-20:12
+MERGED from [:shared_preferences_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-location:21.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\dc5604ebc0b1d7479b91a17708a7b609\transformed\jetified-play-services-location-21.2.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-base:18.3.0] C:\Users\ASUS\.gradle\caches\transforms-3\b14e688248f4f6b73eb3693cb7ce517a\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:16:1-24:12
 MERGED from [com.google.android.gms:play-services-tasks:18.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\d9671fc6a1efb1a5439e2af1b98933ae\transformed\jetified-play-services-tasks-18.1.0\AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\ASUS\.gradle\caches\transforms-3\c35123e8437b3bf86b4844ec8f7533d5\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:16:1-26:12
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\0744fc8324b3cce2666c07ed184c61ed\transformed\preference-1.2.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\4d07cb36d13b0ebf9dffc17582130141\transformed\appcompat-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\ASUS\.gradle\caches\transforms-3\86e1b6470a6f13d36b1ccd5515e09ab5\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\ASUS\.gradle\caches\transforms-3\c3bb2f8d9514997405f7a6ebe1f6c3a4\transformed\fragment-1.7.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity-ktx:1.9.2] C:\Users\ASUS\.gradle\caches\transforms-3\dd048d8093cd68f30a37f43abe07ca00\transformed\jetified-activity-ktx-1.9.2\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.activity:activity:1.9.2] C:\Users\ASUS\.gradle\caches\transforms-3\53906f9eb95a0e5bb01b7e08fa2676e2\transformed\jetified-activity-1.9.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\1dce345f69a733f92078a6c1f723a995\transformed\recyclerview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\4a2a979e18f51f6e59334ec315041791\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\9b9d3ee68ce8cbb69e484301d7fcc223\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.window:window:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\AndroidManifest.xml:17:1-31:12
 MERGED from [androidx.window:window-java:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\a66ae50dca1e345bddd3f7c7e9aa3204\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:17:1-21:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b457f2f72f3bbf50f6d00b2465a0b648\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\62612ac2edd1168acf297cd28aff3cd9\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\902958fa02c9f6a553cb6e83d34e1c6b\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\d92782a9b20fc98c78dd11f5b4adaa32\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\902958fa02c9f6a553cb6e83d34e1c6b\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\73c44fa57efec8bf66bd08732a268bb7\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\48829133b3ef6ce9d00793161111f4e2\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\ab0c0df8b85f193a2e02af902f19fb50\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\d11697234e241019030a0b7089ad0e2d\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:17:1-35:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\6cadd9128dea16850a3c6e0f7cd9ed79\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\5c0d0f8d842981eb762badd4b75fa446\transformed\jetified-core-ktx-1.13.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\7af94b4afb9817553a385d63d3becc87\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.customview:customview:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\2e3e5861d3fb80227b125fe50b915902\transformed\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\35f8c6241582d12b4809553937db58c6\transformed\jetified-appcompat-resources-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b60262a71eb61097061a9ef28049a88e\transformed\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\c25286bad7f7229ca79cfa25f490a717\transformed\coordinatorlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\0e285bc3859bbbdd3bad9bbe59c1c7bd\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\ASUS\.gradle\caches\transforms-3\c42edf461fb55b5fb60525ba144b7a3d\transformed\transition-1.4.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\00d15cf4dd14a485739ee480410f6a36\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\6de15fa4153a782247467a92f1900e79\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\1769c209d97b997cc5cfd440a83a71a2\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b90b1e1cc616bacaefdc32c9b904a47c\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\05b4c14d426f1aa9f09ed38b5b65137c\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\cd26dd341ee8161debcda60877103a55\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\dafa421bf722146baa086590a2a13c32\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.datastore:datastore-preferences:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\9748dd6cd2c8ababc6447495d5ba882a\transformed\jetified-datastore-preferences-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.datastore:datastore:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\8222b369152407be577fe99cb0851760\transformed\jetified-datastore-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\ASUS\.gradle\caches\transforms-3\e91a45e986ef6c72bc52d2b1ad6cb7fe\transformed\exifinterface-1.3.7\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ASUS\.gradle\caches\transforms-3\0340021b3489d80aa8660951d8ecb037\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:17:1-55:12
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\ASUS\.gradle\caches\transforms-3\97ce4df35bdce0799646b2c479ce2f0f\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
@@ -66,47 +89,57 @@ MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\ASUS\.gradle\caches\transf
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\7763ed92231e8a39fb4593592e7dcc37\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ASUS\.gradle\caches\transforms-3\55253b90fa602150c8fc5fd7f9ea251f\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\7fb74b8930726ba66e99632c18ba0d2c\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\4188991488f5bc272412663cf0285c97\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\dbce10e3c7818bda00db33c724b5d9e1\transformed\jetified-core-1.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\35e2a8553859f17e8187f04338c41ede\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\bb5b08112e0faeaaba37fb115d135020\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\6cecf1b0749c9d30ca9c4f1a9d9dd509\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\ASUS\.gradle\caches\transforms-3\cff5e296c92e9b3bea1ff044788c727d\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:2:1-7:12
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:1:1-7:12
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:1:1-7:12
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 	android:versionName
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:1-45:12
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:11-69
+		ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:1:11-69
 queries
-ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:39:5-44:15
+ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:39:5-44:15
+MERGED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
+MERGED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
 intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
-ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:40:9-43:18
+ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:40:9-43:18
 action#android.intent.action.PROCESS_TEXT
-ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:41:13-72
+ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:41:13-72
 	android:name
-		ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:41:21-70
+		ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:41:21-70
 data
-ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:42:13-50
+ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:42:13-50
 	android:mimeType
-		ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:42:19-48
+		ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml:42:19-48
 uses-sdk
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-8:41
-MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-8:41
-MERGED from [:flutter_plugin_android_lifecycle] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_plugin_android_lifecycle] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
+MERGED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-8:41
+MERGED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-8:41
+MERGED from [:flutter_plugin_android_lifecycle] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_plugin_android_lifecycle] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.android.gms:play-services-location:21.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\dc5604ebc0b1d7479b91a17708a7b609\transformed\jetified-play-services-location-21.2.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-location:21.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\dc5604ebc0b1d7479b91a17708a7b609\transformed\jetified-play-services-location-21.2.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-base:18.3.0] C:\Users\ASUS\.gradle\caches\transforms-3\b14e688248f4f6b73eb3693cb7ce517a\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:18:5-43
@@ -115,40 +148,82 @@ MERGED from [com.google.android.gms:play-services-tasks:18.1.0] C:\Users\ASUS\.g
 MERGED from [com.google.android.gms:play-services-tasks:18.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\d9671fc6a1efb1a5439e2af1b98933ae\transformed\jetified-play-services-tasks-18.1.0\AndroidManifest.xml:4:5-43
 MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\ASUS\.gradle\caches\transforms-3\c35123e8437b3bf86b4844ec8f7533d5\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:18:5-43
 MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\ASUS\.gradle\caches\transforms-3\c35123e8437b3bf86b4844ec8f7533d5\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:18:5-43
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\0744fc8324b3cce2666c07ed184c61ed\transformed\preference-1.2.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\0744fc8324b3cce2666c07ed184c61ed\transformed\preference-1.2.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\4d07cb36d13b0ebf9dffc17582130141\transformed\appcompat-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\4d07cb36d13b0ebf9dffc17582130141\transformed\appcompat-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\ASUS\.gradle\caches\transforms-3\86e1b6470a6f13d36b1ccd5515e09ab5\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\ASUS\.gradle\caches\transforms-3\86e1b6470a6f13d36b1ccd5515e09ab5\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\ASUS\.gradle\caches\transforms-3\c3bb2f8d9514997405f7a6ebe1f6c3a4\transformed\fragment-1.7.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\ASUS\.gradle\caches\transforms-3\c3bb2f8d9514997405f7a6ebe1f6c3a4\transformed\fragment-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.9.2] C:\Users\ASUS\.gradle\caches\transforms-3\dd048d8093cd68f30a37f43abe07ca00\transformed\jetified-activity-ktx-1.9.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.9.2] C:\Users\ASUS\.gradle\caches\transforms-3\dd048d8093cd68f30a37f43abe07ca00\transformed\jetified-activity-ktx-1.9.2\AndroidManifest.xml:5:5-44
 MERGED from [androidx.activity:activity:1.9.2] C:\Users\ASUS\.gradle\caches\transforms-3\53906f9eb95a0e5bb01b7e08fa2676e2\transformed\jetified-activity-1.9.2\AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.9.2] C:\Users\ASUS\.gradle\caches\transforms-3\53906f9eb95a0e5bb01b7e08fa2676e2\transformed\jetified-activity-1.9.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\1dce345f69a733f92078a6c1f723a995\transformed\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\1dce345f69a733f92078a6c1f723a995\transformed\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\4a2a979e18f51f6e59334ec315041791\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\4a2a979e18f51f6e59334ec315041791\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\9b9d3ee68ce8cbb69e484301d7fcc223\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\9b9d3ee68ce8cbb69e484301d7fcc223\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.window:window:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.window:window-java:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\a66ae50dca1e345bddd3f7c7e9aa3204\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:19:5-44
 MERGED from [androidx.window:window-java:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\a66ae50dca1e345bddd3f7c7e9aa3204\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:19:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b457f2f72f3bbf50f6d00b2465a0b648\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b457f2f72f3bbf50f6d00b2465a0b648\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\62612ac2edd1168acf297cd28aff3cd9\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\62612ac2edd1168acf297cd28aff3cd9\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\902958fa02c9f6a553cb6e83d34e1c6b\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\902958fa02c9f6a553cb6e83d34e1c6b\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\d92782a9b20fc98c78dd11f5b4adaa32\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\d92782a9b20fc98c78dd11f5b4adaa32\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\902958fa02c9f6a553cb6e83d34e1c6b\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\902958fa02c9f6a553cb6e83d34e1c6b\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\73c44fa57efec8bf66bd08732a268bb7\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\73c44fa57efec8bf66bd08732a268bb7\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\48829133b3ef6ce9d00793161111f4e2\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\48829133b3ef6ce9d00793161111f4e2\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\ab0c0df8b85f193a2e02af902f19fb50\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\ab0c0df8b85f193a2e02af902f19fb50\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\d11697234e241019030a0b7089ad0e2d\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\d11697234e241019030a0b7089ad0e2d\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\6cadd9128dea16850a3c6e0f7cd9ed79\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\6cadd9128dea16850a3c6e0f7cd9ed79\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\5c0d0f8d842981eb762badd4b75fa446\transformed\jetified-core-ktx-1.13.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\5c0d0f8d842981eb762badd4b75fa446\transformed\jetified-core-ktx-1.13.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\7af94b4afb9817553a385d63d3becc87\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\7af94b4afb9817553a385d63d3becc87\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\2e3e5861d3fb80227b125fe50b915902\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\2e3e5861d3fb80227b125fe50b915902\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\35f8c6241582d12b4809553937db58c6\transformed\jetified-appcompat-resources-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\35f8c6241582d12b4809553937db58c6\transformed\jetified-appcompat-resources-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b60262a71eb61097061a9ef28049a88e\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b60262a71eb61097061a9ef28049a88e\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\c25286bad7f7229ca79cfa25f490a717\transformed\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\c25286bad7f7229ca79cfa25f490a717\transformed\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\0e285bc3859bbbdd3bad9bbe59c1c7bd\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\0e285bc3859bbbdd3bad9bbe59c1c7bd\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\ASUS\.gradle\caches\transforms-3\c42edf461fb55b5fb60525ba144b7a3d\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\ASUS\.gradle\caches\transforms-3\c42edf461fb55b5fb60525ba144b7a3d\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\00d15cf4dd14a485739ee480410f6a36\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\00d15cf4dd14a485739ee480410f6a36\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\6de15fa4153a782247467a92f1900e79\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\ASUS\.gradle\caches\transforms-3\6de15fa4153a782247467a92f1900e79\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\1769c209d97b997cc5cfd440a83a71a2\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\1769c209d97b997cc5cfd440a83a71a2\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b90b1e1cc616bacaefdc32c9b904a47c\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\b90b1e1cc616bacaefdc32c9b904a47c\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\05b4c14d426f1aa9f09ed38b5b65137c\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\05b4c14d426f1aa9f09ed38b5b65137c\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:5:5-44
-MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
-MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\cd26dd341ee8161debcda60877103a55\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\cd26dd341ee8161debcda60877103a55\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\dafa421bf722146baa086590a2a13c32\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\ASUS\.gradle\caches\transforms-3\dafa421bf722146baa086590a2a13c32\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-preferences:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\9748dd6cd2c8ababc6447495d5ba882a\transformed\jetified-datastore-preferences-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.datastore:datastore-preferences:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\9748dd6cd2c8ababc6447495d5ba882a\transformed\jetified-datastore-preferences-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.datastore:datastore:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\8222b369152407be577fe99cb0851760\transformed\jetified-datastore-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.datastore:datastore:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\8222b369152407be577fe99cb0851760\transformed\jetified-datastore-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\ASUS\.gradle\caches\transforms-3\e91a45e986ef6c72bc52d2b1ad6cb7fe\transformed\exifinterface-1.3.7\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\ASUS\.gradle\caches\transforms-3\e91a45e986ef6c72bc52d2b1ad6cb7fe\transformed\exifinterface-1.3.7\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ASUS\.gradle\caches\transforms-3\0340021b3489d80aa8660951d8ecb037\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:21:5-44
@@ -163,78 +238,96 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\AS
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ASUS\.gradle\caches\transforms-3\55253b90fa602150c8fc5fd7f9ea251f\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\7fb74b8930726ba66e99632c18ba0d2c\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\7fb74b8930726ba66e99632c18ba0d2c\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\4188991488f5bc272412663cf0285c97\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\4188991488f5bc272412663cf0285c97\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\dbce10e3c7818bda00db33c724b5d9e1\transformed\jetified-core-1.0.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\dbce10e3c7818bda00db33c724b5d9e1\transformed\jetified-core-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\35e2a8553859f17e8187f04338c41ede\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\35e2a8553859f17e8187f04338c41ede\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\bb5b08112e0faeaaba37fb115d135020\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\bb5b08112e0faeaaba37fb115d135020\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\6cecf1b0749c9d30ca9c4f1a9d9dd509\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\ASUS\.gradle\caches\transforms-3\6cecf1b0749c9d30ca9c4f1a9d9dd509\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\ASUS\.gradle\caches\transforms-3\cff5e296c92e9b3bea1ff044788c727d\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\ASUS\.gradle\caches\transforms-3\cff5e296c92e9b3bea1ff044788c727d\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:5:5-44
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
-INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
+INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
-		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml
 uses-permission#android.permission.INTERNET
-ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:6:5-66
+ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:6:5-66
 	android:name
-		ADDED from D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:6:22-64
+		ADDED from D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\android\app\src\debug\AndroidManifest.xml:6:22-64
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-80
+	android:name
+		ADDED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-77
+intent#action:name:android.intent.action.GET_CONTENT+data:mimeType:*/*
+ADDED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-16:18
+action#android.intent.action.GET_CONTENT
+ADDED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-72
+	android:name
+		ADDED from [:file_picker] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:13:21-69
 provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
-ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-19:20
+ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-19:20
 	android:grantUriPermissions
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-47
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-47
 	android:authorities
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-74
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-74
 	android:exported
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-37
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-37
 	android:name
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-82
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-82
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-18:75
+ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-18:75
 	android:resource
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:18:17-72
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:18:17-72
 	android:name
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-67
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-67
 service#com.google.android.gms.metadata.ModuleDependencies
-ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:21:9-33:19
+ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:21:9-33:19
 	android:enabled
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:23:13-36
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:23:13-36
 	android:exported
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:24:13-37
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:24:13-37
 	tools:ignore
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-40
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-40
 	android:name
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:22:13-78
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:22:13-78
 intent-filter#action:name:com.google.android.gms.metadata.MODULE_DEPENDENCIES
-ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-28:29
+ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-28:29
 action#com.google.android.gms.metadata.MODULE_DEPENDENCIES
-ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:27:17-94
+ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:27:17-94
 	android:name
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:27:25-91
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:27:25-91
 meta-data#photopicker_activity:0:required
-ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-32:36
+ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-32:36
 	android:value
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:32:17-33
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:32:17-33
 	android:name
-		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:31:17-63
+		ADDED from [:image_picker_android] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:31:17-63
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-81
+ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-81
 	android:name
-		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-78
+		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-79
+ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-79
 	android:name
-		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:10:22-76
+		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:10:22-76
 service#com.lyokone.location.FlutterLocationService
-ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:13:9-17:56
+ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:13:9-17:56
 	android:enabled
-		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-35
+		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-35
 	android:exported
-		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-37
+		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-37
 	android:foregroundServiceType
-		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-53
+		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-53
 	android:name
-		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\PeduliPanti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-71
+		ADDED from [:location] D:\Kuliah\Programming\Semester 3\ALP\donatur_peduli_panti\PeduliPanti - FE\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-71
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:18.3.0] C:\Users\ASUS\.gradle\caches\transforms-3\b14e688248f4f6b73eb3693cb7ce517a\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:20:9-22:45
 	android:exported
@@ -261,26 +354,6 @@ ADDED from [androidx.window:window:1.2.0] C:\Users\ASUS\.gradle\caches\transform
 		ADDED from [androidx.window:window:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\AndroidManifest.xml:28:13-37
 	android:name
 		ADDED from [androidx.window:window:1.2.0] C:\Users\ASUS\.gradle\caches\transforms-3\8212116d95ca6a8a44e1fe641621acb4\transformed\jetified-window-1.2.0\AndroidManifest.xml:27:13-51
-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
-	android:protectionLevel
-		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
-	android:name
-		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
-permission#com.example.donatur_peduli_panti.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
-	android:protectionLevel
-		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
-	android:name
-		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
-uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
-	android:name
-		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
-uses-permission#com.example.donatur_peduli_panti.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
-	android:name
-		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
 provider#androidx.startup.InitializationProvider
 ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ASUS\.gradle\caches\transforms-3\0340021b3489d80aa8660951d8ecb037\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:24:9-32:20
@@ -301,6 +374,26 @@ ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\ca
 		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
 	android:name
 		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\ASUS\.gradle\caches\transforms-3\8ac5242ac219cdc4f36730f2391b2c02\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+permission#com.example.donatur_peduli_panti.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+uses-permission#com.example.donatur_peduli_panti.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.13.1] C:\Users\ASUS\.gradle\caches\transforms-3\6f655a57b4b1224cec38a7c252a742d8\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
 meta-data#androidx.profileinstaller.ProfileInstallerInitializer
 ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ASUS\.gradle\caches\transforms-3\0340021b3489d80aa8660951d8ecb037\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
 	android:value
