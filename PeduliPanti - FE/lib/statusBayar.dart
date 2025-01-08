@@ -362,6 +362,7 @@ class _StatusBayarPageState extends State<StatusBayarPage> {
                                         style: BorderStyle.solid, // Gaya border
                                       ),
                                     ),
+                                    shadowColor: Colors.transparent,
                                   ),
                                   onPressed: () {
                                     // Navigator.push(

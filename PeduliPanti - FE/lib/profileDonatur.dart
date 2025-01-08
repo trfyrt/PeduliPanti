@@ -1,5 +1,6 @@
 import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:donatur_peduli_panti/keranjang.dart';
+import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:donatur_peduli_panti/regist.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
 import 'package:donatur_peduli_panti/statusKemas.dart';
@@ -132,15 +133,29 @@ class _MyHomePageState extends State<MyHomePage> {
                   ), // Halaman utama
                 );
               } else if (index == 1) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => NotificationPage()), // Halaman notifikasi
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Notifikasi(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
               } else if (index == 3) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => HistoryPage()), // Halaman histori
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const StatusBayar(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
               } else if (index == 4) {
                 Navigator.push(
                   context,

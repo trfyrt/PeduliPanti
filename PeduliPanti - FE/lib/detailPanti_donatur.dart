@@ -1,11 +1,12 @@
+import 'package:donatur_peduli_panti/historiRABDonatur.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
+import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:donatur_peduli_panti/market.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'dart:math';
 
 class DetailPantiApp extends StatelessWidget {
   // const DetailPantiApp({super.key});
@@ -68,10 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _locationData = await location.getLocation();
     if (_locationData != null) {
-      print('Latitude: ${_locationData!.latitude}, Longitude: ${_locationData!.longitude}');
+      print(
+          'Latitude: ${_locationData!.latitude}, Longitude: ${_locationData!.longitude}');
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -367,42 +369,59 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 7),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: const Icon(
-                                            FontAwesomeIcons.clipboardCheck),
+                                GestureDetector(
+                                  onTap: () {
+                                    // Navigasi ke halaman lain
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation,
+                                                secondaryAnimation) =>
+                                            HistoriRAB(),
+                                        transitionsBuilder: (context, animation,
+                                            secondaryAnimation, child) {
+                                          return child; // Tidak ada animasi
+                                        },
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Transparansi Bantuan',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(top: 7),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 10),
+                                          child: const Icon(
+                                              FontAwesomeIcons.clipboardCheck),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'Transparansi Bantuan',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    right: 4),
-                                                child: const Text('13'),
-                                              ),
-                                              Container(
-                                                child: const Text(
-                                                    'Laporan Keuangan'),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ],
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      right: 4),
+                                                  child: const Text('13'),
+                                                ),
+                                                Container(
+                                                  child: const Text(
+                                                      'Laporan Keuangan'),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -562,8 +581,14 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeDonaturApp()), // Halaman tujuan
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HomeDonaturApp(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
                 );
               },
               child: Container(
@@ -584,11 +609,17 @@ class _MyHomePageState extends State<MyHomePage> {
             right: 15,
             child: GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => CartPage()), // Halaman tujuan
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Keranjang(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
               },
               child: Container(
                 padding: const EdgeInsets.all(12),

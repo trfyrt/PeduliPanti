@@ -1,5 +1,6 @@
 import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
+import 'package:donatur_peduli_panti/statusSelesai.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:donatur_peduli_panti/profileDonatur.dart';
@@ -36,6 +37,14 @@ class NotifikasiPage extends StatefulWidget {
 
 class _NotifikasiPageState extends State<NotifikasiPage> {
   int _currentIndex = 1;
+
+  @override
+  final List<Map<String, dynamic>> data = [
+    {"nama": "Panti Asuhan 1", "jumlah": 50, "progress": 0.5},
+    {"nama": "Panti Asuhan 2", "jumlah": 30, "progress": 0.3},
+    {"nama": "Panti Asuhan 3", "jumlah": 70, "progress": 0.7},
+    {"nama": "Panti Asuhan 4", "jumlah": 90, "progress": 0.9},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -136,18 +145,32 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                         (context, animation, secondaryAnimation, child) {
                       return child; // Tidak ada animasi
                     },
-                  ), // Halaman utama
+                  ),
                 );
               } else if (index == 1) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => NotificationPage()), // Halaman notifikasi
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Notifikasi(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
               } else if (index == 3) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => HistoryPage()), // Halaman histori
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const StatusSelesai(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
               } else if (index == 4) {
                 Navigator.push(
                   context,
@@ -158,7 +181,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                         (context, animation, secondaryAnimation, child) {
                       return child;
                     },
-                  ), // Halaman profil
+                  ),
                 );
               }
             },
