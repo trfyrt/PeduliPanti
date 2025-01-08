@@ -26,7 +26,7 @@ return new class  extends Migration
             $table->integer('price');
             $table->text('description');
             $table->tinyInteger('requestable');
-            $table->binary('image')->nullable();
+            $table->string('image')->nullable();
 
             $table->index(["categoryID"], 'categoryID_idx');
 

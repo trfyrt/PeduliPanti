@@ -14,7 +14,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'role' => $this->role,
-            'image' => $this->image,
+            'image' => $this->image ? asset('storage/' . $this->image) : null,
             'cart' => new CartResource($this->whenLoaded('cart')), // Relasi cart
             'pantiDetails' => new PantiDetailResource($this->whenLoaded('pantiDetails')), // Relasi pantiDetails
             'transactions' => TransactionOrderResource::collection($this->whenLoaded('transactions')), // Relasi transactions
