@@ -24,8 +24,8 @@ class PantiDetailSeeder extends Seeder
                 'priority_value' => 0,
                 'description' => $faker->paragraph,
                 'origin' => json_encode([
-                    'lat' => $faker->latitude, // Generate random latitude
-                    'lng' => $faker->longitude, // Generate random longitude
+                    'lat' => $faker->latitude(-5.3, -5.05), // Batas latitude untuk Makassar
+                    'lng' => $faker->longitude(119.38, 119.50), // Batas longitude untuk Makassar
                 ]),
             ]);
         }
