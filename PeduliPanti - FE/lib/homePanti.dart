@@ -32,26 +32,31 @@ class _HomePageState extends State<HomePage> {
   // List of orphanages as a list of maps
   List<Map<String, dynamic>> orphanages = [
     {
+      "id": "1", // Added id for each orphanage
       "name": "Nama Panti Asuhan 1",
       "targetDonation": 100000,
       "collectedDonation": 15000,
     },
     {
+      "id": "2", // Added id for each orphanage
       "name": "Nama Panti Asuhan 2",
       "targetDonation": 100000,
       "collectedDonation": 30000,
     },
     {
+      "id": "3", // Added id for each orphanage
       "name": "Nama Panti Asuhan 3",
       "targetDonation": 100000,
       "collectedDonation": 60000,
     },
     {
+      "id": "4", // Added id for each orphanage
       "name": "Nama Panti Asuhan 4",
       "targetDonation": 100000,
       "collectedDonation": 80000,
     },
     {
+      "id": "5", // Added id for each orphanage
       "name": "Nama Panti Asuhan 5",
       "targetDonation": 100000,
       "collectedDonation": 90000,
@@ -78,6 +83,7 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           orphanages = apiData.map<Map<String, dynamic>>((orphanage) {
             return {
+              'id': orphanage['id'], // Added id for each orphanage
               'name': orphanage['name'],
               'targetDonation': 100000, // Bisa disesuaikan sesuai API atau target lainnya
               'collectedDonation': orphanage['donationTotal'],
@@ -509,7 +515,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            const SizedBox(
+            const SizedBox( 
                 height:
                     80), // Added space below to prevent navbar from covering cards
           ],
