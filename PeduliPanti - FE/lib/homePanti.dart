@@ -6,6 +6,8 @@ import 'detailPanti.dart'; // Import the detailPanti.dart file
 import 'reqBarang.dart'; // Import the reqBarang.dart file
 import 'cekRab.dart'; // Import the cekRab.dart file
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,7 +30,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // List of orphanages as a list of maps
-  final List<Map<String, dynamic>> orphanages = [
+  List<Map<String, dynamic>> orphanages = [
     {
       "name": "Nama Panti Asuhan 1",
       "targetDonation": 100000,
@@ -55,6 +57,40 @@ class _HomePageState extends State<HomePage> {
       "collectedDonation": 90000,
     },
   ];
+
+  final url = Uri.parse('http://127.0.0.1:8000/api/v1/panti_detail');
+
+  @override
+  void initState() {
+    super.initState();
+    fetchOrphanageData();
+  }
+
+  Future<void> fetchOrphanageData() async {
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final apiData = data['data'];
+
+        // Memperbarui data orphanages
+        setState(() {
+          orphanages = apiData.map<Map<String, dynamic>>((orphanage) {
+            return {
+              'name': orphanage['name'],
+              'targetDonation': 100000, // Bisa disesuaikan sesuai API atau target lainnya
+              'collectedDonation': orphanage['donationTotal'],
+            };
+          }).toList();
+        });
+      } else {
+        print('Gagal mengambil data. Status: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   int _currentIndex = 0;
 
