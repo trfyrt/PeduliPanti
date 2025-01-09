@@ -1,6 +1,7 @@
 import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:donatur_peduli_panti/notifikasi.dart';
+import 'package:donatur_peduli_panti/statusBayar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
@@ -145,10 +146,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ), // Halaman profil
                 );
               } else if (index == 3) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => HistoryPage()), // Halaman histori
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const StatusBayar(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
               } else if (index == 4) {
                 Navigator.push(
                   context,

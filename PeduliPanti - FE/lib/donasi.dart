@@ -1,5 +1,8 @@
+import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
 import 'package:donatur_peduli_panti/market.dart';
+import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:donatur_peduli_panti/profileDonatur.dart';
+import 'package:donatur_peduli_panti/statusBayar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/gestures.dart';
@@ -159,15 +162,29 @@ class _MyHomePageState extends State<MyHomePage> {
                   ), // Halaman utama
                 );
               } else if (index == 1) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => NotificationPage()), // Halaman notifikasi
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Notifikasi(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
               } else if (index == 3) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => HistoryPage()), // Halaman histori
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const StatusBayar(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ), // Halaman profil
+                );
               } else if (index == 4) {
                 Navigator.push(
                   context,
@@ -265,11 +282,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                 print('Item ${item['nama']} tapped');
                                 // Anda bisa menambahkan aksi lain di sini, seperti navigasi atau perubahan status
                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Market()),
-                              );
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation,
+                                            secondaryAnimation) =>
+                                        const DetailPantiApp(),
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      return child;
+                                    },
+                                  ),
+                                );
                               },
                               child: Container(
                                 height: 110,
@@ -432,14 +455,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: data1.map((item) {
                         return GestureDetector(
-                          // onTap: () {
-                          //   print('di klik sayang');
-                          //   Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const DetailPantiApp()),
-                          //   );
-                          // },
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        const DetailPantiApp(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return child;
+                                },
+                              ),
+                            );
+                          },
                           child: Container(
                             padding: const EdgeInsets.all(16),
                             margin: const EdgeInsets.symmetric(
