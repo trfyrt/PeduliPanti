@@ -1,3 +1,4 @@
+import 'package:donatur_peduli_panti/detailTransaksi.dart';
 import 'package:donatur_peduli_panti/statusKemas.dart';
 import 'package:donatur_peduli_panti/statusKirim.dart';
 import 'package:donatur_peduli_panti/statusSelesai.dart';
@@ -365,15 +366,15 @@ class _StatusBayarPageState extends State<StatusBayarPage> {
                                     shadowColor: Colors.transparent,
                                   ),
                                   onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   PageRouteBuilder(
-                                    //     pageBuilder: (context, animation, secondaryAnimation) => const Pesanan(),
-                                    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                    //       return child; // Tidak ada animasi
-                                    //     },
-                                    //   ),
-                                    // );
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation, secondaryAnimation) => const DetailTransaksi(),
+                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                          return child; // Tidak ada animasi
+                                        },
+                                      ),
+                                    );
                                   },
                                   child: const Text(
                                     "Detail Transaksi",

@@ -1,3 +1,4 @@
+import 'package:donatur_peduli_panti/detailTransaksi.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
 import 'package:donatur_peduli_panti/statusKemas.dart';
 import 'package:donatur_peduli_panti/statusKirim.dart';
@@ -347,45 +348,6 @@ class _StatusSelesaiPageState extends State<StatusSelesaiPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Container(
-                                  margin: EdgeInsets.only(right: 8),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      elevation: 0,
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 8, horizontal: 18),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        side: BorderSide(
-                                          color: Color.fromARGB(255, 147, 181, 255), // Warna border
-                                          width: 2, // Ketebalan border
-                                          style:
-                                              BorderStyle.solid, // Gaya border
-                                        ),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   PageRouteBuilder(
-                                      //     pageBuilder: (context, animation, secondaryAnimation) => const Pesanan(),
-                                      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                      //       return child; // Tidak ada animasi
-                                      //     },
-                                      //   ),
-                                      // );
-                                    },
-                                    child: const Text(
-                                      "Lacak",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color:
-                                            Color.fromARGB(255, 147, 181, 255),
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.transparent,
@@ -395,23 +357,27 @@ class _StatusSelesaiPageState extends State<StatusSelesaiPage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       side: BorderSide(
-                                        color: Color.fromARGB(255, 129, 156,
-                                              214), // Warna border
+                                        color: Color.fromARGB(
+                                            255, 129, 156, 214), // Warna border
                                         width: 2, // Ketebalan border
                                         style: BorderStyle.solid, // Gaya border
                                       ),
                                     ),
+                                    shadowColor: Colors.transparent,
                                   ),
                                   onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   PageRouteBuilder(
-                                    //     pageBuilder: (context, animation, secondaryAnimation) => const Pesanan(),
-                                    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                    //       return child; // Tidak ada animasi
-                                    //     },
-                                    //   ),
-                                    // );
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation,
+                                                secondaryAnimation) =>
+                                            const DetailTransaksi(),
+                                        transitionsBuilder: (context, animation,
+                                            secondaryAnimation, child) {
+                                          return child; // Tidak ada animasi
+                                        },
+                                      ),
+                                    );
                                   },
                                   child: const Text(
                                     "Detail Transaksi",
