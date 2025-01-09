@@ -8,6 +8,7 @@ import 'cekRab.dart'; // Import the cekRab.dart file
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -63,16 +64,119 @@ class _HomePageState extends State<HomePage> {
     },
   ];
 
-  final url = Uri.parse('http://127.0.0.1:8000/api/v1/panti_detail');
+  int? pantiID;
 
   @override
   void initState() {
     super.initState();
-    fetchOrphanageData();
+    fetchListOrphanage();
   }
 
-  Future<void> fetchOrphanageData() async {
+  static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
+
+  // Login Function
+  static Future<void> login({
+    required String email,
+    required String password,
+    required Function(String role)
+        onLoginSuccess, // Callback for role-based navigation
+    required Function(String error) onError, // Callback for handling errors
+  }) async {
+    final url = Uri.parse('$_baseUrl/login');
+    final body = {
+      "email": email,
+      "password": password,
+    };
+
     try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode == 200) {
+        // Parse the response
+        final data = jsonDecode(response.body);
+        final token = data['token'];
+        final user = data['user'];
+        final role = user['role'];
+
+        // Store the token securely
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+        await prefs.setString(
+            'user', jsonEncode(user)); // Store user info for reuse
+
+        print("Login successful. Token stored: $token");
+
+        // Trigger role-based navigation
+        onLoginSuccess(role);
+      } else {
+        final errorMessage =
+            jsonDecode(response.body)['message'] ?? "Unknown error occurred";
+        print("Login failed: $errorMessage");
+        onError(errorMessage);
+      }
+    } catch (e) {
+      print("An error occurred during login: ${e.toString()}");
+      onError("An unexpected error occurred. Please try again.");
+    }
+  }
+
+  // Function to get the stored token
+  static Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  static Future<int?> getUserId() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userJson = prefs.getString('user');
+      if (userJson != null) {
+        final user = jsonDecode(userJson);
+        print("User ID: ${user['userID']}");
+        return user['userID'];
+      } else {
+        print("User data not found in SharedPreferences.");
+      }
+    } catch (e) {
+      print("Error retrieving user ID: $e");
+    }
+    return null;
+  }
+
+  static Future<int?> fetchDonationTotalByUser() async {
+    try {
+      final userId = await getUserId();
+      if (userId == null) {
+        throw Exception("User ID not found");
+      }
+
+      final url = Uri.parse('$_baseUrl/user/$userId');
+      final response = await http.get(
+        url,
+        headers: {"Authorization": "Bearer ${await getToken()}"},
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        // Akses data['data']['donationTotal'] sesuai dengan struktur API
+        return data['data']
+            ['donationTotal']; // Pastikan sesuai dengan struktur API
+      } else {
+        throw Exception("Failed to fetch donation total: ${response.body}");
+      }
+    } catch (e) {
+      print("Error fetching donation total: $e");
+      return null;
+    }
+  }
+
+  Future<void> fetchListOrphanage() async {
+    try {
+      final url = Uri.parse('$_baseUrl/panti_detail');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -85,7 +189,8 @@ class _HomePageState extends State<HomePage> {
             return {
               'id': orphanage['id'], // Added id for each orphanage
               'name': orphanage['name'],
-              'targetDonation': 100000, // Bisa disesuaikan sesuai API atau target lainnya
+              'targetDonation':
+                  100000, // Bisa disesuaikan sesuai API atau target lainnya
               'collectedDonation': orphanage['donationTotal'],
             };
           }).toList();
@@ -428,13 +533,35 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Presentase Donasi Bulan Ini",
                                   style: TextStyle(color: Colors.black)),
-                              Text("80%",
-                                  style: TextStyle(color: Colors.black)),
+                              FutureBuilder<int?>(
+                                future: fetchDonationTotalByUser(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Text("Loading...",
+                                        style: TextStyle(color: Colors.black));
+                                  } else if (snapshot.hasError) {
+                                    return Text(
+                                      "Error fetching donation total: ${snapshot.error}",
+                                      style: TextStyle(color: Colors.red),
+                                    );
+                                  } else if (snapshot.hasData) {
+                                    final totalDonation = snapshot.data!;
+                                    final percentage =
+                                        (totalDonation / 100000) * 100;
+                                    return Text("${percentage.round()}%",
+                                        style: TextStyle(color: Colors.black));
+                                  } else {
+                                    return Text("No donation data available",
+                                        style: TextStyle(color: Colors.black));
+                                  }
+                                },
+                              ),
                             ],
                           ),
                           LinearProgressIndicator(
@@ -515,7 +642,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            const SizedBox( 
+            const SizedBox(
                 height:
                     80), // Added space below to prevent navbar from covering cards
           ],
