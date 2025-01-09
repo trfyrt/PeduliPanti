@@ -249,30 +249,26 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                         color: const Color.fromARGB(255, 215, 227, 252),
                       ),
                       child: Container(
-                        margin: const EdgeInsets.only(left: 95),
-                        padding: const EdgeInsets.symmetric(vertical: 25),
-                        child: Row(
+                        padding: const EdgeInsets.only(
+                            left: 90, right: 8, top: 11, bottom: 11),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 235,
-                                  child: Text(
-                                    'Barang Panti Asuhan B sedang dikirim',
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                                const Text('Rabu, 2 September 2024'),
-                              ],
+                            Text(
+                              "Barang Panti Asuhan B sedang dikirim",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
                             ),
-                            const Icon(FontAwesomeIcons.angleRight),
+                            Text(
+                              "Rabu, 2 September 2024",
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ],
                         ),
                       ),
