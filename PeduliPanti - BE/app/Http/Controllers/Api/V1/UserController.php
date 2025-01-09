@@ -48,24 +48,26 @@ class UserController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048', // Pastikan image memiliki validasi sebagai file gambar
-            'email' => 'required|email',
+            'email' => 'nullable|email',
             'password' => 'nullable|string|min:6',
         ]);
     
         // Temukan user berdasarkan ID
         $user = User::findOrFail($id);
     
-        // Data yang akan diperbarui
-        $updateData = [
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-        ];
-    
         // Jika password diisi, lakukan hashing dan masukkan ke dalam updateData
         if (!empty($validated['password'])) {
             $updateData['password'] = Hash::make($validated['password']);
+        }
+
+        if (!empty($validated['name'])) {
+            $updateData['name'] = $validated['name'];
+        }
+
+        if (!empty($validated['email'])) {
+            $updateData['email'] = $validated['email'];
         }
     
         // Cek apakah ada file gambar baru yang diunggah
