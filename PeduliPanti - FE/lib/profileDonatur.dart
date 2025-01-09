@@ -149,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        const StatusBayar(),
+                        const StatusSelesai(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return child;

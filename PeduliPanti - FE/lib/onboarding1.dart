@@ -1,3 +1,4 @@
+import 'package:donatur_peduli_panti/regist.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/gestures.dart';
@@ -216,7 +217,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      // Aksi navigasi
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              const RegistApp(),
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return child; // Tidak ada animasi
+                                          },
+                                        ),
+                                      );
                                     },
                                 ),
                               ],

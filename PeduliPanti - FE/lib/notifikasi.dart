@@ -257,7 +257,6 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: 235,
                                   child: Text(
                                     'Barang Panti Asuhan B sedang dikirim',
                                     style: const TextStyle(

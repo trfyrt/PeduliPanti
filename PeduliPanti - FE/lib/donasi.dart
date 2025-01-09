@@ -3,6 +3,7 @@ import 'package:donatur_peduli_panti/market.dart';
 import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:donatur_peduli_panti/profileDonatur.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
+import 'package:donatur_peduli_panti/statusSelesai.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/gestures.dart';
@@ -178,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        const StatusBayar(),
+                        const StatusSelesai(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return child;
