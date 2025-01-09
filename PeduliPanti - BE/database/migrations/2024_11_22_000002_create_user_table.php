@@ -25,7 +25,7 @@ return new class  extends Migration
             $table->string('email', 45);
             $table->text('password');
             $table->string('role', 45);
-            $table->binary('image')->nullable();
+            $table->string('image')->nullable();
 
             $table->unique(["email"], 'email_UNIQUE');
         });

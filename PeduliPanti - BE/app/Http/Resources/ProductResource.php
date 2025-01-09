@@ -15,7 +15,7 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'description' => $this->description,
             'requestable' => $this->requestable,
-            'image' => $this->image,
+            'image' => $this->image ? asset('storage/' . $this->image) : null,
             'category' => new CategoryResource($this->whenLoaded('category')), // Relasi kategori
             'bundles' => BundleResource::collection($this->whenLoaded('bundles')), // Relasi bundle
             'requests' => RequestListResource::collection($this->whenLoaded('requests')), // Relasi request
