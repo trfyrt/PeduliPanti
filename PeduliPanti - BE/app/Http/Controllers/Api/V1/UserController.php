@@ -78,7 +78,7 @@ class UserController extends Controller
             }
     
             // Simpan gambar baru ke storage
-            $path = $request->file('image')->store('images', 'public');
+            $path = $request->file('image')->store('profile', 'public');
     
             // Tambahkan path gambar baru ke dalam updateData
             $updateData['image'] = $path;
