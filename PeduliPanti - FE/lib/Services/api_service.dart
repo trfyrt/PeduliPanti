@@ -1,9 +1,28 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:donatur_peduli_panti/Models/Product.dart';
+import 'package:donatur_peduli_panti/Models/Panti.dart';
 
 class ApiService {
   static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
+
+  // Fungsi untuk mengambil data Panti Asuhan
+  static Future<List<Panti>> fetchPantiDetails() async {
+    final String apiUrl = '$_baseUrl/panti_detail';
+
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body)['data'] as List;
+        return data.map((json) => Panti.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load panti details');
+      }
+    } catch (e) {
+      throw Exception('Error fetching panti details: $e');
+    }
+  }
 
   // Fungsi untuk mengambil data produk
   static Future<List<Product>> fetchProducts() async {
