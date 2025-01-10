@@ -51,7 +51,7 @@ class AuthService {
       }
     } catch (e) {
       print("An error occurred during login: ${e.toString()}");
-      onError("Wrong Email or Password. Please try again!");
+      onError("An unexpected error occurred. Please try again.");
     }
   }
 

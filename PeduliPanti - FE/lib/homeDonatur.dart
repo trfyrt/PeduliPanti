@@ -1,14 +1,11 @@
-import 'package:donatur_peduli_panti/Services/api_service.dart';
 import 'package:donatur_peduli_panti/donasi.dart';
-// import 'package:donatur_peduli_panti/keranjang.dart';
+import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
 import 'package:donatur_peduli_panti/profileDonatur.dart';
-import 'package:donatur_peduli_panti/Services/auth_service.dart';
-import 'package:donatur_peduli_panti/Models/Panti.dart';
 
 class HomeDonaturApp extends StatefulWidget {
   const HomeDonaturApp({super.key});
@@ -18,23 +15,6 @@ class HomeDonaturApp extends StatefulWidget {
 }
 
 class _HomeDonaturAppState extends State<HomeDonaturApp> {
-  Map<String, dynamic>? user; // Variabel untuk menyimpan data user
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserData();
-  }
-
-  Future<void> _loadUserData() async {
-    final userData = await AuthService.getUser(); // Ambil data user
-    if (userData != null) {
-      setState(() {
-        user = userData; // Perbarui state dengan data user
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,10 +22,7 @@ class _HomeDonaturAppState extends State<HomeDonaturApp> {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 254),
       ),
-      home: MyHomePage(
-        title: 'Peduli Panti',
-        // user: user, // Pass user data ke MyHomePage
-      ),
+      home: const MyHomePage(title: 'Peduli Panti'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -62,48 +39,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
-  Map<String, dynamic>? user;
-  List<Panti> pantis = [];
-  bool isLoading = true;
-
-  // @override
-  // final List<Map<String, dynamic>> data = [
-  //   {"nama": "Panti Asuhan 1", "jumlah": 50, "progress": 0.5},
-  //   {"nama": "Panti Asuhan 2", "jumlah": 30, "progress": 0.3},
-  //   {"nama": "Panti Asuhan 3", "jumlah": 70, "progress": 0.7},
-  //   {"nama": "Panti Asuhan 4", "jumlah": 90, "progress": 0.9},
-  // ];
 
   @override
-  void initState() {
-    super.initState();
-    _loadUserData();
-    _fetchPantis();
-  }
-
-  Future<void> _fetchPantis() async {
-    try {
-      final data = await ApiService.fetchPantiDetails();
-      setState(() {
-        pantis = data;
-        isLoading = false;
-      });
-    } catch (e) {
-      print('Error fetching pantis: $e');
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  Future<void> _loadUserData() async {
-    final userData = await AuthService.getUser(); // Ambil data user
-    if (userData != null) {
-      setState(() {
-        user = userData; // Perbarui state dengan data user
-      });
-    }
-  }
+  final List<Map<String, dynamic>> data = [
+    {"nama": "Panti Asuhan 1", "jumlah": 50, "progress": 0.5},
+    {"nama": "Panti Asuhan 2", "jumlah": 30, "progress": 0.3},
+    {"nama": "Panti Asuhan 3", "jumlah": 70, "progress": 0.7},
+    {"nama": "Panti Asuhan 4", "jumlah": 90, "progress": 0.9},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -339,27 +282,25 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 25),
-                                  child: Column(
+                                  child: const Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Halo',
-                                        style: const TextStyle(
+                                        'Halo,',
+                                        style: TextStyle(
                                           fontSize: 24,
-                                          fontWeight: FontWeight.bold,
                                           color: Colors.black,
                                         ),
                                       ),
                                       Text(
-                                        '${user?['name'] ?? 'Pengguna'} 👋🏻!',
-                                        style: const TextStyle(
+                                        'Alvin Yuga Pramana👋🏻!',
+                                        style: TextStyle(
                                           fontSize: 24,
-                                          fontWeight: FontWeight.bold,
                                           color: Colors.black,
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -473,7 +414,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: const Text(
                               'Panti Asuhan',
                               style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 fontSize: 17,
                               ),
                             ),
@@ -484,14 +425,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: pantis.map((panti) {
-                          // Perhitungan progress
-                          final double progress = panti.donationTotal /
-                              (686000 * panti.childNumber);
-
+                        children: data.map((item) {
                           return GestureDetector(
                             onTap: () {
-                              print('Panti ${panti.name} di klik');
+                              print('di klik sayang');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -527,7 +464,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       Row(
                                         children: [
                                           Text(
-                                            panti.name,
+                                            item['nama'],
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 17,
@@ -554,9 +491,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Container(
                                             margin:
                                                 const EdgeInsets.only(left: 5),
-                                            child: const Text(
-                                              '0', // Jumlah diatur ke 0 untuk sekarang
-                                              style: TextStyle(
+                                            child: Text(
+                                              '${item['jumlah']}',
+                                              style: const TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 107, 125, 167),
                                                 fontSize: 16,
@@ -578,8 +515,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             child: SizedBox(
                                               height: 15,
                                               child: LinearProgressIndicator(
-                                                value: progress.clamp(0.0,
-                                                    1.0), // Pastikan 0 <= progress <= 1
+                                                value: item['progress'],
                                                 backgroundColor:
                                                     const Color.fromARGB(
                                                         255, 229, 229, 229),
@@ -593,7 +529,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           margin:
                                               const EdgeInsets.only(left: 8),
                                           child: Text(
-                                            '${(progress * 100).toInt()}%', // Progress dalam persen
+                                            '${(item['progress'] * 100).toInt()}%',
                                             style: const TextStyle(
                                               color: Color.fromARGB(
                                                   255, 107, 125, 167),
@@ -622,17 +558,17 @@ class _MyHomePageState extends State<MyHomePage> {
           right: 15,
           child: GestureDetector(
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   PageRouteBuilder(
-              //     pageBuilder: (context, animation, secondaryAnimation) =>
-              //         const Keranjang(),
-              //     transitionsBuilder:
-              //         (context, animation, secondaryAnimation, child) {
-              //       return child;
-              //     },
-              //   ), // Halaman profil
-              // );
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const Keranjang(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return child;
+                  },
+                ), // Halaman profil
+              );
             },
             child: Container(
               padding: const EdgeInsets.all(12),
