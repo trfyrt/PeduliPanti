@@ -1,142 +1,193 @@
 body {
-    margin: 0;
-    display: flex;
-    font-family: 'Outfit', sans-serif; /* Ganti font menjadi Outfit */
-  }
-  
-  .sidebar {
-    width: 240px;
-    background-color: #121212;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    padding: 20px 10px;
-    box-sizing: border-box;
-  }
-  
-  .sidebar .logo {
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 30px; /* Memberikan jarak lebih ke menu */
-  }
+  margin: 0;
+  display: flex;
+  font-family: 'Outfit', sans-serif; /* Ganti font menjadi Outfit */
+}
 
-  .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Memberikan jarak antar menu */
-  }
-  
-  .menu-item {
-    color: #fff;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    border-radius: 8px;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
+.sidebar {
+  width: 240px;
+  background-color: #121212;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px 10px;
+  box-sizing: border-box;
+}
 
-  .menu-item:hover {
-    background-color: #1e1e1e;
-    transform: scale(1.02); /* Memberikan efek kecil pada hover */
-  }
+.sidebar .logo {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px; /* Memberikan jarak lebih ke menu */
+}
 
-  .menu-item .icon {
-    font-size: 20px;
-    margin-right: 15px; /* Jarak ikon dengan teks */
-  }
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Memberikan jarak antar menu */
+}
 
-  .menu-item.active {
-    background-color: #333;
-  }
+.menu-item {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
 
-  .settings {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Jarak antar menu di bagian settings */
-  }
-  
-  footer {
-    font-size: 12px;
-    font-weight: 400;
-    text-align: center;
-    margin-top: 20px;
-  }
+.menu-item:hover {
+  background-color: #1e1e1e;
+  transform: scale(1.02); /* Memberikan efek kecil pada hover */
+}
 
-  .main-content {
-    flex-grow: 1;
-    padding: 20px;
-  }
+.menu-item .icon {
+  font-size: 20px;
+  margin-right: 15px; /* Jarak ikon dengan teks */
+}
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.menu-item.active {
+  background-color: #333;
+}
 
-  header .profile-icon {
-    font-size: 24px;
-    cursor: pointer;
-  }
+.settings {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Jarak antar menu di bagian settings */
+}
 
-  .card-container {
-    display: flex;
-    gap: 20px;
-    justify-content: flex-start;
-    padding: 20px;
-  }
+footer {
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 20px;
+}
 
-  .card {
-    background-color: #2f4f4f;
-    border-radius: 10px;
-    width: 200px;
-    padding: 10px;
-    color: white;
-    text-align: center;
-  }
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
 
-  .card-image {
-    background-color: #d3d3d3;
-    height: 150px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .card-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
+header .profile-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
 
-  .btn {
-    background-color: #556b2f;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+.card-container {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  padding: 20px;
+}
 
-  .card-info {
-    font-size: 14px;
-  }
+.card {
+  background-color: #000;
+  border-radius: 10px;
+  width: 200px;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+}
 
-  .progress-bar {
-    background-color: #d3d3d3;
-    border-radius: 5px;
-    height: 10px;
-    width: 100%;
-    margin-top: 5px;
-  }
+.card-image {
+  background-color: #fff;
+  height: 150px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
 
-  .progress {
-    background-color: #556b2f;
-    height: 100%;
-    width: 20%; /* Adjust this width to represent progress */
-    border-radius: 5px;
-  }
-  
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.btn {
+  background-color: #fafafa;
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card-info {
+  font-size: 14px;
+}
+
+.progress-bar {
+  background-color: #d3d3d3;
+  border-radius: 5px;
+  height: 10px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.progress {
+  background-color: #556b2f;
+  height: 100%;
+  width: 0%; /* Set progress to 0% */
+  border-radius: 5px;
+}
+
+/* Modal styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.accept {
+  background-color: green;
+  color: white;
+}
+
+.reject {
+  background-color: red;
+  color: white;
+}
