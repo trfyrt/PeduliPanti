@@ -345,7 +345,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Halo',
+                                        'Halo,',
                                         style: const TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
@@ -359,36 +359,60 @@ class _MyHomePageState extends State<MyHomePage> {
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: const Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Ayo berdonasi untuk membantu teman-teman',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color:
-                                              Color.fromRGBO(255, 255, 255, 1),
-                                        ),
                                       ),
-                                      Text(
-                                        'kita di panti asuhan',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
-                                        ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Ayo berdonasi untuk membantu teman-teman',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Color.fromRGBO(
+                                                  255, 255, 255, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            'kita di panti asuhan',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
                                 ),
+                                // Container(
+                                //   margin: const EdgeInsets.only(top: 10),
+                                //   child: const Column(
+                                //     mainAxisAlignment: MainAxisAlignment.start,
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Ayo berdonasi untuk membantu teman-teman',
+                                //         style: TextStyle(
+                                //           fontSize: 12,
+                                //           color:
+                                //               Color.fromRGBO(255, 255, 255, 1),
+                                //         ),
+                                //       ),
+                                //       Text(
+                                //         'kita di panti asuhan',
+                                //         style: TextStyle(
+                                //           fontSize: 12,
+                                //           color: Color.fromARGB(
+                                //               255, 255, 255, 255),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             ),
                             Container(
