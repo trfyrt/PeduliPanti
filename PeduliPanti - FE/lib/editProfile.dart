@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
+import 'package:shared_preferences/shared_preferences.dart'; // Corrected import statement
+import 'dart:convert';
+import 'package:http/http.dart' as http; // Added for HTTP requests
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -9,11 +11,15 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  String name = "John Doe";
-  String description =
-      "Panti asuhan ini memberikan perlindungan dan pendidikan kepada anak-anak yang membutuhkan.";
-  String address = "Jl. Contoh Alamat No. 123, Kota, Provinsi";
-  int childrenCount = 25;
+  final TextEditingController nameController =
+      TextEditingController(text: "John Doe");
+  final TextEditingController descriptionController = TextEditingController(
+      text:
+          "Panti asuhan ini memberikan perlindungan dan pendidikan kepada anak-anak yang membutuhkan.");
+  final TextEditingController addressController =
+      TextEditingController(text: "Jl. Contoh Alamat No. 123, Kota, Provinsi");
+  final TextEditingController childrenCountController =
+      TextEditingController(text: "25");
   File? profileImage; // To store the selected profile image
 
   final _formKey = GlobalKey<FormState>();
@@ -27,6 +33,58 @@ class _EditProfilePageState extends State<EditProfilePage> {
       setState(() {
         profileImage = File(pickedFile.path);
       });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData(); // Call _fetchUserData during initialization to fetch user data
+  }
+
+  static Future<int?> _getUserId() async {
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        final userJson = prefs.getString('user');
+        if (userJson != null) {
+          final user = jsonDecode(userJson);
+          print("User ID: ${user['userID']}");
+          return user['userID'];
+        } else {
+          print("User data not found in SharedPreferences.");
+        }
+      } catch (e) {
+        print("Error retrieving user ID: $e");
+      }
+      return null;
+    }
+
+  // Function to fetch user data from the API
+  Future<void> _fetchUserData() async { // Removed static keyword
+    final userId = await _getUserId();
+    if (userId != null) {
+      final url = Uri.parse('http://127.0.0.1:8000/api/v1/user/$userId');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final name = data['name'];
+        final description = data['description'];
+        final address = data['pantiDetails']['address'];
+        final childrenCount = data['pantiDetails']['childNumber'].toString();
+
+        // Update the text controllers with fetched data
+        setState(() { // Added setState to update the UI
+          nameController.text = name;
+          descriptionController.text = description;
+          addressController.text = address;
+          childrenCountController.text = childrenCount;
+        });
+
+        print("User data fetched successfully.");
+      } else {
+        print("Failed to fetch user data.");
+      }
     }
   }
 
@@ -62,8 +120,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     backgroundColor: Colors.grey[300],
                     backgroundImage: profileImage != null
                         ? FileImage(profileImage!)
-                        : AssetImage('assets/pedulipanti.png')
-                            as ImageProvider,
+                        : AssetImage('assets/pedulipanti.png') as ImageProvider,
                     child: profileImage == null
                         ? Icon(Icons.camera_alt, color: Colors.white, size: 30)
                         : null,
@@ -72,7 +129,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 SizedBox(height: 30),
                 _buildTextField(
                   label: "Nama Pengurus",
-                  initialValue: name,
+                  initialValue: nameController.text,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Nama Pengurus tidak boleh kosong';
@@ -80,13 +137,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     return null;
                   },
                   onChanged: (value) {
-                    name = value;
+                    nameController.text = value;
                   },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Deskripsi",
-                  initialValue: description,
+                  initialValue: descriptionController.text,
                   maxLines: 3,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -95,13 +152,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     return null;
                   },
                   onChanged: (value) {
-                    description = value;
+                    descriptionController.text = value;
                   },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Alamat",
-                  initialValue: address,
+                  initialValue: addressController.text,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Alamat tidak boleh kosong';
@@ -109,13 +166,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     return null;
                   },
                   onChanged: (value) {
-                    address = value;
+                    addressController.text = value;
                   },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Jumlah Anak",
-                  initialValue: childrenCount.toString(),
+                  initialValue: childrenCountController.text,
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -124,9 +181,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     return null;
                   },
                   onChanged: (value) {
-                    childrenCount = int.tryParse(value) ?? 0;
+                    childrenCountController.text = value;
                   },
                 ),
+                // Removed the FutureBuilder for displaying user ID
               ],
             ),
           ),
@@ -135,6 +193,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  // Method to build text fields with validation
   Widget _buildTextField({
     required String label,
     required String initialValue,
@@ -144,7 +203,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
     required void Function(String) onChanged,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0), // Added horizontal padding
+      padding: const EdgeInsets.symmetric(
+          horizontal: 16.0), // Added horizontal padding
       child: TextFormField(
         initialValue: initialValue,
         decoration: InputDecoration(
@@ -152,7 +212,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           labelStyle: TextStyle(fontSize: 16), // Increased label font size
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: const Color.fromARGB(255, 181, 208, 255), width: 2),
+            borderSide: BorderSide(
+                color: const Color.fromARGB(255, 181, 208, 255), width: 2),
           ),
           filled: true,
           fillColor: Colors.grey[200],
