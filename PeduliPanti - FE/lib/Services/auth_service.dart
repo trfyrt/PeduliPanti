@@ -163,7 +163,7 @@ class AuthService {
 
       if (userJson != null) {
         final user = jsonDecode(userJson);
-        final userID = user['userID']; // Extract userID from stored user data
+        final userID = user['id']; // Extract userID from stored user data
 
         // Construct the API URL
         final url = Uri.parse('$_baseUrl/user/$userID');

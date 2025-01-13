@@ -136,8 +136,8 @@ class _HomePageState extends State<HomePage> {
       final userJson = prefs.getString('user');
       if (userJson != null) {
         final user = jsonDecode(userJson);
-        print("User ID: ${user['userID']}");
-        return user['userID'];
+        print("User ID: ${user['id']}");
+        return user['id'];
       } else {
         print("User data not found in SharedPreferences.");
       }
