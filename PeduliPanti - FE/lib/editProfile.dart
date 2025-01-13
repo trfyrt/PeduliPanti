@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Corrected import statement
 
 
 class EditProfilePage extends StatefulWidget {
@@ -13,10 +9,11 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController childrenCountController = TextEditingController();
+  String name = "John Doe";
+  String description =
+      "Panti asuhan ini memberikan perlindungan dan pendidikan kepada anak-anak yang membutuhkan.";
+  String address = "Jl. Contoh Alamat No. 123, Kota, Provinsi";
+  int childrenCount = 25;
   File? profileImage; // To store the selected profile image
 
   final _formKey = GlobalKey<FormState>();
@@ -34,66 +31,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    fetchOrphanageDetails(
-      id: 1,
-      onDataFetchSuccess: (data) {
-        nameController.text = data['name'];
-        descriptionController.text = data['description'];
-        addressController.text = data['address'];
-        childrenCountController.text = data['childrenCount'].toString();
-      },
-      onError: (error) {
-        print("Error fetching orphanage details: $error");
-      },
-    );
-  }
-
-  // Fungsi untuk mengambil URL gambar profil dari SharedPreferences
-  Future<String?> _getProfileImageUrl() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userJson = prefs.getString('user');
-    if (userJson != null) {
-      final user = jsonDecode(userJson);
-      return user['image'] ??
-          null; // Pastikan 'profile_image' adalah key yang tepat
-    }
-    return null;
-  }
-
-
-  static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
-
-  // Function to fetch orphanage details
-  static Future<void> fetchOrphanageDetails({
-    required int id,
-    required Function(dynamic data) onDataFetchSuccess, // Callback for successful data fetch
-    required Function(String error) onError, // Callback for handling errors
-  }) async {
-    final url = Uri.parse('$_baseUrl/panti_detail/$id');
-    try {
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        // Parse the response
-        final data = jsonDecode(response.body);
-        final orphanageData = data['data'];
-
-        // Trigger callback with fetched data
-        onDataFetchSuccess(orphanageData);
-      } else {
-        final errorMessage =
-            jsonDecode(response.body)['message'] ?? "Unknown error occurred";
-        print("Failed to fetch orphanage details: $errorMessage");
-        onError("Failed to fetch orphanage details. Please try again.");
-      }
-    } catch (e) {
-      print("An error occurred during fetching orphanage details: ${e.toString()}");
-      onError("An unexpected error occurred. Please try again.");
-    }
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -105,6 +42,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 // Save the changes
+                Navigator.pop(context);
               }
             },
           ),
@@ -119,85 +57,36 @@ class _EditProfilePageState extends State<EditProfilePage> {
               children: [
                 GestureDetector(
                   onTap: _pickImage,
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 112, 112, 112),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: FutureBuilder<String?>(
-                      future:
-                          _getProfileImageUrl(), // Function to get the image URL from SharedPreferences
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return const Center(child: Icon(Icons.error));
-                        } else if (snapshot.hasData && snapshot.data != null) {
-                          // Display the profile image from the retrieved URL
-                          return Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: ColorFiltered(
-                                  colorFilter: ColorFilter.mode(
-                                    Colors.black
-                                        .withOpacity(0.5), // Darken the image
-                                    BlendMode.darken,
-                                  ),
-                                  child: Image.network(
-                                    snapshot
-                                        .data!, // Profile image URL retrieved from SharedPreferences
-                                    width: 120,
-                                    height: 120,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              // Edit icon on top of the image
-                              Positioned(
-                                bottom: 2,
-                                right: 0,
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 147, 181, 255),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: const Icon(
-                                    FontAwesomeIcons.solidPenToSquare,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        } else {
-                          return const Center(
-                              child: Icon(FontAwesomeIcons.solidPenToSquare)); // If there is no URL
-                        }
-                      },
-                    ),
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.grey[300],
+                    backgroundImage: profileImage != null
+                        ? FileImage(profileImage!)
+                        : AssetImage('assets/pedulipanti.png')
+                            as ImageProvider,
+                    child: profileImage == null
+                        ? Icon(Icons.camera_alt, color: Colors.white, size: 30)
+                        : null,
                   ),
                 ),
                 SizedBox(height: 30),
                 _buildTextField(
                   label: "Nama Pengurus",
-                  controller: nameController,
+                  initialValue: name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Nama Pengurus tidak boleh kosong';
                     }
                     return null;
                   },
+                  onChanged: (value) {
+                    name = value;
+                  },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Deskripsi",
-                  controller: descriptionController,
+                  initialValue: description,
                   maxLines: 3,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -205,28 +94,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     }
                     return null;
                   },
+                  onChanged: (value) {
+                    description = value;
+                  },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Alamat",
-                  controller: addressController,
+                  initialValue: address,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Alamat tidak boleh kosong';
                     }
                     return null;
                   },
+                  onChanged: (value) {
+                    address = value;
+                  },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Jumlah Anak",
-                  controller: childrenCountController,
+                  initialValue: childrenCount.toString(),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Jumlah Anak tidak boleh kosong';
                     }
                     return null;
+                  },
+                  onChanged: (value) {
+                    childrenCount = int.tryParse(value) ?? 0;
                   },
                 ),
               ],
@@ -239,15 +137,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Widget _buildTextField({
     required String label,
-    required TextEditingController controller,
+    required String initialValue,
     int? maxLines,
     TextInputType? keyboardType,
     required String? Function(String?)? validator,
+    required void Function(String) onChanged,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0), // Added horizontal padding
       child: TextFormField(
-        controller: controller,
+        initialValue: initialValue,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(fontSize: 16), // Increased label font size
@@ -262,6 +161,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         maxLines: maxLines,
         keyboardType: keyboardType,
         validator: validator,
+        onChanged: onChanged,
       ),
     );
   }
