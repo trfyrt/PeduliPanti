@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart'; // Corrected import statement
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http; // Added for HTTP requests
+import 'package:http/http.dart' as http;
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -11,20 +11,90 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final TextEditingController nameController =
-      TextEditingController(text: "John Doe");
-  final TextEditingController descriptionController = TextEditingController(
-      text:
-          "Panti asuhan ini memberikan perlindungan dan pendidikan kepada anak-anak yang membutuhkan.");
-  final TextEditingController addressController =
-      TextEditingController(text: "Jl. Contoh Alamat No. 123, Kota, Provinsi");
-  final TextEditingController childrenCountController =
-      TextEditingController(text: "25");
-  File? profileImage; // To store the selected profile image
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController childrenCountController = TextEditingController();
+  File? profileImage; // Untuk menyimpan gambar profil yang dipilih
 
   final _formKey = GlobalKey<FormState>();
-  final ImagePicker _picker = ImagePicker(); // Image picker instance
+  final ImagePicker _picker = ImagePicker(); // Instance ImagePicker
 
+  static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
+
+  // Mendapatkan userID dari SharedPreferences
+  static Future<int?> _getUserId() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userJson = prefs.getString('user');
+      if (userJson != null) {
+        final user = jsonDecode(userJson);
+        print("User ID: ${user['userID']}");
+        return user['userID'];
+      } else {
+        print("User data not found in SharedPreferences.");
+      }
+    } catch (e) {
+      print("Error retrieving user ID: $e");
+    }
+    return null;
+  }
+
+  // Fungsi untuk mendapatkan token yang disimpan
+  static Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  // Fungsi untuk mengambil data user dari server
+  Future<void> _fetchUserData() async {
+    try {
+      final userId = await _getUserId();
+      if (userId == null) {
+        print("User ID is null. Ensure _getUserId() returns a valid ID.");
+        return;
+      }
+
+      final url = Uri.parse('$_baseUrl/user/$userId');
+      final response = await http.get(
+        url,
+        headers: {"Authorization": "Bearer ${await getToken()}"},
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        print("Fetched data: $data");
+
+        // Validasi struktur JSON
+        if (data != null &&
+            data['data'] != null &&
+            data['data']['pantiDetails'] != null) {
+          final pantiDetails = data['data']['pantiDetails'];
+
+          // Update controller values dengan data yang diambil
+          setState(() {
+            nameController.text = data['data']['name'] ?? "Unknown";
+            descriptionController.text =
+                pantiDetails['description'] ?? "No description";
+            addressController.text = pantiDetails['address'] ?? "No address";
+            childrenCountController.text =
+                pantiDetails['childNumber']?.toString() ?? "0";
+          });
+
+          print("User data fetched and updated successfully.");
+        } else {
+          print("Invalid JSON structure: $data");
+        }
+      } else {
+        print("Failed to fetch user data. Status code: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
+    }
+  }
+
+  // Fungsi untuk memilih gambar dari galeri
   Future<void> _pickImage() async {
     final XFile? pickedFile =
         await _picker.pickImage(source: ImageSource.gallery);
@@ -33,59 +103,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
       setState(() {
         profileImage = File(pickedFile.path);
       });
+      print(
+          "Image selected: ${pickedFile.path}"); // Debugging: Menampilkan path gambar yang dipilih
+    } else {
+      print("No image selected"); // Debugging: Tidak ada gambar yang dipilih
     }
   }
 
   @override
   void initState() {
     super.initState();
-    _fetchUserData(); // Call _fetchUserData during initialization to fetch user data
-  }
-
-  static Future<int?> _getUserId() async {
-      try {
-        final prefs = await SharedPreferences.getInstance();
-        final userJson = prefs.getString('user');
-        if (userJson != null) {
-          final user = jsonDecode(userJson);
-          print("User ID: ${user['userID']}");
-          return user['userID'];
-        } else {
-          print("User data not found in SharedPreferences.");
-        }
-      } catch (e) {
-        print("Error retrieving user ID: $e");
-      }
-      return null;
-    }
-
-  // Function to fetch user data from the API
-  Future<void> _fetchUserData() async { // Removed static keyword
-    final userId = await _getUserId();
-    if (userId != null) {
-      final url = Uri.parse('http://127.0.0.1:8000/api/v1/user/$userId');
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final name = data['name'];
-        final description = data['description'];
-        final address = data['pantiDetails']['address'];
-        final childrenCount = data['pantiDetails']['childNumber'].toString();
-
-        // Update the text controllers with fetched data
-        setState(() { // Added setState to update the UI
-          nameController.text = name;
-          descriptionController.text = description;
-          addressController.text = address;
-          childrenCountController.text = childrenCount;
-        });
-
-        print("User data fetched successfully.");
-      } else {
-        print("Failed to fetch user data.");
-      }
-    }
+    _fetchUserData();
   }
 
   @override
@@ -99,8 +127,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             icon: Icon(Icons.save),
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                // Save the changes
-                Navigator.pop(context);
+                // Jika form valid, perbarui data pengguna
               }
             },
           ),
@@ -114,36 +141,35 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: _pickImage,
+                  onTap: _pickImage, // Memilih gambar saat ditekan
                   child: CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.grey[300],
                     backgroundImage: profileImage != null
-                        ? FileImage(profileImage!)
-                        : AssetImage('assets/pedulipanti.png') as ImageProvider,
+                        ? FileImage(
+                            profileImage!) // Jika ada gambar, tampilkan gambar
+                        : AssetImage('assets/pedulipanti.png')
+                            as ImageProvider, // Gambar default jika belum ada gambar yang dipilih
                     child: profileImage == null
                         ? Icon(Icons.camera_alt, color: Colors.white, size: 30)
-                        : null,
+                        : null, // Menampilkan ikon kamera jika gambar belum dipilih
                   ),
                 ),
                 SizedBox(height: 30),
                 _buildTextField(
                   label: "Nama Pengurus",
-                  initialValue: nameController.text,
+                  controller: nameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Nama Pengurus tidak boleh kosong';
                     }
                     return null;
                   },
-                  onChanged: (value) {
-                    nameController.text = value;
-                  },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Deskripsi",
-                  initialValue: descriptionController.text,
+                  controller: descriptionController,
                   maxLines: 3,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -151,28 +177,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     }
                     return null;
                   },
-                  onChanged: (value) {
-                    descriptionController.text = value;
-                  },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Alamat",
-                  initialValue: addressController.text,
+                  controller: addressController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Alamat tidak boleh kosong';
                     }
                     return null;
                   },
-                  onChanged: (value) {
-                    addressController.text = value;
-                  },
                 ),
                 SizedBox(height: 20),
                 _buildTextField(
                   label: "Jumlah Anak",
-                  initialValue: childrenCountController.text,
+                  controller: childrenCountController,
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -180,11 +200,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     }
                     return null;
                   },
-                  onChanged: (value) {
-                    childrenCountController.text = value;
-                  },
                 ),
-                // Removed the FutureBuilder for displaying user ID
               ],
             ),
           ),
@@ -193,23 +209,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  // Method to build text fields with validation
+  // Method untuk membangun text field dengan validasi
   Widget _buildTextField({
     required String label,
-    required String initialValue,
+    required TextEditingController controller,
     int? maxLines,
     TextInputType? keyboardType,
     required String? Function(String?)? validator,
-    required void Function(String) onChanged,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 16.0), // Added horizontal padding
+      padding:
+          const EdgeInsets.symmetric(horizontal: 16.0), // Padding horizontal
       child: TextFormField(
-        initialValue: initialValue,
+        controller: controller, // Gunakan controller langsung
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(fontSize: 16), // Increased label font size
+          labelStyle: TextStyle(fontSize: 16), // Menambah ukuran font label
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
@@ -222,7 +237,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         maxLines: maxLines,
         keyboardType: keyboardType,
         validator: validator,
-        onChanged: onChanged,
       ),
     );
   }

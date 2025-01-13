@@ -176,8 +176,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           const CircleAvatar(
                             radius: 50,
-                            backgroundImage: AssetImage(
-                                'assets/pedulipanti.png'), // Updated asset path
+                            // backgroundImage: AssetImage(
+                            //     'assets/pedulipanti.png'), // Updated asset path
                           ),
                           const SizedBox(height: 16),
                           const Text(
@@ -238,11 +238,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset(
-                                      'assets/pedulipanti.png', // Updated asset path
-                                      width: 60,
-                                      height: 60,
-                                      alignment: Alignment.center),
+                                  // Image.asset(
+                                  //     'assets/pedulipanti.png', // Updated asset path
+                                  //     width: 60,
+                                  //     height: 60,
+                                  //     alignment: Alignment.center),
                                   const SizedBox(width: 8),
                                   const Column(
                                     crossAxisAlignment:
@@ -288,11 +288,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset(
-                                      'assets/pedulipanti.png', // Updated asset path
-                                      width: 60,
-                                      height: 60,
-                                      alignment: Alignment.center),
+                                  // Image.asset(
+                                  //     'assets/pedulipanti.png', // Updated asset path
+                                  //     width: 60,
+                                  //     height: 60,
+                                  //     alignment: Alignment.center),
                                   const SizedBox(width: 8),
                                   const Column(
                                     crossAxisAlignment:
@@ -338,11 +338,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset(
-                                      'assets/pedulipanti.png', // Updated asset path
-                                      width: 60,
-                                      height: 60,
-                                      alignment: Alignment.center),
+                                  // Image.asset(
+                                  //     'assets/pedulipanti.png', // Updated asset path
+                                  //     width: 60,
+                                  //     height: 60,
+                                  //     alignment: Alignment.center),
                                   const SizedBox(width: 8),
                                   const Column(
                                     crossAxisAlignment:
