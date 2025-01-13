@@ -82,3 +82,39 @@ body {
     font-size: 24px;
     cursor: pointer;
   }
+
+#historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+#historyTable th, #historyTable td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+#historyTable thead tr {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+#historyTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#historyTable tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive styling untuk layar kecil (opsional) */
+@media (max-width: 768px) {
+  #historyTable {
+    font-size: 14px;
+  }
+  #historyTable th, #historyTable td {
+    padding: 10px;
+  }
+}
