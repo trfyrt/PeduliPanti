@@ -515,12 +515,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                           return GestureDetector(
                             onTap: () {
-                              print('Panti ${panti.name} di klik');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DetailPantiApp()),
+                                  builder: (context) => DetailPantiApp(
+                                      pantiId:
+                                          panti.id), // Mengirimkan ID panti
+                                ),
                               );
                             },
                             child: Container(

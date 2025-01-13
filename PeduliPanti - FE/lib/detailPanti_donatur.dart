@@ -1,6 +1,8 @@
+import 'package:donatur_peduli_panti/Services/api_service.dart';
+import 'package:donatur_peduli_panti/Models/Panti.dart';
 import 'package:donatur_peduli_panti/historiRABDonatur.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
-import 'package:donatur_peduli_panti/keranjang.dart';
+// import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:donatur_peduli_panti/market.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,8 +11,9 @@ import 'package:location/location.dart';
 import 'package:flutter_map/flutter_map.dart';
 
 class DetailPantiApp extends StatelessWidget {
-  // const DetailPantiApp({super.key});
-  const DetailPantiApp({super.key});
+  final int pantiId; // ID panti asuhan yang akan diterima
+
+  const DetailPantiApp({Key? key, required this.pantiId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +22,16 @@ class DetailPantiApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 254),
       ),
-      home: const MyHomePage(title: 'Peduli Panti'),
+      home: MyHomePage(title: 'Peduli Panti', pantiId: pantiId),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, required this.pantiId});
 
+  final int pantiId;
   final String title;
 
   @override
@@ -36,18 +40,32 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Location location = new Location();
-
   bool _serviceEnabled = false;
   PermissionStatus? _permissionGranted;
   LocationData? _locationData;
-
   late MapController mapController;
+  late Panti pantiDetail;
 
   @override
   void initState() {
+    super.initState();
     initLocation();
     mapController = MapController();
-    super.initState();
+    fetchPantiDetails(); // Fetch data panti berdasarkan pantiId
+  }
+
+  // Mengambil detail panti berdasarkan pantiId
+  fetchPantiDetails() async {
+    try {
+      final fetchedPanti = await ApiService.fetchPantiDetails();
+      final panti =
+          fetchedPanti.firstWhere((panti) => panti.id == widget.pantiId);
+      setState(() {
+        pantiDetail = panti;
+      });
+    } catch (e) {
+      print("Error fetching panti details: $e");
+    }
   }
 
   initLocation() async {
@@ -609,17 +627,18 @@ class _MyHomePageState extends State<MyHomePage> {
             right: 15,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const Keranjang(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
+                print("Masuk ke keranjang");
+                // Navigator.push(
+                //   context,
+                //   PageRouteBuilder(
+                //     pageBuilder: (context, animation, secondaryAnimation) =>
+                //         const Keranjang(),
+                //     transitionsBuilder:
+                //         (context, animation, secondaryAnimation, child) {
+                //       return child;
+                //     },
+                //   ),
+                // );
               },
               child: Container(
                 padding: const EdgeInsets.all(12),
