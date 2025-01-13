@@ -161,7 +161,7 @@ class ApiService {
       }
 
       final user = jsonDecode(userJson);
-      final userID = user['userID']; // Assuming 'id' is the key for user ID
+      final userID = user['id']; // Assuming 'id' is the key for user ID
 
       // Construct the API URL
       final url = Uri.parse('$_baseUrl/user/$userID');
