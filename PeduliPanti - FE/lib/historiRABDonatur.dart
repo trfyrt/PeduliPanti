@@ -1,10 +1,13 @@
+import 'package:donatur_peduli_panti/Models/Panti.dart';
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
 import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HistoriRAB extends StatelessWidget {
-  const HistoriRAB({super.key});
+  const HistoriRAB({Key? key, required this.pantiDetail}) : super(key: key);
+
+  final Panti? pantiDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +17,15 @@ class HistoriRAB extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 254),
       ),
-      home: const HistoriRABPage(),
+      home: HistoriRABPage(pantiDetail: pantiDetail),
     );
   }
 }
 
 class HistoriRABPage extends StatefulWidget {
-  const HistoriRABPage({super.key});
+  const HistoriRABPage({super.key, required this.pantiDetail});
+
+  final Panti? pantiDetail;
 
   @override
   State<HistoriRABPage> createState() => _HistoriRABPageState();
@@ -45,17 +50,17 @@ class _HistoriRABPageState extends State<HistoriRABPage> {
               left: 0,
               child: GestureDetector(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   PageRouteBuilder(
-                  //     pageBuilder: (context, animation, secondaryAnimation) =>
-                  //         const DetailPantiApp(),
-                  //     transitionsBuilder:
-                  //         (context, animation, secondaryAnimation, child) {
-                  //       return child;
-                  //     },
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          DetailPantiApp(pantiId: widget.pantiDetail?.id ?? 0),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return child;
+                      },
+                    ),
+                  );
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16),
@@ -76,116 +81,113 @@ class _HistoriRABPageState extends State<HistoriRABPage> {
           ],
         ),
       ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 3,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    color: const Color.fromARGB(255, 254, 254, 254),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Text(
-                                'Januari',
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Menampilkan daftar RAB yang dimiliki Panti
+            widget.pantiDetail?.rabs.isEmpty ?? true
+                ? Center(child: Text('Tidak ada laporan RAB.'))
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: widget.pantiDetail?.rabs.length ?? 0,
+                    itemBuilder: (context, index) {
+                      final rab = widget.pantiDetail?.rabs[index];
+                      return Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 1,
+                              blurRadius: 3,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15)),
+                          color: const Color.fromARGB(255, 254, 254, 254),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Tanggal: ${rab?.date ?? 'Tidak ada tanggal'}',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                 ),
                               ),
-                            ),
-                            const Text(
-                              'Rabu, 2 September 2024',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 8, bottom: 8),
-                          width: double.infinity,
-                          height: 1,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 211, 211, 211)),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                elevation: 0,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 14),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  side: BorderSide(
-                                    color: Color.fromARGB(
-                                        255, 129, 156, 214), // Warna border
-                                    width: 2, // Ketebalan border
-                                    style: BorderStyle.solid, // Gaya border
-                                  ),
-                                ),
+                              Text(
+                                'Status: ${rab?.status ?? 'Tidak ada status'}',
+                                style: TextStyle(fontSize: 15),
                               ),
-                              onPressed: () {
-                                // Navigator.push(
-                                //   context,
-                                //   PageRouteBuilder(
-                                //     pageBuilder: (context, animation, secondaryAnimation) => const Pesanan(),
-                                //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                //       return child; // Tidak ada animasi
-                                //     },
-                                //   ),
-                                // );
-                              },
-                              child: Row(
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 8, bottom: 8),
+                                width: double.infinity,
+                                height: 1,
+                                decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 211, 211, 211)),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Icon(
-                                    FontAwesomeIcons.fileArrowDown,
-                                    color: Color.fromARGB(255, 129, 156, 214),
-                                  ),
-                                  Text(
-                                    " Download File",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Color.fromARGB(255, 129, 156, 214),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      elevation: 0,
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 8, horizontal: 14),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 129, 156, 214),
+                                          width: 2,
+                                          style: BorderStyle.solid,
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      // Tindakan untuk mendownload PDF atau file
+                                      print("Download PDF: ${rab?.pdf}");
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons.fileArrowDown,
+                                          color: Color.fromARGB(
+                                              255, 129, 156, 214),
+                                        ),
+                                        Text(
+                                          " Download File",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Color.fromARGB(
+                                                255, 129, 156, 214),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
