@@ -7,6 +7,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class  extends Migration
@@ -22,8 +23,9 @@ return new class  extends Migration
             $table->engine = 'InnoDB';
             $table->increments('RABID');
             $table->unsignedInteger('pantiID');
-            $table->binary('pdf');
+            // $table->binary('pdf');
             $table->string('status', 45)->default('pending');
+            $table->date('date')->nullable();
 
             $table->index(["pantiID"], 'pantiID_idx');
 
@@ -33,6 +35,8 @@ return new class  extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });
+
+        DB::statement("ALTER TABLE RAB ADD pdf LONGBLOB");
  Schema::enableForeignKeyConstraints();
     }
 
