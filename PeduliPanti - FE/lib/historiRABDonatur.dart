@@ -3,6 +3,11 @@ import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
 import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:io';
+import 'dart:convert';
 
 class HistoriRAB extends StatelessWidget {
   const HistoriRAB({Key? key, required this.pantiDetail}) : super(key: key);
@@ -32,6 +37,34 @@ class HistoriRABPage extends StatefulWidget {
 }
 
 class _HistoriRABPageState extends State<HistoriRABPage> {
+  Future<void> requestPermission() async {
+    final status = await Permission.storage.request();
+    if (!status.isGranted) {
+      // Jika izin tidak diberikan, tampilkan pesan atau proses lain
+      print('Permission denied');
+    }
+  }
+
+  Future<void> downloadFileFromBase64(
+      String base64String, String fileName) async {
+    try {
+      // Mendapatkan direktori penyimpanan eksternal perangkat
+      final directory = await getExternalStorageDirectory();
+      String filePath = '${directory?.path}/$fileName';
+
+      // Mendekode string Base64 menjadi data byte
+      List<int> bytes = base64Decode(base64String);
+
+      // Menyimpan data byte ke dalam file
+      File file = File(filePath);
+      await file.writeAsBytes(bytes);
+
+      print('File downloaded to: $filePath');
+    } catch (e) {
+      print('Error saving file: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,8 +190,13 @@ class _HistoriRABPageState extends State<HistoriRABPage> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      // Tindakan untuk mendownload PDF atau file
-                                      print("Download PDF: ${rab?.pdf}");
+                                      // Panggil fungsi untuk mendownload file Base64
+                                      String base64String = rab?.pdf ??
+                                          ''; // Pastikan Anda punya string Base64
+                                      String fileName =
+                                          'Laporan_RAB_${rab?.id}.pdf'; // Nama file
+                                      downloadFileFromBase64(
+                                          base64String, fileName);
                                     },
                                     child: Row(
                                       children: [

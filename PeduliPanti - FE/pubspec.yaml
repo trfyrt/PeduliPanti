@@ -46,6 +46,9 @@ dependencies:
   http: ^1.2.2
   shared_preferences: ^2.3.3
   intl: ^0.20.1
+  dio: ^5.0.0
+  path_provider: ^2.0.11
+  permission_handler: ^10.0.0
 
 dev_dependencies:
   flutter_test:
