@@ -18,7 +18,7 @@ class PantiDetailSeeder extends Seeder
                 'name' => $faker->word,
                 'organizer' => ($index + 10),
                 'address' => $faker->address,
-                'child_number' => rand(10, 50),
+                'child_number' => rand(10, 100),
                 'founding_date' => $faker->date,
                 'donation_total' => rand(100000, 100000000),
                 'priority_value' => 0,

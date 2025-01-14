@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PantiDetailResource;
 use App\Models\PantiDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PantiDetailController extends Controller
 {
@@ -28,6 +29,10 @@ class PantiDetailController extends Controller
             'organizer' => 'required|integer|exists:user,userID',
             'name' => 'required|string',
             'address' => 'required|string',
+            'child_number' => 'required|integer',
+            'founding_date' => 'required|date', //YYYY-MM-DD
+            'donation_total' => 'required|integer',
+            'description' => 'string',
             'origin' => 'required|array', // Validasi sebagai array
         ]);
         
@@ -49,14 +54,19 @@ class PantiDetailController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'organizer' => 'required|integer',
-            'name' => 'required|string',
-            'address' => 'required|string',
-            'origin' => 'required|array', // Validasi sebagai array
+            'organizer' => 'integer',
+            'name' => 'string',
+            'address' => 'string',
+            'child_number' => 'integer',
+            'founding_date' => 'date', //YYYY-MM-DD
+            'donation_total' => 'integer',
+            'description' => 'string',
+            'origin' => 'array', // Validasi sebagai array
         ]);
-    
-        // Encode `origin` menjadi JSON
-        $validated['origin'] = json_encode($validated['origin']);
+
+        if (isset($validated['origin']) && is_array($validated['origin'])) {
+            $validated['origin'] = json_encode($validated['origin']);
+        }
 
         $pantiDetail = PantiDetail::findOrFail($id);
         $pantiDetail->update($validated);
