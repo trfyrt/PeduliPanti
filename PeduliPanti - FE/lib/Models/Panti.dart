@@ -7,6 +7,7 @@ class Panti {
   final int donationTotal;
   final double priorityValue;
   final String description;
+  final Origin? origin;
   final List<RequestList> requestLists;
 
   Panti({
@@ -18,6 +19,7 @@ class Panti {
     required this.donationTotal,
     required this.priorityValue,
     required this.description,
+    required this.origin,
     required this.requestLists,
   });
 
@@ -31,9 +33,27 @@ class Panti {
       donationTotal: json['donationTotal'],
       priorityValue: (json['priorityValue'] as num).toDouble(),
       description: json['description'],
+      origin: Origin.fromJson(json['origin']),
       requestLists: (json['requestLists'] as List)
           .map((item) => RequestList.fromJson(item))
           .toList(),
+    );
+  }
+}
+
+class Origin {
+  final double lat;
+  final double lng;
+
+  Origin({
+    required this.lat,
+    required this.lng,
+  });
+
+  factory Origin.fromJson(Map<String, dynamic> json) {
+    return Origin(
+      lat: (json['lat'] as num).toDouble(),
+      lng: (json['lng'] as num).toDouble(),
     );
   }
 }

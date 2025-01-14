@@ -9,6 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class DetailPantiApp extends StatelessWidget {
   final int pantiId; // ID panti asuhan yang akan diterima
@@ -49,9 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    initLocation();
+    initializeDateFormatting('id_ID', null).then((_) {
+      // Setelah locale diinisialisasi, lanjutkan proses lainnya
+      initLocation();
+      fetchPantiDetails();
+    });
     mapController = MapController();
-    fetchPantiDetails(); // Fetch data panti berdasarkan pantiId
   }
 
   // Mengambil detail panti berdasarkan pantiId
@@ -66,6 +71,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } catch (e) {
       print("Error fetching panti details: $e");
     }
+  }
+
+  String formatDate(String date) {
+    // Parsing string "YYYY-MM-DD" ke DateTime
+    DateTime parsedDate = DateTime.parse(date);
+
+    // Format ke "EEEE, dd MMMM yyyy"
+    String formattedDate =
+        DateFormat('EEEE, dd MMMM yyyy', 'id_ID').format(parsedDate);
+
+    return formattedDate;
   }
 
   initLocation() async {
@@ -94,6 +110,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final LatLng initialLocation = LatLng(
+      pantiDetail.origin?.lat ?? 5.1,
+      pantiDetail.origin?.lng ?? 119.4,
+    );
     return Scaffold(
       body: Stack(
         children: [
@@ -114,16 +134,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      'assets/img/panti1.png',
+                    Container(
+                      width: 392,
+                      height: 260,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/img/panti1.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.only(
                           right: 15, left: 15, top: 20, bottom: 3),
-                      child: const Text(
-                        'Panti Asuhan 1',
-                        style: TextStyle(
-                          fontSize: 20,
+                      child: Text(
+                        'Panti ${pantiDetail.name}',
+                        style: const TextStyle(
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -131,9 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding:
                           const EdgeInsets.only(right: 15, left: 15, bottom: 5),
-                      child: const Text(
-                        'Makassar, Sulawesi Selatan',
-                        style: TextStyle(
+                      child: Text(
+                        pantiDetail.address,
+                        style: const TextStyle(
                           color: Color.fromARGB(60, 33, 33, 33),
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -218,9 +245,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Container(
                                   margin: const EdgeInsets.only(right: 5),
-                                  child: const Text(
-                                    'Rp.10.000.000',
-                                    style: TextStyle(
+                                  child: Text(
+                                    'Rp.${pantiDetail.donationTotal}',
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 107, 125, 167),
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15,
@@ -237,9 +264,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 Container(
-                                  child: const Text(
-                                    'Rp.100.000.000',
-                                    style: TextStyle(
+                                  child: Text(
+                                    'Rp.${pantiDetail.childNumber * 686000}',
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15,
                                     ),
@@ -257,8 +284,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     borderRadius: BorderRadius.circular(10),
                                     child: SizedBox(
                                       height: 15,
-                                      child: const LinearProgressIndicator(
-                                        value: 0.1,
+                                      child: LinearProgressIndicator(
+                                        value: (pantiDetail.donationTotal /
+                                            pantiDetail.childNumber *
+                                            686000),
                                         backgroundColor:
                                             Color.fromARGB(255, 229, 229, 229),
                                         color:
@@ -298,9 +327,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Jejak Panti Asuhan 1',
-                            style: TextStyle(
+                          Text(
+                            'Jejak Panti ${pantiDetail.name}',
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
@@ -322,9 +351,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
-                                            'Lahirnya Panti Asuhan 1',
-                                            style: TextStyle(
+                                          Text(
+                                            'Lahirnya Panti ${pantiDetail.name}',
+                                            style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
@@ -336,8 +365,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 child: const Text('pada'),
                                               ),
                                               Container(
-                                                child: const Text(
-                                                    'Senin, 1 Desember 2024'),
+                                                child: Text(formatDate(
+                                                    pantiDetail.foundingDate)),
                                               ),
                                             ],
                                           )
@@ -362,9 +391,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
-                                            'Penjaga Panti Asuhan 1',
-                                            style: TextStyle(
+                                          Text(
+                                            'Jumlah anak Panti ${pantiDetail.name}',
+                                            style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
@@ -373,12 +402,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                               Container(
                                                 margin: const EdgeInsets.only(
                                                     right: 4),
-                                                child: const Text(
-                                                    'telah mencapai'),
-                                              ),
-                                              Container(
-                                                child:
-                                                    const Text('1278 Donatur'),
+                                                child: Text(
+                                                    'sebanyak ${pantiDetail.childNumber} anak'),
                                               ),
                                             ],
                                           )
@@ -484,8 +509,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 15),
-                            child: const Text(
-                              'Panti Asuhan A adalah lembaga non-pemerintah dan non-profit yang berdedikasi untuk menyelamatkan serta merawat bayi-bayi terlantar, dibuang, atau tidak diinginkan. Panti ini menyediakan lingkungan yang aman dan penuh kasih, memastikan setiap anak mendapatkan perlindungan, perhatian, dan kesempatan untuk masa depan yang lebih baik.',
+                            child: Text(
+                              pantiDetail.description,
                               style: TextStyle(
                                 fontSize: 14,
                               ),
@@ -559,15 +584,28 @@ class _MyHomePageState extends State<MyHomePage> {
                                   FlutterMap(
                                     mapController: mapController,
                                     options: MapOptions(
-                                      initialZoom: 10,
-                                      initialCenter:
-                                          LatLng(-5.147665, 119.432731),
-                                    ),
+                                        initialZoom: 15,
+                                        initialCenter: initialLocation),
                                     children: [
                                       TileLayer(
                                         urlTemplate:
                                             'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                                         userAgentPackageName: 'com.example.app',
+                                      ),
+                                      MarkerLayer(
+                                        markers: [
+                                          // Marker utama (lokasi awal)
+                                          Marker(
+                                            point: initialLocation,
+                                            width: 80,
+                                            height: 80,
+                                            child: Icon(
+                                              Icons.location_pin,
+                                              size: 40,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -577,9 +615,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: const Text(
-                              'Jl. Lorem Ipsum dolores No. 69, Asphodel, Kec. Elysium, Kota Makassar, Sulawesi Selatan, Indonesia',
-                              style: TextStyle(
+                            child: Text(
+                              pantiDetail.address,
+                              style: const TextStyle(
                                 fontSize: 14,
                               ),
                             ),
