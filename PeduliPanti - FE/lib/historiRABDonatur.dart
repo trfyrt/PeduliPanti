@@ -45,17 +45,17 @@ class _HistoriRABPageState extends State<HistoriRABPage> {
               left: 0,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const DetailPantiApp(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return child;
-                      },
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   PageRouteBuilder(
+                  //     pageBuilder: (context, animation, secondaryAnimation) =>
+                  //         const DetailPantiApp(),
+                  //     transitionsBuilder:
+                  //         (context, animation, secondaryAnimation, child) {
+                  //       return child;
+                  //     },
+                  //   ),
+                  // );
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16),

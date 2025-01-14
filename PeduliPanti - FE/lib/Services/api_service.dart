@@ -26,6 +26,25 @@ class ApiService {
     }
   }
 
+  // Fungsi untuk mengambil detail panti berdasarkan ID
+  static Future<Panti> fetchPantiById(int pantiId) async {
+    final String apiUrl = '$_baseUrl/panti_detail/$pantiId';
+
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body)['data'];
+        return Panti.fromJson(
+            data); // Mengembalikan objek Panti berdasarkan data JSON
+      } else {
+        throw Exception('Failed to load panti details');
+      }
+    } catch (e) {
+      throw Exception('Error fetching panti details: $e');
+    }
+  }
+
   // Fungsi untuk mengambil data produk
   static Future<List<Product>> fetchProducts() async {
     final String apiUrl = '$_baseUrl/product';

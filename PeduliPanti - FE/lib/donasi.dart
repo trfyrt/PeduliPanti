@@ -281,18 +281,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                 // Misalnya, ketika item diklik, Anda bisa menampilkan snackbar atau melanjutkan ke halaman lain
                                 print('Item ${item['nama']} tapped');
                                 // Anda bisa menambahkan aksi lain di sini, seperti navigasi atau perubahan status
-                                Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        const DetailPantiApp(),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      return child;
-                                    },
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   PageRouteBuilder(
+                                //     pageBuilder: (context, animation,
+                                //             secondaryAnimation) =>
+                                //         const DetailPantiApp(),
+                                //     transitionsBuilder: (context, animation,
+                                //         secondaryAnimation, child) {
+                                //       return child;
+                                //     },
+                                //   ),
+                                // );
                               },
                               child: Container(
                                 height: 110,
@@ -456,18 +456,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: data1.map((item) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        const DetailPantiApp(),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  return child;
-                                },
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   PageRouteBuilder(
+                            //     pageBuilder:
+                            //         (context, animation, secondaryAnimation) =>
+                            //             const DetailPantiApp(),
+                            //     transitionsBuilder: (context, animation,
+                            //         secondaryAnimation, child) {
+                            //       return child;
+                            //     },
+                            //   ),
+                            // );
                           },
                           child: Container(
                             padding: const EdgeInsets.all(16),
