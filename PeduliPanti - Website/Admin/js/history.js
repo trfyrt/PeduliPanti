@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tableBody = document.querySelector("#historyTable tbody");
   
     // Fetch data from the API
-    fetch("https://your-backend-url/api/v1/orders") // Butuh Link API mu back-end kuh :v
+    fetch("http://127.0.0.1:8000/api/v1/orders") // Butuh Link API mu back-end kuh :v
       .then((response) => {
         if (!response.ok) throw new Error("Failed to fetch data");
         return response.json();
