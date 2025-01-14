@@ -46,14 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
   PermissionStatus? _permissionGranted;
   LocationData? _locationData;
   late MapController mapController;
-  late Panti pantiDetail;
+  Panti? pantiDetail;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     initializeDateFormatting('id_ID', null).then((_) {
-      // Setelah locale diinisialisasi, lanjutkan proses lainnya
-      initLocation();
+      initLocation(); // Jika ada logika khusus lokasi
       fetchPantiDetails();
     });
     mapController = MapController();
@@ -61,15 +61,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Mengambil detail panti berdasarkan pantiId
   fetchPantiDetails() async {
+    setState(() {
+      _isLoading = true; // Mulai loading
+    });
     try {
-      final fetchedPanti = await ApiService.fetchPantiDetails();
-      final panti =
-          fetchedPanti.firstWhere((panti) => panti.id == widget.pantiId);
+      final fetchedPanti = await ApiService.fetchPantiDetails(); // Panggil API
+      final panti = fetchedPanti.firstWhere(
+        (panti) => panti.id == widget.pantiId,
+        orElse: () => throw Exception(
+            'Panti dengan ID ${widget.pantiId} tidak ditemukan'),
+      );
+
       setState(() {
         pantiDetail = panti;
+        _isLoading = false;
       });
     } catch (e) {
       print("Error fetching panti details: $e");
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -111,9 +122,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final LatLng initialLocation = LatLng(
-      pantiDetail.origin?.lat ?? 5.1,
-      pantiDetail.origin?.lng ?? 119.4,
+      pantiDetail?.origin?.lat ?? 5.1,
+      pantiDetail?.origin?.lng ?? 119.4,
     );
+
+    final double progressValue = (pantiDetail?.donationTotal ?? 0) /
+        ((pantiDetail?.childNumber ?? 1) * 686000);
+
+    if (_isLoading) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -135,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 392,
+                      width: MediaQuery.of(context).size.width,
                       height: 260,
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -148,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.only(
                           right: 15, left: 15, top: 20, bottom: 3),
                       child: Text(
-                        'Panti ${pantiDetail.name}',
+                        'Panti ${pantiDetail?.name}',
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -159,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding:
                           const EdgeInsets.only(right: 15, left: 15, bottom: 5),
                       child: Text(
-                        pantiDetail.address,
+                        '${pantiDetail?.address}',
                         style: const TextStyle(
                           color: Color.fromARGB(60, 33, 33, 33),
                           fontSize: 14,
@@ -246,7 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Container(
                                   margin: const EdgeInsets.only(right: 5),
                                   child: Text(
-                                    'Rp.${pantiDetail.donationTotal}',
+                                    'Rp.${pantiDetail?.donationTotal}',
                                     style: const TextStyle(
                                       color: Color.fromARGB(255, 107, 125, 167),
                                       fontWeight: FontWeight.bold,
@@ -265,7 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 Container(
                                   child: Text(
-                                    'Rp.${pantiDetail.childNumber * 686000}',
+                                    'Rp.${(pantiDetail?.childNumber ?? 0) * 686000}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15,
@@ -285,9 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     child: SizedBox(
                                       height: 15,
                                       child: LinearProgressIndicator(
-                                        value: (pantiDetail.donationTotal /
-                                            pantiDetail.childNumber *
-                                            686000),
+                                        value: progressValue,
                                         backgroundColor:
                                             Color.fromARGB(255, 229, 229, 229),
                                         color:
@@ -328,7 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Jejak Panti ${pantiDetail.name}',
+                            'Jejak Panti ${pantiDetail?.name}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
@@ -352,7 +371,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Lahirnya Panti ${pantiDetail.name}',
+                                            'Lahirnya Panti ${pantiDetail?.name}',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -366,7 +385,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                               ),
                                               Container(
                                                 child: Text(formatDate(
-                                                    pantiDetail.foundingDate)),
+                                                    pantiDetail?.foundingDate ??
+                                                        "1990-01-01")),
                                               ),
                                             ],
                                           )
@@ -392,7 +412,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Jumlah anak Panti ${pantiDetail.name}',
+                                            'Jumlah anak Panti ${pantiDetail?.name}',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -403,7 +423,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 margin: const EdgeInsets.only(
                                                     right: 4),
                                                 child: Text(
-                                                    'sebanyak ${pantiDetail.childNumber} anak'),
+                                                    'sebanyak ${pantiDetail?.childNumber ?? 0} anak'),
                                               ),
                                             ],
                                           )
@@ -510,7 +530,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Container(
                             margin: const EdgeInsets.only(top: 15),
                             child: Text(
-                              pantiDetail.description,
+                              '${pantiDetail?.description ?? 'Description not found'}',
                               style: TextStyle(
                                 fontSize: 14,
                               ),
@@ -616,7 +636,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Container(
                             margin: const EdgeInsets.only(top: 5),
                             child: Text(
-                              pantiDetail.address,
+                              '${pantiDetail?.address}',
                               style: const TextStyle(
                                 fontSize: 14,
                               ),
