@@ -45,6 +45,33 @@ class ApiService {
     }
   }
 
+  // // Fungsi untuk mengambil data RAB berdasarkan pantiID dan status "approved" secara lokal
+  // static Future<List<RAB>> fetchRABByPantiId(int pantiId) async {
+  //   final String apiUrl =
+  //       '$_baseUrl/rab'; // Ambil semua data RAB dari endpoint yang ada
+
+  //   try {
+  //     final response = await http.get(Uri.parse(apiUrl));
+
+  //     if (response.statusCode == 200) {
+  //       final data = json.decode(response.body)['data'] as List;
+
+  //       // Filter data secara lokal berdasarkan pantiID dan status "approved"
+  //       final filteredData = data
+  //           .where((json) =>
+  //               json['pantiID'] == pantiId && json['status'] == 'approved')
+  //           .map((json) => RAB.fromJson(json))
+  //           .toList();
+
+  //       return filteredData;
+  //     } else {
+  //       throw Exception('Failed to load RAB');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Error fetching RAB by pantiID: $e');
+  //   }
+  // }
+
   // Fungsi untuk mengambil data produk
   static Future<List<Product>> fetchProducts() async {
     final String apiUrl = '$_baseUrl/product';

@@ -23,11 +23,18 @@ class RABController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input
         $validated = $request->validate([
             'pantiID' => 'required|integer',
-            'pdf' => 'nullable|file',
+            'pdf' => 'required|file|mimes:pdf', // Pastikan file adalah PDF
             'status' => 'required|string',
         ]);
+    
+        $pdfData = file_get_contents($request->file('pdf')->getRealPath());
+    
+        $validated['pdf'] = $pdfData;
+        $validated['date'] = now()->toDateString();
+
         $rab = RAB::create($validated);
         return new RABResource($rab);
     }
@@ -35,9 +42,9 @@ class RABController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'pantiID' => 'required|integer',
+            'pantiID' => 'integer',
             'pdf' => 'nullable|file|mimes:pdf|max:2048',
-            'status' => 'required|string',
+            'status' => 'string',
         ]);
         $rab = RAB::findOrFail($id);
         $rab->update($validated);

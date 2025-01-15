@@ -9,6 +9,7 @@ class Panti {
   final String description;
   final Origin? origin;
   final List<RequestList> requestLists;
+  final List<RAB> rabs;
 
   Panti({
     required this.id,
@@ -21,6 +22,7 @@ class Panti {
     required this.description,
     required this.origin,
     required this.requestLists,
+    required this.rabs,
   });
 
   factory Panti.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class Panti {
       requestLists: (json['requestLists'] as List)
           .map((item) => RequestList.fromJson(item))
           .toList(),
+      rabs: (json['rabs'] as List).map((item) => RAB.fromJson(item)).toList(),
     );
   }
 }
@@ -83,6 +86,33 @@ class RequestList {
       requestedQty: json['requested_qty'],
       donatedQty: json['donated_qty'],
       statusApproval: json['status_approval'],
+    );
+  }
+}
+
+class RAB {
+  final int id;
+  final int pantiID;
+  final String pdf;
+  final String status;
+  final String date;
+
+  RAB({
+    required this.id,
+    required this.pantiID,
+    required this.pdf,
+    required this.status,
+    required this.date,
+  });
+
+  // Factory constructor untuk memetakan JSON ke dalam objek RAB
+  factory RAB.fromJson(Map<String, dynamic> json) {
+    return RAB(
+      id: json['id'],
+      pantiID: json['pantiID'],
+      pdf: json['pdf'],
+      status: json['status'],
+      date: json['date'],
     );
   }
 }

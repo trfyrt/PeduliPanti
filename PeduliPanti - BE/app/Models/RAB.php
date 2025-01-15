@@ -17,6 +17,7 @@ class RAB extends Model
         'pantiID',
         'pdf',
         'status',
+        'date',
     ];
 
     public function panti()

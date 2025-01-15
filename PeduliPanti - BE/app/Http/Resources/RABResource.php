@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class RABResource extends JsonResource
 {
@@ -12,8 +13,9 @@ class RABResource extends JsonResource
         return [
             'id' => $this->RABID,
             'pantiID' => $this->pantiID,
-            'pdf' => $this->pdf,
+            'pdf' => $this->pdf ? base64_encode($this->pdf) : null,
             'status' => $this->status,
+            'date' => $this->date,
             'panti' => new PantiDetailResource($this->whenLoaded('panti')), // Relasi panti
         ];
     }
