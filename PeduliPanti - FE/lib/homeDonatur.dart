@@ -85,7 +85,9 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       final data = await ApiService.fetchPantiDetails();
       setState(() {
-        pantis = data;
+        // Mengurutkan berdasarkan priorityValue (descending)
+        pantis = data
+          ..sort((a, b) => b.priorityValue.compareTo(a.priorityValue));
         isLoading = false;
       });
     } catch (e) {
@@ -572,16 +574,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                       Row(
                                         children: [
-                                          const Icon(Icons.person,
+                                          const Icon(Icons.star,
                                               size: 18,
                                               color: Color.fromARGB(
                                                   255, 107, 125, 167)),
                                           Container(
                                             margin:
                                                 const EdgeInsets.only(left: 5),
-                                            child: const Text(
-                                              '0', // Jumlah diatur ke 0 untuk sekarang
-                                              style: TextStyle(
+                                            child: Text(
+                                              '${panti.priorityValue}', // Jumlah diatur ke 0 untuk sekarang
+                                              style: const TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 107, 125, 167),
                                                 fontSize: 16,
