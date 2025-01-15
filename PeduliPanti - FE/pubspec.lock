@@ -560,6 +560,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  pdf_gemini:
+    dependency: "direct main"
+    description:
+      name: pdf_gemini
+      sha256: eaf4b0ecc34db4785efafe5452459e0b036f83bb60b33dd07de8215bb6e071c3
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   permission_handler:
     dependency: "direct main"
     description:
@@ -878,5 +886,5 @@ packages:
     source: hosted
     version: "1.1.0"
 sdks:
-  dart: ">=3.5.1 <4.0.0"
+  dart: ">=3.5.2 <4.0.0"
   flutter: ">=3.24.0"
