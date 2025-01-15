@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
 import 'package:donatur_peduli_panti/editProfilDonatur.dart';
+import 'package:donatur_peduli_panti/Services/auth_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Profiledonatur extends StatefulWidget {
   const Profiledonatur({super.key});
@@ -212,287 +214,170 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               // Stack untuk konten lainnya
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(25),
-                  bottomRight: Radius.circular(25),
-                ),
-                child: Container(
-                  height: 270,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 147, 181, 255),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 30),
-                        child: Container(
-                          padding: EdgeInsets.all(6),
-                          width: 90,
-                          height: 90,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Container(
-                            width: 45,
-                            height: 45,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 138, 138, 138),
-                              borderRadius: BorderRadius.circular(50),
+              FutureBuilder<Map<String, dynamic>?>(
+                future: AuthService.getUser(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                        child:
+                            CircularProgressIndicator()); // Tampilkan indikator loading
+                  } else if (snapshot.hasError || snapshot.data == null) {
+                    return const Center(
+                        child: Text(
+                            'Failed to load user data')); // Tampilkan pesan error
+                  } else {
+                    final user = snapshot.data!;
+                    final imageUrl = user['image'] as String? ?? '';
+                    final proxyUrl = 'https://cors-anywhere.herokuapp.com/$imageUrl';
+                    final isValidUrl =
+                        Uri.tryParse(imageUrl)?.hasAbsolutePath ?? false;
+
+                    if (!isValidUrl) {
+                      print('URL gambar tidak valid: $imageUrl');
+                    }
+                    return ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(25),
+                        bottomRight: Radius.circular(25),
+                      ),
+                      child: Container(
+                        height: 270,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 147, 181, 255),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 30),
+                              child: Container(
+                                padding: const EdgeInsets.all(6),
+                                width: 90,
+                                height: 90,
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Container(
+                                    width: 45,
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 138, 138, 138),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: CachedNetworkImage(
+                                          imageUrl: proxyUrl,
+                                          width: 90,
+                                          height: 90,
+                                          placeholder: (context, url) =>
+                                              const CircularProgressIndicator(),
+                                          // errorWidget: (context, url, error) {
+                                          //   print('Error: $error');
+                                          //   return const Icon(
+                                          //       Icons.broken_image,
+                                          //       size: 50);
+                                          // },
+                                          fit: BoxFit.cover,
+                                        ))
+                                    // Default ikon jika image kosong
+                                    ),
+                              ),
                             ),
-                            child: Icon(FontAwesomeIcons.solidUser),
-                          ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                user['name'] ??
+                                    'No Name', // Tampilkan nama pengguna
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 5),
+                              child: Text(
+                                user['email'] ??
+                                    'No Email', // Tampilkan email pengguna
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Username',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 5),
-                        child: Text(
-                          'user123@gmail.com',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    );
+                  }
+                },
               ),
+
               Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          child: Text(
-                            'Status Pembelian',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 82, 104, 157),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
+                        const Text(
+                          'Status Pembelian',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 82, 104, 157),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
                         ),
                         Container(
                           height: 1,
                           width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 174, 174, 174),
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 174, 174, 174),
                           ),
                         ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  // Navigasi ke halaman lain
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
-                                          StatusBayar(),
-                                      transitionsBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        return child; // Tidak ada animasi
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 23, vertical: 20),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        child: Icon(FontAwesomeIcons.wallet,
-                                            color: Color.fromARGB(
-                                                255, 82, 104, 157)),
-                                      ),
-                                      Text(
-                                        'Bayar',
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 82, 104, 157)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  // Navigasi ke halaman lain
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
-                                          StatusKemas(),
-                                      transitionsBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        return child; // Tidak ada animasi
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 23, vertical: 20),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        child: Icon(
-                                            FontAwesomeIcons.boxesPacking,
-                                            color: Color.fromARGB(
-                                                255, 82, 104, 157)),
-                                      ),
-                                      Text(
-                                        'Dikemas',
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 82, 104, 157)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  // Navigasi ke halaman lain
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
-                                          StatusKirim(),
-                                      transitionsBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        return child; // Tidak ada animasi
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 23, vertical: 20),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        child: Icon(FontAwesomeIcons.truck,
-                                            color: Color.fromARGB(
-                                                255, 82, 104, 157)),
-                                      ),
-                                      Text(
-                                        'Dikirim',
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 82, 104, 157)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  // Navigasi ke halaman lain
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
-                                          StatusSelesai(),
-                                      transitionsBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        return child; // Tidak ada animasi
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 23, vertical: 20),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        child: Icon(FontAwesomeIcons.box,
-                                            color: Color.fromARGB(
-                                                255, 82, 104, 157)),
-                                      ),
-                                      Text(
-                                        'Selesai',
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 82, 104, 157)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            _buildStatusIcon(
                               context,
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        const EditProfil(),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  return child; // Tidak ada animasi
-                                },
-                              ),
-                            );
-                          },
-                          child: Container(
-                            margin: EdgeInsets.all(13),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(right: 10),
-                                  child: Icon(
-                                    FontAwesomeIcons.userPen,
-                                    size: 20,
-                                    color: Color.fromARGB(255, 82, 104, 157),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    'Edit Profil',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Color.fromARGB(255, 82, 104, 157),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              icon: FontAwesomeIcons.wallet,
+                              label: 'Bayar',
+                              targetPage: StatusBayar(),
                             ),
-                          ),
+                            _buildStatusIcon(
+                              context,
+                              icon: FontAwesomeIcons.boxesPacking,
+                              label: 'Dikemas',
+                              targetPage: StatusKemas(),
+                            ),
+                            _buildStatusIcon(
+                              context,
+                              icon: FontAwesomeIcons.truck,
+                              label: 'Dikirim',
+                              targetPage: StatusKirim(),
+                            ),
+                            _buildStatusIcon(
+                              context,
+                              icon: FontAwesomeIcons.box,
+                              label: 'Selesai',
+                              targetPage: StatusSelesai(),
+                            ),
+                          ],
+                        ),
+                        _buildListItem(
+                          context,
+                          icon: FontAwesomeIcons.userPen,
+                          label: 'Edit Profil',
+                          targetPage: const EditProfil(),
                         ),
                         Container(
                           height: 1,
                           width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 174, 174, 174),
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 174, 174, 174),
                           ),
                         ),
                         GestureDetector(
@@ -501,16 +386,15 @@ class _MyHomePageState extends State<MyHomePage> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text("Konfirmasi Keluar"),
-                                  content: Text(
+                                  title: const Text("Konfirmasi Keluar"),
+                                  content: const Text(
                                       "Apakah Anda yakin ingin keluar dari akun Anda?"),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.of(context)
-                                            .pop(); // Menutup dialog
+                                        Navigator.of(context).pop();
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         "Batal",
                                         style: TextStyle(
                                             color: Color.fromARGB(
@@ -529,12 +413,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 animation,
                                                 secondaryAnimation,
                                                 child) {
-                                              return child; // Tidak ada animasi
+                                              return child;
                                             },
                                           ),
                                         );
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         "Keluar",
                                         style: TextStyle(
                                             color: Color.fromARGB(
@@ -546,38 +430,17 @@ class _MyHomePageState extends State<MyHomePage> {
                               },
                             );
                           },
-                          child: Container(
-                            margin: EdgeInsets.all(13),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(right: 10),
-                                  child: Icon(
-                                    FontAwesomeIcons.arrowRightFromBracket,
-                                    size: 20,
-                                    color: Color.fromARGB(255, 82, 104, 157),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    'Keluar',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Color.fromARGB(255, 82, 104, 157),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          child: _buildListItem(
+                            context,
+                            icon: FontAwesomeIcons.arrowRightFromBracket,
+                            label: 'Keluar',
                           ),
                         ),
                         Container(
                           height: 1,
                           width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 174, 174, 174),
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 174, 174, 174),
                           ),
                         ),
                       ],
@@ -623,6 +486,86 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ]),
+    );
+  }
+
+  Widget _buildStatusIcon(BuildContext context,
+      {required IconData icon,
+      required String label,
+      required Widget targetPage}) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => targetPage,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return child;
+            },
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 20),
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              child: Icon(icon, color: const Color.fromARGB(255, 82, 104, 157)),
+            ),
+            Text(
+              label,
+              style: const TextStyle(color: Color.fromARGB(255, 82, 104, 157)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildListItem(BuildContext context,
+      {required IconData icon, required String label, Widget? targetPage}) {
+    return GestureDetector(
+      onTap: () {
+        if (targetPage != null) {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  targetPage,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return child;
+              },
+            ),
+          );
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.all(13),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 10),
+              child: Icon(
+                icon,
+                size: 20,
+                color: const Color.fromARGB(255, 82, 104, 157),
+              ),
+            ),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color.fromARGB(255, 82, 104, 157),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
