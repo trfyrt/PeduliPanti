@@ -440,7 +440,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       PageRouteBuilder(
                                         pageBuilder: (context, animation,
                                                 secondaryAnimation) =>
-                                            HistoriRAB(),
+                                            HistoriRAB(
+                                                pantiDetail: pantiDetail),
                                         transitionsBuilder: (context, animation,
                                             secondaryAnimation, child) {
                                           return child; // Tidak ada animasi
@@ -473,7 +474,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 Container(
                                                   margin: const EdgeInsets.only(
                                                       right: 4),
-                                                  child: const Text('13'),
+                                                  child: Text(
+                                                      '${pantiDetail?.rabs.length ?? 0}'),
                                                 ),
                                                 Container(
                                                   child: const Text(
