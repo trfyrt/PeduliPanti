@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -15,10 +16,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController childrenCountController = TextEditingController();
-  File? profileImage; // Untuk menyimpan gambar profil yang dipilih
+  File? pickedFile;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Define _formKey
 
-  final _formKey = GlobalKey<FormState>();
-  final ImagePicker _picker = ImagePicker(); // Instance ImagePicker
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final picked = await _picker.pickImage(source: ImageSource.gallery);
+    if (picked != null) {
+      setState(() {
+        pickedFile = File(picked.path);
+      });
+    }
+  }
+
+  // Fungsi untuk mengambil URL gambar profil dari SharedPreferences
+  Future<String?> _getProfileImageUrl() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJson = prefs.getString('user');
+    if (userJson != null) {
+      final user = jsonDecode(userJson);
+      return user['image'] ??
+          null; // Pastikan 'profile_image' adalah key yang tepat
+    }
+    return null;
+  }
+
 
   static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
 
@@ -143,22 +166,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
-  // Fungsi untuk memilih gambar dari galeri
-  Future<void> _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        profileImage = File(pickedFile.path);
-      });
-      print(
-          "Image selected: ${pickedFile.path}"); // Debugging: Menampilkan path gambar yang dipilih
-    } else {
-      print("No image selected"); // Debugging: Tidak ada gambar yang dipilih
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -185,25 +192,77 @@ class _EditProfilePageState extends State<EditProfilePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: _formKey,
+          key: _formKey, // Use the defined _formKey
           child: SingleChildScrollView(
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: _pickImage, // Memilih gambar saat ditekan
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.grey[300],
-                    backgroundImage: profileImage != null
-                        ? FileImage(
-                            profileImage!) // Jika ada gambar, tampilkan gambar
-                        : AssetImage('assets/pedulipanti.png')
-                            as ImageProvider, // Gambar default jika belum ada gambar yang dipilih
-                    child: profileImage == null
-                        ? Icon(Icons.camera_alt, color: Colors.white, size: 30)
-                        : null, // Menampilkan ikon kamera jika gambar belum dipilih
+                onTap: _pickImage,
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 112, 112, 112),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: FutureBuilder<String?>(
+                    future:
+                        _getProfileImageUrl(), // Fungsi untuk mendapatkan URL gambar dari SharedPreferences
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return const Center(child: Icon(Icons.error));
+                      } else if (snapshot.hasData && snapshot.data != null) {
+                        // Menampilkan gambar profil dari URL yang diambil
+                        return Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: ColorFiltered(
+                                colorFilter: ColorFilter.mode(
+                                  Colors.black
+                                      .withOpacity(0.5), // Menggelapkan gambar
+                                  BlendMode.darken,
+                                ),
+                                child: Image.network(
+                                  snapshot
+                                      .data!, // URL gambar profil yang diambil dari SharedPreferences
+                                  width: 120,
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            // Ikon edit di atas gambar
+                            Positioned(
+                              bottom: 2,
+                              right: 0,
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 147, 181, 255),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: const Icon(
+                                  FontAwesomeIcons.solidPenToSquare,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return const Center(
+                            child: Icon(FontAwesomeIcons
+                                .solidPenToSquare)); // Jika tidak ada URL
+                      }
+                    },
                   ),
                 ),
+              ),
                 SizedBox(height: 30),
                 _buildTextField(
                   label: "Nama Pengurus",
