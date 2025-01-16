@@ -1,3 +1,5 @@
+import 'RequestList.dart';
+
 class Panti {
   final int id;
   final String name;
@@ -57,35 +59,6 @@ class Origin {
     return Origin(
       lat: (json['lat'] as num).toDouble(),
       lng: (json['lng'] as num).toDouble(),
-    );
-  }
-}
-
-class RequestList {
-  final int id;
-  final int pantiID;
-  final int productID;
-  final int requestedQty;
-  final int donatedQty;
-  final String statusApproval;
-
-  RequestList({
-    required this.id,
-    required this.pantiID,
-    required this.productID,
-    required this.requestedQty,
-    required this.donatedQty,
-    required this.statusApproval,
-  });
-
-  factory RequestList.fromJson(Map<String, dynamic> json) {
-    return RequestList(
-      id: json['id'],
-      pantiID: json['pantiID'],
-      productID: json['productID'],
-      requestedQty: json['requested_qty'],
-      donatedQty: json['donated_qty'],
-      statusApproval: json['status_approval'],
     );
   }
 }

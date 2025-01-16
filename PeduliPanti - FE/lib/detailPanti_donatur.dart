@@ -729,13 +729,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        Market(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child; // Tidak ada animasi
-                    },
+                  MaterialPageRoute(
+                    builder: (context) => Market(
+                        pantiDetail: pantiDetail), // Mengirimkan ID panti
                   ),
                 );
               },
