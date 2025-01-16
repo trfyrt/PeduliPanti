@@ -717,8 +717,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
         ),
         child: BottomAppBar(
           color: Color.fromARGB(255, 147, 181, 255),
@@ -729,8 +729,14 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => Market()), // Halaman tujuan
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        Market(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // Tidak ada animasi
+                    },
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(
