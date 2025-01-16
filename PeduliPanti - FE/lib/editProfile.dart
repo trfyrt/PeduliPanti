@@ -22,15 +22,70 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
 
-  // Mendapatkan userID dari SharedPreferences
-  static Future<int?> _getUserId() async {
+  // Login Function
+  static Future<void> login({
+    required String email,
+    required String password,
+    required Function(String role)
+        onLoginSuccess, // Callback for role-based navigation
+    required Function(String error) onError, // Callback for handling errors
+  }) async {
+    final url = Uri.parse('$_baseUrl/login');
+    final body = {
+      "email": email,
+      "password": password,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode == 200) {
+        // Parse the response
+        final data = jsonDecode(response.body);
+        final token = data['token'];
+        final user = data['user'];
+        final role = user['role'];
+
+        // Store the token securely
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+        await prefs.setString(
+            'user', jsonEncode(user)); // Store user info for reuse
+
+        print("Login successful. Token stored: $token");
+
+        // Trigger role-based navigation
+        onLoginSuccess(role);
+      } else {
+        final errorMessage =
+            jsonDecode(response.body)['message'] ?? "Unknown error occurred";
+        print("Login failed: $errorMessage");
+        onError(errorMessage);
+      }
+    } catch (e) {
+      print("An error occurred during login: ${e.toString()}");
+      onError("An unexpected error occurred. Please try again.");
+    }
+  }
+
+  // Fungsi untuk mendapatkan token yang disimpan
+  static Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  static Future<int?> getUserId() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final userJson = prefs.getString('user');
       if (userJson != null) {
         final user = jsonDecode(userJson);
-        print("User ID: ${user['userID']}");
-        return user['userID'];
+        print("User ID: ${user['id']}");
+        return user['id'];
       } else {
         print("User data not found in SharedPreferences.");
       }
@@ -40,16 +95,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return null;
   }
 
-  // Fungsi untuk mendapatkan token yang disimpan
-  static Future<String?> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token');
-  }
-
   // Fungsi untuk mengambil data user dari server
   Future<void> _fetchUserData() async {
     try {
-      final userId = await _getUserId();
+      final userId = await getUserId();
       if (userId == null) {
         print("User ID is null. Ensure _getUserId() returns a valid ID.");
         return;
