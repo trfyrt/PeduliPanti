@@ -18,7 +18,7 @@ class RequestListSeeder extends Seeder
             'pantiID' => rand(1, 5), // Assuming you have 5 panti
             'productID' => rand(1, 25), // Assuming you have 20 products
             'requested_qty' => $faker->numberBetween(10, 100),
-            'donated_qty' => $faker->numberBetween(0, 100),
+            'donated_qty' => $faker->numberBetween(0, 9),
             'status_approval' => 'approved',
         ]);
         DB::table('request_list')->insert([
