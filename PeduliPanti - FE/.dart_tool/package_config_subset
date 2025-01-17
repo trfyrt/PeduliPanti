@@ -54,6 +54,14 @@ dart_earcut
 3.0
 file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/dart_earcut-1.1.0/
 file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/dart_earcut-1.1.0/lib/
+dio
+2.18
+file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.7.0/
+file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.7.0/lib/
+dio_web_adapter
+3.3
+file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/dio_web_adapter-2.0.0/
+file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/dio_web_adapter-2.0.0/lib/
 equatable
 2.12
 file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.7/
@@ -262,6 +270,10 @@ path_provider_windows
 3.2
 file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.3.0/
 file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.3.0/lib/
+pdf_gemini
+3.5
+file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/pdf_gemini-0.0.3/
+file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/pdf_gemini-0.0.3/lib/
 platform
 3.2
 file:///C:/Users/ASUS/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.6/
