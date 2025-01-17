@@ -9,21 +9,21 @@
 </head>
 <body>
   <div class="register-container">
-    <form class="register-form">
+    <form class="register-form" id="registerForm">
       <h1>Create Account</h1>
       <div class="form-group">
-        <input type="text" placeholder="First Name">
-        <input type="text" placeholder="Last Name">
+        <input type="text" id="firstName" placeholder="First Name" required>
+        <input type="text" id="lastName" placeholder="Last Name" required>
       </div>
-      <input type="email" placeholder="E-Mail">
-      <input type="password" placeholder="Enter your password">
-      <select>
+      <input type="email" id="email" placeholder="E-Mail" required>
+      <input type="password" id="password" placeholder="Enter your password" required minlength="6">
+      <select id="role" required>
         <option value="" disabled selected>Select</option>
         <option value="admin">Admin</option>
         <option value="yayasan">Yayasan</option>
       </select>
       <div class="checkbox-group">
-        <input type="checkbox" id="terms">
+        <input type="checkbox" id="terms" required>
         <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
       </div>
       <button type="submit">Create Account</button>
