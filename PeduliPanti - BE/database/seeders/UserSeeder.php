@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 'image' => null, // You can add a default image if needed
             ]);
         }
-        foreach (range(1, 5) as $index) {
+        foreach (range(1, 10) as $index) {
             User::create([
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,

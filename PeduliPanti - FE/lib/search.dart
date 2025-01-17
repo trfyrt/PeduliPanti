@@ -1,4 +1,7 @@
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
+import 'package:donatur_peduli_panti/Services/auth_service.dart';
+import 'package:donatur_peduli_panti/Services/api_service.dart';
+import 'package:donatur_peduli_panti/Models/Panti.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +13,23 @@ class Search extends StatefulWidget {
 }
 
 class _SearchAppState extends State<Search> {
+  Map<String, dynamic>? user; // Variabel untuk menyimpan data user
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final userData = await AuthService.getUser(); // Ambil data user
+    if (userData != null) {
+      setState(() {
+        user = userData; // Perbarui state dengan data user
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,44 +55,55 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   List<String> _searchHistory = [];
-  String _currentSearch = "";
-  List<Map<String, dynamic>> filteredData = [];
-
-  final List<Map<String, dynamic>> data = [
-    {"nama": "Panti Asuhan 1", "jumlah": 50, "progress": 0.5},
-    {"nama": "Panti Asuhan 2", "jumlah": 30, "progress": 0.3},
-    {"nama": "Panti Asuhan 3", "jumlah": 70, "progress": 0.7},
-    {"nama": "Panti Asuhan 4", "jumlah": 90, "progress": 0.9},
-    {"nama": "Panti Asuhan 5", "jumlah": 90, "progress": 0.9},
-    {"nama": "Panti Asuhan 5", "jumlah": 90, "progress": 0.9},
-  ];
+  List<Panti> filteredData = []; // This will store the filtered list of panti
+  Map<String, dynamic>? user;
+  List<Panti> pantis = []; // Original list of pantis fetched from API
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    // Default, tampilkan semua data
-    filteredData = List.from(data);
+    _loadUserData();
+    _fetchPantis();
+  }
+
+  Future<void> _fetchPantis() async {
+    try {
+      final data = await ApiService.fetchPantiDetails(); // Fetch data from API
+      setState(() {
+        pantis = data; // Update pantis list with API data
+        filteredData =
+            List.from(pantis); // Initialize filtered data with all pantis
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching pantis: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _loadUserData() async {
+    final userData = await AuthService.getUser(); // Fetch user data
+    if (userData != null) {
+      setState(() {
+        user = userData; // Update user data
+      });
+    }
   }
 
   void _updateSearchResults(String query) {
     setState(() {
       if (query.isEmpty) {
-        // Tampilkan semua data jika query kosong
-        filteredData = List.from(data);
+        // If the search query is empty, show all data
+        filteredData = List.from(pantis);
       } else {
-        // Filter data berdasarkan nama
-        filteredData = data
-            .where((item) =>
-                item['nama'].toLowerCase().contains(query.toLowerCase()))
+        // Filter data based on the search query
+        filteredData = pantis
+            .where((item) => item.name.toLowerCase().contains(
+                query.toLowerCase())) // Adjust based on your Panti model field
             .toList();
-      }
-
-      if (query.isNotEmpty) {
-        _searchHistory.insert(0, query);
-        // Batasi hanya 3 history terbaru
-        if (_searchHistory.length > 3) {
-          _searchHistory = _searchHistory.sublist(0, 3);
-        }
       }
     });
   }
@@ -128,7 +159,27 @@ class _SearchPageState extends State<SearchPage> {
                         },
                       ),
                     )),
-                onSubmitted: _updateSearchResults,
+                onChanged: (query) {
+                  // Only update search results without modifying history
+                  _updateSearchResults(query);
+                },
+                onSubmitted: (query) {
+                  // Handle search when the Enter key is pressed
+                  if (query.isNotEmpty) {
+                    _updateSearchResults(query); // Update the search results
+
+                    // Add query to history if it's not empty and not already in history
+                    if (!_searchHistory.contains(query)) {
+                      setState(() {
+                        _searchHistory.insert(0, query);
+                        // Limit search history to the 3 most recent searches
+                        if (_searchHistory.length > 3) {
+                          _searchHistory = _searchHistory.sublist(0, 3);
+                        }
+                      });
+                    }
+                  }
+                },
               ),
               if (_searchController
                   .text.isEmpty) // Tampilkan histori jika kosong
@@ -140,90 +191,130 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: _searchHistory.map((history) {
-                          return ListTile(
-                            leading:
-                                const Icon(Icons.history, color: Colors.grey),
-                            title: Text(history),
-                            onTap: () {
-                              _searchController.text = history;
-                              _updateSearchResults(history);
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
+                    children: _searchHistory.map((history) {
+                      return ListTile(
+                        leading: const Icon(Icons.history, color: Colors.grey),
+                        title: Text(history),
+                        onTap: () {
+                          _searchController.text = history;
+                          _updateSearchResults(history);
+                        },
+                      );
+                    }).toList(),
                   ),
                 ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: filteredData.length,
-                  itemBuilder: (context, index) {
-                    final item = filteredData[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DetailPantiApp(pantiId: pantiId),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 2, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color.fromARGB(255, 129, 129, 129)
-                                  .withOpacity(0.2),
-                              spreadRadius: 3,
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
+                child: SingleChildScrollView(
+                  // Membuat seluruh konten bisa di-scroll
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: filteredData.map((panti) {
+                      final double progress =
+                          panti.donationTotal / (686000 * panti.childNumber);
+
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailPantiApp(pantiId: panti.id),
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      item['nama'],
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17,
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color.fromARGB(255, 129, 129, 129)
+                                    .withOpacity(0.2),
+                                spreadRadius: 3,
+                                blurRadius: 5,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        panti.name,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17,
+                                          color: Color.fromARGB(
+                                              255, 107, 125, 167),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 8),
+                                        child: const Icon(
+                                          Icons.verified,
+                                          color: Color.fromARGB(
+                                              255, 107, 125, 167),
+                                          size: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.person,
+                                        size: 18,
                                         color:
                                             Color.fromARGB(255, 107, 125, 167),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 5),
+                                        child: const Text(
+                                          '0', // Jumlah diatur ke 0 untuk sekarang
+                                          style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 107, 125, 167),
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 25),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: SizedBox(
+                                          height: 15,
+                                          child: LinearProgressIndicator(
+                                            value: progress.clamp(0.0, 1.0),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 229, 229, 229),
+                                            color: const Color.fromARGB(
+                                                255, 107, 125, 167),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     Container(
                                       margin: const EdgeInsets.only(left: 8),
-                                      child: const Icon(Icons.verified,
-                                          color: Color.fromARGB(
-                                              255, 107, 125, 167),
-                                          size: 18),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(Icons.person,
-                                        size: 18,
-                                        color:
-                                            Color.fromARGB(255, 107, 125, 167)),
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 5),
                                       child: Text(
-                                        '${item['jumlah']}',
+                                        '${(progress * 100).toInt()}%',
                                         style: const TextStyle(
                                           color: Color.fromARGB(
                                               255, 107, 125, 167),
@@ -233,46 +324,13 @@ class _SearchPageState extends State<SearchPage> {
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 25),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: SizedBox(
-                                        height: 15,
-                                        child: LinearProgressIndicator(
-                                          value: item['progress'],
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 229, 229, 229),
-                                          color: const Color.fromARGB(
-                                              255, 107, 125, 167),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 8),
-                                    child: Text(
-                                      '${(item['progress'] * 100).toInt()}%',
-                                      style: const TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 107, 125, 167),
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
