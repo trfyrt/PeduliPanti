@@ -18,9 +18,14 @@ class CartController extends Controller
         return CartResource::collection($carts);
     }
 
+    /**
+     * Show by user Id.
+     */
     public function show($id)
     {
-        $cart = Cart::with('products', 'bundles', 'requestLists')->findOrFail($id);
+        $cart = Cart::with(['products', 'bundles', 'requestLists'])
+                    ->where('userID', $id)
+                    ->firstOrFail();
         return new CartResource($cart);
     }
 
