@@ -1,6 +1,6 @@
 import 'package:donatur_peduli_panti/Services/api_service.dart';
 import 'package:donatur_peduli_panti/donasi.dart';
-// import 'package:donatur_peduli_panti/keranjang.dart';
+import 'package:donatur_peduli_panti/search.dart';
 import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
 import 'package:flutter/material.dart';
@@ -425,6 +425,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 child: TextField(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation,
+                                                secondaryAnimation) =>
+                                            const Search(),
+                                        transitionsBuilder: (context, animation,
+                                            secondaryAnimation, child) {
+                                          return child;
+                                        },
+                                      ), // Halaman profil
+                                    );
+                                  },
                                   decoration: InputDecoration(
                                     hintText: 'Search',
                                     filled: true,
@@ -436,7 +450,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     prefixIcon: const Icon(Icons.search),
                                     contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 12, horizontal: 16),
+                                      vertical: 12,
+                                      horizontal: 16,
+                                    ),
                                   ),
                                 ),
                               ),
