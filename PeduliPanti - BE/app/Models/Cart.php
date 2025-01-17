@@ -19,7 +19,7 @@ class Cart extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'userID', 'userID');
+        return $this->hasOne(User::class, 'userID', 'userID');
     }    
 
     public function products()

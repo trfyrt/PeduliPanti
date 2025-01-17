@@ -15,7 +15,7 @@ class CartSeeder extends Seeder
         foreach (range(1, 10) as $index) {
             Cart::create([
                 'cartID' => $index,
-                'userID' => rand(1, 10), // Assuming you have 10 users
+                'userID' => $index, // Assuming you have 10 users
             ]);
         }
     }
