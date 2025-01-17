@@ -1,26 +1,38 @@
-// Ambil elemen form dan input
-const form = document.querySelector('form');
-const usernameInput = document.getElementById('username');
-const passwordInput = document.getElementById('password');
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.querySelector("form");
 
-// Event listener untuk menangani submit
-form.addEventListener('submit', (event) => {
-    event.preventDefault(); // Mencegah reload halaman
+    loginForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-    // Validasi input
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-    if (!username || !password) {
-        alert('Semua kolom harus diisi!');
-        return;
-    }
+        if (!username || !password) {
+            alert("Please enter both username and password.");
+            return;
+        }
 
-    // Dummy login validation (sesuaikan dengan backend jika diperlukan)
-    if (username === 'admin' && password === 'admin123') {
-        alert('Login berhasil!');
-        window.location.href = 'index.html'; // Redirect ke halaman index.html
-    } else {
-        alert('Username atau password salah!');
-    }
+        try {
+            const response = await fetch("https://127.0.0.1:8000/api/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Login successful!");
+                localStorage.setItem("token", data.token); // Simpan token jika diperlukan
+                window.location.href = "index.html"; // Redirect ke dashboard
+            } else {
+                alert(data.message || "Login failed. Please check your credentials.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again later.");
+        }
+    });
 });

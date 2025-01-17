@@ -1,35 +1,46 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector(".register-form");
-  
-    form.addEventListener("submit", (event) => {
-      event.preventDefault(); // Mencegah reload halaman
-  
-      // Mengambil nilai dari setiap input
-      const firstName = form.querySelector('input[placeholder="First Name"]').value;
-      const lastName = form.querySelector('input[placeholder="Last Name"]').value;
-      const email = form.querySelector('input[type="email"]').value;
-      const password = form.querySelector('input[type="password"]').value;
-      const role = form.querySelector("select").value;
-      const termsChecked = form.querySelector("#terms").checked;
-  
-      // Validasi input
-      if (!firstName || !lastName || !email || !password || !role || !termsChecked) {
-        alert("Please fill out all fields and agree to the terms and conditions.");
-        return;
-      }
-  
-      // Menampilkan data ke console
-      console.log({
-        firstName,
-        lastName,
-        email,
-        password,
-        role,
-        termsChecked,
-      });
-  
-      // Mengarahkan pengguna ke index.html
-      window.location.href = "index.html";
+document.getElementById('registerForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  // Mengambil data dari form
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const role = document.getElementById('role').value;
+
+  if (!document.getElementById('terms').checked) {
+    alert('Anda harus menyetujui Terms & Conditions.');
+    return;
+  }
+
+  const fullName = `${firstName} ${lastName}`;
+
+  try {
+    const response = await fetch('https://127.0.0.1:8000/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: fullName,
+        email: email,
+        password: password,
+        role: role,
+      }),
     });
-  });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Akun berhasil dibuat!');
+      window.location.href = 'index.html';
+    } else {
+      alert(`Error: ${data.message || 'Terjadi kesalahan'}`);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Terjadi kesalahan pada server. Silakan coba lagi nanti.');
+  }
+});
+
   

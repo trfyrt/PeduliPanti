@@ -8,67 +8,95 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">
-          <h2>PeduliPanti</h2>
+            <h2>PeduliPanti</h2>
         </div>
         <nav class="menu">
-          <a href="#" class="menu-item active">
-            <span class="icon">📋</span> Dashboard
-          </a>
+            <a href="#" class="menu-item active">
+                <span class="icon">📋</span> Dashboard
+            </a>
         </nav>
         <div class="settings">
-          <a href="#" class="menu-item">
-            <span class="icon">⚙️</span> Settings
-          </a>
-          <a href="login.html" class="menu-item">
-            <span class="icon">↩️</span> Log Out
-          </a>
+            <a href="#" class="menu-item">
+                <span class="icon">⚙️</span> Settings
+            </a>
+            <a href="login.html" class="menu-item">
+                <span class="icon">↩️</span> Log Out
+            </a>
         </div>
         <footer>
-          <p>PeduliPanti (c) 2024</p>
+            <p>PeduliPanti (c) 2024</p>
         </footer>
-      </div>
-      <div class="main-content">
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
         <header>
-          <h1>RAB Submission</h1>
-          <div class="profile-icon">👤</div>
+            <h1>RAB Submission</h1>
+            <div class="profile-icon">👤</div>
         </header>
-        <section>
-          <div class="card">
-            <h3>Panti A</h3>
-            <p>Submission Date: -</p>
-            <p>Status: -</p>
-            <button class="view">View</button>
-            <button class="accept">Accept</button>
-            <button class="reject">Reject</button>
-          </div>
-          <div class="card">
-            <h3>Panti B</h3>
-            <p>Submission Date: -</p>
-            <p>Status: -</p>
-            <button class="view">View</button>
-            <button class="accept">Accept</button>
-            <button class="reject">Reject</button>
-          </div>
-          <div class="card">
-            <h3>Panti C</h3>
-            <p>Submission Date: -</p>
-            <p>Status: -</p>
-            <button class="view">View</button>
-            <button class="accept">Accept</button>
-            <button class="reject">Reject</button>
-          </div>
-          <div class="card">
-            <h3>Panti D</h3>
-            <p>Submission Date: -</p>
-            <p>Status: -</p>
-            <button class="view">View</button>
-            <button class="accept">Accept</button>
-            <button class="reject">Reject</button>
-          </div>
+
+        <!-- RAB Submissions Section -->
+        <section class="rab-submissions">
+            <article class="card" data-id="1">
+                <h3>Panti A</h3>
+                <p><strong>Submission Date:</strong> -</p>
+                <p><strong>Status:</strong> -</p>
+                <button class="view" data-id="1">View</button>
+                <button class="accept" data-id="1">Accept</button>
+                <button class="reject" data-id="1">Reject</button>
+            </article>
+
+            <article class="card" data-id="2">
+                <h3>Panti B</h3>
+                <p><strong>Submission Date:</strong> -</p>
+                <p><strong>Status:</strong> -</p>
+                <button class="view" data-id="2">View</button>
+                <button class="accept" data-id="2">Accept</button>
+                <button class="reject" data-id="2">Reject</button>
+            </article>
+
+            <article class="card" data-id="3">
+                <h3>Panti C</h3>
+                <p><strong>Submission Date:</strong> -</p>
+                <p><strong>Status:</strong> -</p>
+                <button class="view" data-id="3">View</button>
+                <button class="accept" data-id="3">Accept</button>
+                <button class="reject" data-id="3">Reject</button>
+            </article>
+
+            <article class="card" data-id="4">
+                <h3>Panti D</h3>
+                <p><strong>Submission Date:</strong> -</p>
+                <p><strong>Status:</strong> -</p>
+                <button class="view" data-id="4">View</button>
+                <button class="accept" data-id="4">Accept</button>
+                <button class="reject" data-id="4">Reject</button>
+            </article>
         </section>
+    </div>
+
+    <!-- Modal for RAB Details -->
+    <div class="modal" id="rab-modal">
+      <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h2 id="rab-title">RAB Details</h2>
+          <p><strong>Submission Date:</strong> <span id="rab-date"></span></p>
+          <p><strong>Status:</strong> <span id="rab-status"></span></p>
+          <p><strong>Details:</strong></p>
+          <p id="rab-details"></p>
+  
+          <!-- Tempat untuk PDF Attachment -->
+          <p><strong>Attachment:</strong></p>
+          <a id="rab-pdf-link" href="#" target="_blank" class="pdf-link">Download PDF</a>
+          <embed id="rab-pdf-viewer" type="application/pdf" width="100%" height="400px" style="display: none;">
       </div>
-      <script src="js/script.js"></script>
+  </div>
+  
+
+    <!-- Link to JS -->
+    <script src="js/script.js"></script>
 </body>
 </html>
