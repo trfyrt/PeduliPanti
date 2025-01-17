@@ -440,7 +440,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       PageRouteBuilder(
                                         pageBuilder: (context, animation,
                                                 secondaryAnimation) =>
-                                            HistoriRAB(),
+                                            HistoriRAB(
+                                                pantiDetail: pantiDetail),
                                         transitionsBuilder: (context, animation,
                                             secondaryAnimation, child) {
                                           return child; // Tidak ada animasi
@@ -473,7 +474,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 Container(
                                                   margin: const EdgeInsets.only(
                                                       right: 4),
-                                                  child: const Text('13'),
+                                                  child: Text(
+                                                      '${pantiDetail?.rabs.length ?? 0}'),
                                                 ),
                                                 Container(
                                                   child: const Text(
@@ -715,8 +717,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
         ),
         child: BottomAppBar(
           color: Color.fromARGB(255, 147, 181, 255),
@@ -728,7 +730,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Market()), // Halaman tujuan
+                    builder: (context) => Market(
+                        pantiDetail: pantiDetail), // Mengirimkan ID panti
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(

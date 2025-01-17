@@ -48,7 +48,7 @@ class ProductSeeder extends Seeder
             // Pendidikan
             ['categoryID' => 6, 'name' => 'Buku Matematika Dasar', 'price' => 50000, 'description' => 'Buku pelajaran matematika untuk siswa sekolah dasar.', 'requestable' => true, 'image' => "products/product26.jpg"],
             ['categoryID' => 6, 'name' => 'Buku Bahasa Inggris Pemula', 'price' => 45000, 'description' => 'Buku panduan belajar Bahasa Inggris dasar untuk pemula.', 'requestable' => true, 'image' => "products/product27.jpg"],
-            ['categoryID' => 6, 'name' => 'Buku Catatan Bergaris', 'price' => 20000, 'description' => 'Buku catatan bergaris dengan sampul menarik untuk mencatat pelajaran.', 'requestable' => true, 'image' => "products/product218.jpg"],
+            ['categoryID' => 6, 'name' => 'Buku Catatan Bergaris', 'price' => 20000, 'description' => 'Buku catatan bergaris dengan sampul menarik untuk mencatat pelajaran.', 'requestable' => true, 'image' => "products/product28.jpg"],
             ['categoryID' => 6, 'name' => 'Penggaris Multifungsi', 'price' => 15000, 'description' => 'Penggaris dengan berbagai fungsi, termasuk pengukur sudut.', 'requestable' => true, 'image' => "products/product29.jpg"],
             ['categoryID' => 6, 'name' => 'Stabilo Neon (Paket 4 Warna)', 'price' => 30000, 'description' => 'Set stabilo berwarna neon untuk menyoroti teks penting.', 'requestable' => true, 'image' => "products/product30.jpg"],            
         ];

@@ -132,17 +132,17 @@ class _KeranjangPageState extends State<KeranjangPage> {
               left: 0,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const Market(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return child; // Tidak ada animasi
-                      },
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   PageRouteBuilder(
+                  //     pageBuilder: (context, animation, secondaryAnimation) =>
+                  //         const Market(),
+                  //     transitionsBuilder:
+                  //         (context, animation, secondaryAnimation, child) {
+                  //       return child; // Tidak ada animasi
+                  //     },
+                  //   ),
+                  // );
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16),

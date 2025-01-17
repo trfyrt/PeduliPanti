@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             RequestListSeeder::class, //don
             // TransactionOrderSeeder::class,
             // HistorySeeder::class,
-            // RABSeeder::class,
+            RABSeeder::class,
         ]);
     }
 }

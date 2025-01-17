@@ -228,7 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   } else {
                     final user = snapshot.data!;
                     final imageUrl = user['image'] as String? ?? '';
-                    final proxyUrl = 'https://cors-anywhere.herokuapp.com/$imageUrl';
+                    final proxyUrl = '$imageUrl';
                     final isValidUrl =
                         Uri.tryParse(imageUrl)?.hasAbsolutePath ?? false;
 

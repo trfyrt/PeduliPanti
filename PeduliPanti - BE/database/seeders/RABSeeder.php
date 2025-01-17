@@ -16,10 +16,19 @@ class RABSeeder extends Seeder
             RAB::create([
                 'RABID' => $index,
                 'pantiID' => rand(1, 5),
-                'pdf' => 'null', // You can add a PDF file if needed
+                'pdf' => file_get_contents(storage_path('app/public/sample.pdf')),
                 'status' => $faker->randomElement(['approved', 'pending', 'rejected']),
+                'date' => $faker->date()
             ]);
         }
+
+        RAB::create([
+            'RABID' => 6,
+            'pantiID' => 1,
+            'pdf' => file_get_contents(storage_path('app/public/sample.pdf')),
+            'status' => 'approved',
+            'date' => $faker->date()
+        ]);
     }
 }
 
