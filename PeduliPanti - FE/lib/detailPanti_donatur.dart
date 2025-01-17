@@ -717,8 +717,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
         ),
         child: BottomAppBar(
           color: Color.fromARGB(255, 147, 181, 255),
@@ -730,7 +730,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Market()), // Halaman tujuan
+                    builder: (context) => Market(
+                        pantiDetail: pantiDetail), // Mengirimkan ID panti
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(

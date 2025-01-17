@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:donatur_peduli_panti/Models/Bundle.dart';
 import 'package:http/http.dart' as http;
 import 'package:donatur_peduli_panti/Models/Product.dart';
 import 'package:donatur_peduli_panti/Models/Panti.dart';
@@ -83,6 +84,58 @@ class ApiService {
       return data.map((json) => Product.fromJson(json)).toList();
     } else {
       throw Exception('Failed to load products');
+    }
+  }
+
+  // Fetch Bundles
+  static Future<List<Bundle>> fetchBundles() async {
+    final String apiUrl = '$_baseUrl/bundle';
+
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      if (jsonResponse['data'] == null ||
+          (jsonResponse['data'] as List).isEmpty) {
+        print('No bundles found'); // Jika data kosong
+        return [];
+      }
+
+      try {
+        final data = jsonResponse['data'] as List;
+        return data.map((json) => Bundle.fromJson(json)).toList();
+      } catch (e) {
+        print('Error parsing bundle: $e');
+        throw Exception('Failed to parse bundles');
+      }
+    } else {
+      throw Exception('Failed to load bundles');
+    }
+  }
+
+  // Fungsi untuk menyimpan atau memperbarui keranjang
+  static Future<http.Response> storeOrUpdateCart(
+      Map<String, dynamic> cartData) async {
+    final String apiUrl = '$_baseUrl/cart'; // Endpoint API
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization':
+              'Bearer your-auth-token', // Ganti dengan token autentikasi Anda
+        },
+        body: jsonEncode(cartData),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response;
+      } else {
+        throw Exception('Failed to update cart: ${response.body}');
+      }
+    } catch (e) {
+      throw Exception('Error occurred while updating cart: $e');
     }
   }
 

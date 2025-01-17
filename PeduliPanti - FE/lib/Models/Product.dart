@@ -5,7 +5,7 @@ class Product {
   final String description;
   final bool requestable;
   final String? image;
-  final String categoryName;
+  final Category? category;
 
   Product({
     required this.id,
@@ -14,18 +14,37 @@ class Product {
     required this.description,
     required this.requestable,
     this.image,
-    required this.categoryName,
+    required this.category,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? 'Unnamed Product',
+      price: json['price'] ?? 0,
+      description: json['description'] ?? 'No description available',
+      requestable: (json['requestable'] == 1),
+      image: json['image'], // Bisa null
+      category: json['category'] != null
+          ? Category.fromJson(json['category'])
+          : Category(id: 0, name: 'Uncategorized'),
+    );
+  }
+}
+
+class Category {
+  final int id;
+  final String name;
+
+  Category({
+    required this.id,
+    required this.name,
+  });
+
+  factory Category.fromJson(Map<String, dynamic> json) {
+    return Category(
       id: json['id'],
       name: json['name'],
-      price: json['price'],
-      description: json['description'],
-      requestable: json['requestable'] == 1,
-      image: json['image'],
-      categoryName: json['category']['name'],
     );
   }
 }
