@@ -33,7 +33,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 
     if (response.ok) {
       alert('Akun berhasil dibuat!');
-      window.location.href = 'login.html';
+      window.location.href = 'index.html';
     } else {
       alert(`Error: ${data.message || 'Terjadi kesalahan'}`);
     }
