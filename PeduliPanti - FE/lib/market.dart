@@ -462,6 +462,27 @@ class _MarketPage extends State<MarketPage> {
                                                   ),
                                                 ),
                                               ),
+                                              Positioned.fill(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    gradient:
+                                                        const LinearGradient(
+                                                      begin: Alignment
+                                                          .bottomCenter,
+                                                      end: Alignment.topCenter,
+                                                      colors: [
+                                                        Color.fromARGB(
+                                                            98, 0, 0, 0),
+                                                        Color.fromARGB(
+                                                            0, 255, 255, 255),
+                                                      ],
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                  ),
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
