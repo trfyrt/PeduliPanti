@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'Models/Panti.dart';
 import 'Models/Product.dart';
 import 'Models/RequestList.dart';
+import 'Models/Cart.dart';
+import 'Services/auth_service.dart';
 
 class Market extends StatefulWidget {
   Market({Key? key, required this.pantiDetail}) : super(key: key);
@@ -389,104 +391,123 @@ class _MarketPage extends State<MarketPage> {
                           ),
                         ),
                         SizedBox(
-                          height: 250, // Tinggi carousel
+                          height: 250, // Tinggi kolase gambar
                           child: PageView.builder(
                             controller: _pageController1,
                             itemCount: _bundles.length,
                             itemBuilder: (context, index) {
-                              final bundle = _bundles[index];
+                              final bundle = _bundles[
+                                  index]; // Menyimpan data bundle sesuai dengan indeks
+
                               return Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Stack(
-                                      children: [
-                                        // Kolase gambar tetap
-                                        SizedBox(
-                                          height: 150,
-                                          child: Stack(
-                                            children: [
-                                              Positioned(
-                                                top: 0,
-                                                left: 0,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  child: Image.network(
-                                                    bundle.products.isNotEmpty
-                                                        ? bundle.products[0]
-                                                                .image ??
-                                                            'https://via.placeholder.com/150'
-                                                        : 'https://via.placeholder.com/150',
-                                                    fit: BoxFit.cover,
-                                                    width: 200,
-                                                    height: 150,
-                                                  ),
-                                                ),
+                                    Container(
+                                      height: 150, // Tinggi gambar utama
+                                      width: double
+                                          .infinity, // Menutupi lebar penuh
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          // Gambar 1 (kiri besar)
+                                          Positioned(
+                                            top: 0,
+                                            left: 0,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(16),
+                                                  bottomLeft:
+                                                      Radius.circular(16)),
+                                              child: Image.network(
+                                                bundle.products.isNotEmpty
+                                                    ? bundle.products[0]
+                                                            .image ??
+                                                        'https://via.placeholder.com/150'
+                                                    : 'https://via.placeholder.com/150',
+                                                fit: BoxFit.cover,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    2 /
+                                                    3, // Lebar gambar besar
+                                                height:
+                                                    150, // Tinggi gambar besar
                                               ),
-                                              Positioned(
-                                                top: 0,
-                                                right: 0,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  child: Image.network(
-                                                    bundle.products.length > 1
-                                                        ? bundle.products[1]
-                                                                .image ??
-                                                            'https://via.placeholder.com/150'
-                                                        : 'https://via.placeholder.com/150',
-                                                    fit: BoxFit.cover,
-                                                    width: 100,
-                                                    height: 75,
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                bottom: 0,
-                                                right: 0,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  child: Image.network(
-                                                    bundle.products.length > 2
-                                                        ? bundle.products[2]
-                                                                .image ??
-                                                            'https://via.placeholder.com/150'
-                                                        : 'https://via.placeholder.com/150',
-                                                    fit: BoxFit.cover,
-                                                    width: 100,
-                                                    height: 75,
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned.fill(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient:
-                                                        const LinearGradient(
-                                                      begin: Alignment
-                                                          .bottomCenter,
-                                                      end: Alignment.topCenter,
-                                                      colors: [
-                                                        Color.fromARGB(
-                                                            98, 0, 0, 0),
-                                                        Color.fromARGB(
-                                                            0, 255, 255, 255),
-                                                      ],
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          // Gambar 2 (kanan atas)
+                                          Positioned(
+                                            top: 0,
+                                            right: 0,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                      Radius.circular(16)),
+                                              child: Image.network(
+                                                bundle.products.length > 1
+                                                    ? bundle.products[1]
+                                                            .image ??
+                                                        'https://via.placeholder.com/150'
+                                                    : 'https://via.placeholder.com/150',
+                                                fit: BoxFit.cover,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3, // Lebar gambar kecil
+                                                height:
+                                                    75, // Tinggi gambar kecil
+                                              ),
+                                            ),
+                                          ),
+                                          // Gambar 3 (kanan bawah)
+                                          Positioned(
+                                            bottom: 0,
+                                            right: 0,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.only(
+                                                  bottomRight:
+                                                      Radius.circular(16)),
+                                              child: Image.network(
+                                                bundle.products.length > 2
+                                                    ? bundle.products[2]
+                                                            .image ??
+                                                        'https://via.placeholder.com/150'
+                                                    : 'https://via.placeholder.com/150',
+                                                fit: BoxFit.cover,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3, // Lebar gambar kecil
+                                                height:
+                                                    75, // Tinggi gambar kecil
+                                              ),
+                                            ),
+                                          ),
+                                          // Overlay gradient (opsional)
+                                          Positioned.fill(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                gradient: const LinearGradient(
+                                                  begin: Alignment.bottomCenter,
+                                                  end: Alignment.topCenter,
+                                                  colors: [
+                                                    Color.fromARGB(98, 0, 0, 0),
+                                                    Color.fromARGB(
+                                                        0, 255, 255, 255),
+                                                  ],
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(height: 10),
                                     // Informasi dan tombol
@@ -512,8 +533,7 @@ class _MarketPage extends State<MarketPage> {
                                                 'Rp. ${NumberFormat("#,###", "id_ID").format(bundle.price)}',
                                                 style: const TextStyle(
                                                   fontSize: 16,
-                                                  color: Color.fromARGB(
-                                                      255, 147, 181, 255),
+                                                  color: Colors.grey,
                                                 ),
                                               ),
                                             ],
@@ -529,7 +549,7 @@ class _MarketPage extends State<MarketPage> {
                                                   color: Colors.black),
                                             ),
                                             Text(
-                                              '${_bundleQuantities[index]}', // Jumlah bundle
+                                              '${_bundleQuantities[index]}',
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
@@ -783,26 +803,106 @@ class _MarketPage extends State<MarketPage> {
           Positioned(
             bottom: 0,
             left: 0,
-            child: Container(
-              width: 80, // Lebar tombol keranjang
-              height: 70, // Tinggi tombol keranjang
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 147, 181, 255), // Warna tombol
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, -2),
+            child: GestureDetector(
+              onTap: () async {
+                try {
+                  final user = await AuthService.getUser();
+                  final userID = user?['id'] ?? 0; // Ambil userID
+
+                  final cart = Cart(
+                    userID: userID,
+                    products: _productQuantities.asMap().entries.where((entry) {
+                      final index = entry.key;
+                      final quantity = entry.value;
+                      // Pastikan index valid dan quantity > 0
+                      return index >= 0 &&
+                          index < _products.length &&
+                          quantity > 0 &&
+                          _products[index] != null;
+                    }).map((entry) {
+                      final index = entry.key;
+                      final quantity = entry.value;
+                      final product = _products[index];
+                      return CartProduct(
+                        productID: product.id,
+                        quantity: quantity,
+                        pantiID: widget.pantiDetail?.id ?? 0,
+                      );
+                    }).toList(),
+                    bundles: _bundleQuantities.asMap().entries.where((entry) {
+                      final index = entry.key;
+                      final quantity = entry.value;
+                      // Validasi untuk memastikan index valid dan quantity > 0
+                      return index >= 0 &&
+                          index < _bundles.length &&
+                          quantity > 0 &&
+                          _bundles[index] != null;
+                    }).map((entry) {
+                      final index = entry.key;
+                      final quantity = entry.value;
+                      final bundle = _bundles[index];
+                      return CartBundle(
+                        bundleID: bundle.id,
+                        quantity: quantity,
+                        pantiID: widget.pantiDetail?.id ?? 0,
+                      );
+                    }).toList(),
+                    requestLists:
+                        _requestQuantities.asMap().entries.where((entry) {
+                      final index = entry.key;
+                      final quantity = entry.value;
+                      // Pastikan index valid dan kuantitas > 0
+                      return index >= 0 &&
+                          index < widget.pantiDetail!.requestLists.length &&
+                          quantity > 0 &&
+                          widget.pantiDetail!.requestLists[index] != null;
+                    }).map((entry) {
+                      final index = entry.key;
+                      final quantity = entry.value;
+                      final request = widget.pantiDetail!.requestLists[index];
+                      return CartRequest(
+                        requestID: request.id,
+                        quantity: quantity,
+                      );
+                    }).toList(),
+                  );
+
+                  final response =
+                      await ApiService.storeOrUpdateCart(cart.toJson());
+                  if (response.statusCode == 200) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Keranjang berhasil diperbarui')),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Gagal memperbarui keranjang')),
+                    );
+                  }
+                } catch (e) {
+                  print('Gagal: $e');
+                }
+              },
+              child: Container(
+                width: 80,
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 147, 181, 255),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
                   ),
-                ],
-              ),
-              child: Icon(
-                Icons.add_shopping_cart_rounded,
-                color: Colors.black,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, -2),
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  Icons.add_shopping_cart_rounded,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),

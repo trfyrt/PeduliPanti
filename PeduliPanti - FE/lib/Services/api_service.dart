@@ -113,6 +113,32 @@ class ApiService {
     }
   }
 
+  // Fungsi untuk menyimpan atau memperbarui keranjang
+  static Future<http.Response> storeOrUpdateCart(
+      Map<String, dynamic> cartData) async {
+    final String apiUrl = '$_baseUrl/cart'; // Endpoint API
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization':
+              'Bearer your-auth-token', // Ganti dengan token autentikasi Anda
+        },
+        body: jsonEncode(cartData),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response;
+      } else {
+        throw Exception('Failed to update cart: ${response.body}');
+      }
+    } catch (e) {
+      throw Exception('Error occurred while updating cart: $e');
+    }
+  }
+
   // Fungsi untuk mengirim atau memperbarui permintaan
   static Future<void> postRequest({
     required int pantiID,
