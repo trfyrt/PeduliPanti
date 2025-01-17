@@ -62,10 +62,9 @@ class MarketPage extends StatefulWidget {
 class _MarketPage extends State<MarketPage> {
   List<Product> _products = []; // Menyimpan data produk
   List<Bundle> _bundles = []; // Menyimpan data bundle
-  List<int> _quantities = [];
-
-  List<int> _currentQuantities =
-      []; // Menyimpan jumlah yang ditampilkan di tengah tombol
+  List<int> _productQuantities = [];
+  List<int> _requestQuantities = [];
+  List<int> _bundleQuantities = [];
 
   bool _isLoading = true;
 
@@ -74,7 +73,8 @@ class _MarketPage extends State<MarketPage> {
     super.initState();
     _fetchProducts();
     _fetchBundles();
-    _quantities = List.filled(_products.length, 0);
+    _productQuantities = List.filled(_products.length, 0);
+    _bundleQuantities = List.filled(_bundles.length, 0);
     _pageController1.addListener(() {
       // Mendengarkan perubahan halaman dan memperbarui state
       setState(() {
@@ -89,7 +89,7 @@ class _MarketPage extends State<MarketPage> {
       setState(() {
         _products = products;
         // Inisialisasi quantity baru setelah _products dimuat
-        _quantities = List.filled(_products.length, 0);
+        _productQuantities = List.filled(_products.length, 0);
       });
     } catch (error) {
       print('Error fetching products: $error');
@@ -102,6 +102,8 @@ class _MarketPage extends State<MarketPage> {
       setState(() {
         _bundles = bundles;
         _isLoading = false;
+
+        _bundleQuantities = List.filled(_bundles.length, 0);
       });
     } catch (error) {
       setState(() {
@@ -118,8 +120,8 @@ class _MarketPage extends State<MarketPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Initialize currentQuantities dengan nilai awal 0
-    _currentQuantities =
+    // Initialize requestQuantities dengan nilai awal 0
+    _requestQuantities =
         widget.pantiDetail?.requestLists.map((e) => 0).toList() ?? [];
   }
 
@@ -130,9 +132,9 @@ class _MarketPage extends State<MarketPage> {
   void _incrementRequestQty(int index) {
     setState(() {
       // Tambahkan 1 pada angka di tengah
-      if (_currentQuantities[index] <
+      if (_requestQuantities[index] <
           widget.pantiDetail!.requestLists[index].requestedQty) {
-        _currentQuantities[index]++;
+        _requestQuantities[index]++;
 
         // Update donatedQty sesuai dengan angka di tengah
         final updatedRequest = widget.pantiDetail!.requestLists[index].copyWith(
@@ -145,9 +147,9 @@ class _MarketPage extends State<MarketPage> {
 
   void _decrementRequestQty(int index) {
     setState(() {
-      if (_currentQuantities[index] > 0) {
+      if (_requestQuantities[index] > 0) {
         // Kurangi 1 pada angka di tengah
-        _currentQuantities[index]--;
+        _requestQuantities[index]--;
 
         // Update donatedQty sesuai dengan angka di tengah
         final updatedRequest = widget.pantiDetail!.requestLists[index].copyWith(
@@ -158,16 +160,16 @@ class _MarketPage extends State<MarketPage> {
     });
   }
 
-  void _incrementBundle(int index) {
+  void _incrementBundleQty(int index) {
     setState(() {
-      _currentQuantities[index] += 1; // Menambah kuantitas bundle
+      _bundleQuantities[index] += 1; // Menambah kuantitas bundle
     });
   }
 
-  void _decrementBundle(int index) {
+  void _decrementBundleQty(int index) {
     setState(() {
-      if (_currentQuantities[index] > 0) {
-        _currentQuantities[index] -= 1; // Mengurangi kuantitas bundle
+      if (_bundleQuantities[index] > 0) {
+        _bundleQuantities[index] -= 1; // Mengurangi kuantitas bundle
       }
     });
   }
@@ -175,8 +177,8 @@ class _MarketPage extends State<MarketPage> {
   void _incrementBarangDonasi(int index) {
     setState(() {
       // Pastikan kita hanya mengubah quantity jika index valid
-      if (index >= 0 && index < _quantities.length) {
-        _quantities[index]++; // Increment quantity produk
+      if (index >= 0 && index < _productQuantities.length) {
+        _productQuantities[index]++; // Increment quantity produk
       }
     });
   }
@@ -184,8 +186,10 @@ class _MarketPage extends State<MarketPage> {
   void _decrementBarangDonasi(int index) {
     setState(() {
       // Pastikan kita tidak mengurangi di bawah 0
-      if (index >= 0 && index < _quantities.length && _quantities[index] > 0) {
-        _quantities[index]--; // Decrement quantity produk
+      if (index >= 0 &&
+          index < _productQuantities.length &&
+          _productQuantities[index] > 0) {
+        _productQuantities[index]--; // Decrement quantity produk
       }
     });
   }
@@ -308,7 +312,7 @@ class _MarketPage extends State<MarketPage> {
                                                   color: Colors.black),
                                             ),
                                             Text(
-                                              '${_currentQuantities[index]}', // Menampilkan angka di tengah tombol
+                                              '${_requestQuantities[index]}', // Menampilkan angka di tengah tombol
                                               style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
@@ -369,6 +373,7 @@ class _MarketPage extends State<MarketPage> {
                   ),
                   Container(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
@@ -383,148 +388,147 @@ class _MarketPage extends State<MarketPage> {
                             ),
                           ),
                         ),
-                        // Carousel untuk Bundle
                         SizedBox(
-                          height: 250,
-                          child: _bundles.isEmpty
-                              ? const Center(
-                                  child: Text(
-                                    'Belum ada paket donasi tersedia.',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                )
-                              : PageView.builder(
-                                  itemCount: _bundles.length,
-                                  itemBuilder: (context, index) {
-                                    final bundle = _bundles[index];
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Stack untuk membuat kolase gambar
-                                          SizedBox(
-                                            height: 150,
-                                            child: Stack(
-                                              children: [
-                                                // Gambar 1 (kiri besar)
-                                                Positioned(
-                                                  top: 0,
-                                                  left: 0,
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    child: Image.network(
-                                                      bundle.products.isNotEmpty
-                                                          ? bundle.products[0]
-                                                                  .image ??
-                                                              'https://via.placeholder.com/150'
-                                                          : 'https://via.placeholder.com/150',
-                                                      fit: BoxFit.cover,
-                                                      width:
-                                                          200, // Lebar gambar besar
-                                                      height:
-                                                          150, // Tinggi gambar besar
-                                                    ),
+                          height: 250, // Tinggi carousel
+                          child: PageView.builder(
+                            controller: _pageController1,
+                            itemCount: _bundles.length,
+                            itemBuilder: (context, index) {
+                              final bundle = _bundles[index];
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        // Kolase gambar tetap
+                                        SizedBox(
+                                          height: 150,
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                top: 0,
+                                                left: 0,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.network(
+                                                    bundle.products.isNotEmpty
+                                                        ? bundle.products[0]
+                                                                .image ??
+                                                            'https://via.placeholder.com/150'
+                                                        : 'https://via.placeholder.com/150',
+                                                    fit: BoxFit.cover,
+                                                    width: 200,
+                                                    height: 150,
                                                   ),
                                                 ),
-                                                // Gambar 2 (kanan atas)
-                                                Positioned(
-                                                  top: 0,
-                                                  right: 0,
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    child: Image.network(
-                                                      bundle.products.length > 1
-                                                          ? bundle.products[1]
-                                                                  .image ??
-                                                              'https://via.placeholder.com/150'
-                                                          : 'https://via.placeholder.com/150',
-                                                      fit: BoxFit.cover,
-                                                      width:
-                                                          100, // Lebar gambar kecil
-                                                      height:
-                                                          75, // Tinggi gambar kecil
-                                                    ),
+                                              ),
+                                              Positioned(
+                                                top: 0,
+                                                right: 0,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.network(
+                                                    bundle.products.length > 1
+                                                        ? bundle.products[1]
+                                                                .image ??
+                                                            'https://via.placeholder.com/150'
+                                                        : 'https://via.placeholder.com/150',
+                                                    fit: BoxFit.cover,
+                                                    width: 100,
+                                                    height: 75,
                                                   ),
                                                 ),
-                                                // Gambar 3 (kanan bawah)
-                                                Positioned(
-                                                  bottom: 0,
-                                                  right: 0,
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    child: Image.network(
-                                                      bundle.products.length > 2
-                                                          ? bundle.products[2]
-                                                                  .image ??
-                                                              'https://via.placeholder.com/150'
-                                                          : 'https://via.placeholder.com/150',
-                                                      fit: BoxFit.cover,
-                                                      width:
-                                                          100, // Lebar gambar kecil
-                                                      height:
-                                                          75, // Tinggi gambar kecil
-                                                    ),
+                                              ),
+                                              Positioned(
+                                                bottom: 0,
+                                                right: 0,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.network(
+                                                    bundle.products.length > 2
+                                                        ? bundle.products[2]
+                                                                .image ??
+                                                            'https://via.placeholder.com/150'
+                                                        : 'https://via.placeholder.com/150',
+                                                    fit: BoxFit.cover,
+                                                    width: 100,
+                                                    height: 75,
                                                   ),
                                                 ),
-                                                // Overlay gradient (opsional, jika diperlukan)
-                                                Positioned.fill(
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      gradient:
-                                                          const LinearGradient(
-                                                        begin: Alignment
-                                                            .bottomCenter,
-                                                        end:
-                                                            Alignment.topCenter,
-                                                        colors: [
-                                                          Color.fromARGB(
-                                                              98, 0, 0, 0),
-                                                          Color.fromARGB(
-                                                              0, 255, 255, 255),
-                                                        ],
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                          const SizedBox(height: 10),
-                                          // Nama bundle
-                                          Text(
-                                            bundle.name,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    // Informasi dan tombol
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                bundle.name,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              Text(
+                                                'Rp. ${NumberFormat("#,###", "id_ID").format(bundle.price)}',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Color.fromARGB(
+                                                      255, 147, 181, 255),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          // Harga bundle
-                                          Text(
-                                            'Rp. ${NumberFormat("#,###", "id_ID").format(bundle.price)}',
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.grey,
+                                        ),
+                                        // Tombol Add dan Remove
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () =>
+                                                  _decrementBundleQty(index),
+                                              icon: const Icon(Icons.remove,
+                                                  color: Colors.black),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
+                                            Text(
+                                              '${_bundleQuantities[index]}', // Jumlah bundle
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () =>
+                                                  _incrementBundleQty(index),
+                                              icon: const Icon(Icons.add,
+                                                  color: Colors.black),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -663,7 +667,7 @@ class _MarketPage extends State<MarketPage> {
                                               ),
                                               Flexible(
                                                 child: Text(
-                                                  '${_quantities[index]}', // Menampilkan quantity yang disimpan
+                                                  '${_productQuantities[index]}', // Menampilkan quantity yang disimpan
                                                   style: const TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
