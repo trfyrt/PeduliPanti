@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class DetailPanti extends StatelessWidget {
   const DetailPanti({super.key, required this.id});
@@ -12,20 +14,25 @@ class DetailPanti extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    checkPantiId(id); // Check if pantiId has been sent
     return MaterialApp(
       title: 'Peduli Panti',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 254),
       ),
-      home: const MyHomePage(title: 'Peduli Panti'),
+      home: MyHomePage(title: 'Peduli Panti', pantiId: id),
       debugShowCheckedModeBanner: false,
     );
+  }
+
+  void checkPantiId(int pantiId) {
+    print('Panti ID: $pantiId'); // Print the pantiId
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
+  const MyHomePage({super.key, required this.title, required this.pantiId});
+  final int pantiId;
   final String title;
 
   @override
@@ -40,12 +47,14 @@ class _MyHomePageState extends State<MyHomePage> {
   LocationData? _locationData;
 
   late MapController mapController;
+  Map<String, dynamic>? pantiData;
 
   @override
   void initState() {
+    super.initState();
     initLocation();
     mapController = MapController();
-    super.initState();
+    fetchPantiData(widget.pantiId); // Fetch panti data
   }
 
   initLocation() async {
@@ -69,6 +78,18 @@ class _MyHomePageState extends State<MyHomePage> {
     if (_locationData != null) {
       print(
           'Latitude: ${_locationData!.latitude}, Longitude: ${_locationData!.longitude}');
+    }
+  }
+
+  Future<void> fetchPantiData(int id) async {
+    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/v1/panti_detail/$id'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        pantiData = json.decode(response.body)['data'];
+      });
+    } else {
+      throw Exception('Failed to load panti data');
     }
   }
 
@@ -102,9 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: const EdgeInsets.only(
                           right: 15, left: 15, top: 20, bottom: 3),
-                      child: const Text(
-                        'Panti Asuhan 1',
-                        style: TextStyle(
+                      child: Text(
+                        pantiData != null ? pantiData!['name'] : 'Loading...',
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -113,9 +134,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding:
                           const EdgeInsets.only(right: 15, left: 15, bottom: 5),
-                      child: const Text(
-                        'Makassar, Sulawesi Selatan',
-                        style: TextStyle(
+                      child: Text(
+                        pantiData != null ? pantiData!['address'] : 'Loading...',
+                        style: const TextStyle(
                           color: Color.fromARGB(60, 33, 33, 33),
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -318,8 +339,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 child: const Text('pada'),
                                               ),
                                               Container(
-                                                child: const Text(
-                                                    'Senin, 1 Desember 2024'),
+                                                child: Text(
+                                                    pantiData != null ? pantiData!['foundingDate'] : 'Loading...'),
                                               ),
                                             ],
                                           )
@@ -449,8 +470,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 15),
-                            child: const Text(
-                              'Panti Asuhan A adalah lembaga non-pemerintah dan non-profit yang berdedikasi untuk menyelamatkan serta merawat bayi-bayi terlantar, dibuang, atau tidak diinginkan. Panti ini menyediakan lingkungan yang aman dan penuh kasih, memastikan setiap anak mendapatkan perlindungan, perhatian, dan kesempatan untuk masa depan yang lebih baik.',
+                            child: Text(
+                              pantiData != null ? pantiData!['description'] : 'Loading...',
                               style: TextStyle(
                                 fontSize: 14,
                               ),
@@ -542,8 +563,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: const Text(
-                              'Jl. Lorem Ipsum dolores No. 69, Asphodel, Kec. Elysium, Kota Makassar, Sulawesi Selatan, Indonesia',
+                            child: Text(
+                              pantiData != null ? pantiData!['address'] : 'Loading...',
                               style: TextStyle(
                                 fontSize: 14,
                               ),
