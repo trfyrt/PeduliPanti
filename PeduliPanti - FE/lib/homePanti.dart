@@ -2,9 +2,9 @@ import 'package:donatur_peduli_panti/notifikasiPAN.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'profile.dart';
-import 'detailPanti.dart'; // Import the detailPanti.dart file
-import 'reqBarang.dart'; // Import the reqBarang.dart file
-import 'cekRab.dart'; // Import the cekRab.dart file
+import 'detailPanti.dart';
+import 'reqBarang.dart';
+import 'cekRab.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -30,39 +30,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // List of orphanages as a list of maps
-  List<Map<String, dynamic>> orphanages = [
-    {
-      "id": "1", // Added id for each orphanage
-      "name": "Nama Panti Asuhan 1",
-      "targetDonation": 100000,
-      "collectedDonation": 15000,
-    },
-    {
-      "id": "2", // Added id for each orphanage
-      "name": "Nama Panti Asuhan 2",
-      "targetDonation": 100000,
-      "collectedDonation": 30000,
-    },
-    {
-      "id": "3", // Added id for each orphanage
-      "name": "Nama Panti Asuhan 3",
-      "targetDonation": 100000,
-      "collectedDonation": 60000,
-    },
-    {
-      "id": "4", // Added id for each orphanage
-      "name": "Nama Panti Asuhan 4",
-      "targetDonation": 100000,
-      "collectedDonation": 80000,
-    },
-    {
-      "id": "5", // Added id for each orphanage
-      "name": "Nama Panti Asuhan 5",
-      "targetDonation": 100000,
-      "collectedDonation": 90000,
-    },
-  ];
+  List<Map<String, dynamic>> orphanages = [];
+  TextEditingController persentaseDonasiController = TextEditingController();
 
   int? pantiID;
 
@@ -70,9 +39,70 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     fetchListOrphanage();
+    _fetchUserData();
   }
 
   static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
+
+  static Future<int?> getUserId() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userJson = prefs.getString('user');
+      if (userJson != null) {
+        final user = jsonDecode(userJson);
+        print("User ID: ${user['id']}");
+        return user['id'];
+      } else {
+        print("User data not found in SharedPreferences.");
+      }
+    } catch (e) {
+      print("Error retrieving user ID: $e");
+    }
+    return null;
+  }
+
+  Future<void> _fetchUserData() async {
+    try {
+      final userId = await getUserId();
+      if (userId == null) {
+        print("User ID is null. Ensure _getUserId() returns a valid ID.");
+        return;
+      }
+
+      final url = Uri.parse('$_baseUrl/user/$userId');
+      final response = await http.get(
+        url,
+        headers: {"Authorization": "Bearer ${await getToken()}"},
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        print("Fetched data: $data");
+
+        // Validasi struktur JSON
+        if (data != null &&
+            data['data'] != null &&
+            data['data']['pantiDetails'] != null) {
+          final pantiDetails = data['data']['pantiDetails'];
+
+          // Update controller values dengan data yang diambil
+          setState(() {
+            persentaseDonasiController.text =
+                pantiDetails['donationTotal']?.toString() ?? "0";
+          });
+
+          print("User data fetched and updated successfully.");
+        } else {
+          print("Invalid JSON structure: $data");
+        }
+      } else {
+        print("Failed to fetch user data. Status code: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
+    }
+  }
 
   // Login Function
   static Future<void> login({
@@ -130,31 +160,31 @@ class _HomePageState extends State<HomePage> {
     return prefs.getString('token');
   }
 
-  static Future<int?> getUserId() async {
+  static Future<int?> getPantiId() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final userJson = prefs.getString('user');
       if (userJson != null) {
         final user = jsonDecode(userJson);
-        print("User ID: ${user['id']}");
+        print("Panti ID: ${user['id']}");
         return user['id'];
       } else {
-        print("User data not found in SharedPreferences.");
+        print("Panti data not found in SharedPreferences.");
       }
     } catch (e) {
-      print("Error retrieving user ID: $e");
+      print("Error retrieving panti ID: $e");
     }
     return null;
   }
 
-  static Future<int?> fetchDonationTotalByUser() async {
+  static Future<int?> fetchDonationTotalByPanti() async {
     try {
-      final userId = await getUserId();
-      if (userId == null) {
-        throw Exception("User ID not found");
+      final pantiId = await getPantiId();
+      if (pantiId == null) {
+        throw Exception("Panti ID not found");
       }
 
-      final url = Uri.parse('$_baseUrl/user/$userId');
+      final url = Uri.parse('$_baseUrl/panti/$pantiId');
       final response = await http.get(
         url,
         headers: {"Authorization": "Bearer ${await getToken()}"},
@@ -174,6 +204,36 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  static Future<void> fetchOrphanageDetails({
+    required int id,
+    required Function(dynamic data)
+        onDataFetchSuccess, // Callback for successful data fetch
+    required Function(String error) onError, // Callback for handling errors
+  }) async {
+    final url = Uri.parse('$_baseUrl/panti_detail/$id');
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        // Parse the response
+        final data = jsonDecode(response.body);
+        final orphanageData = data['data'];
+
+        // Trigger callback with fetched data
+        onDataFetchSuccess(orphanageData);
+      } else {
+        final errorMessage =
+            jsonDecode(response.body)['message'] ?? "Unknown error occurred";
+        print("Failed to fetch orphanage details: $errorMessage");
+        onError("Failed to fetch orphanage details. Please try again.");
+      }
+    } catch (e) {
+      print(
+          "An error occurred during fetching orphanage details: ${e.toString()}");
+      onError("An unexpected error occurred. Please try again.");
+    }
+  }
+
   Future<void> fetchListOrphanage() async {
     try {
       final url = Uri.parse('$_baseUrl/panti_detail');
@@ -190,10 +250,14 @@ class _HomePageState extends State<HomePage> {
               'id': orphanage['id'], // Added id for each orphanage
               'name': orphanage['name'],
               'targetDonation':
-                  100000, // Bisa disesuaikan sesuai API atau target lainnya
+                  100000000, // Bisa disesuaikan sesuai API atau target lainnya
               'collectedDonation': orphanage['donationTotal'],
             };
           }).toList();
+          // Sort the orphanages list by the smallest percentage
+          orphanages.sort((a, b) =>
+              (a["collectedDonation"] / a["targetDonation"])
+                  .compareTo(b["collectedDonation"] / b["targetDonation"]));
         });
       } else {
         print('Gagal mengambil data. Status: ${response.statusCode}');
@@ -538,34 +602,12 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text("Presentase Donasi Bulan Ini",
                                   style: TextStyle(color: Colors.black)),
-                              FutureBuilder<int?>(
-                                future: fetchDonationTotalByUser(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const Text("Loading...",
-                                        style: TextStyle(color: Colors.black));
-                                  } else if (snapshot.hasError) {
-                                    return Text(
-                                      "Error fetching donation total: ${snapshot.error}",
-                                      style: TextStyle(color: Colors.red),
-                                    );
-                                  } else if (snapshot.hasData) {
-                                    final totalDonation = snapshot.data!;
-                                    final percentage =
-                                        (totalDonation / 100000) * 100;
-                                    return Text("${percentage.round()}%",
-                                        style: TextStyle(color: Colors.black));
-                                  } else {
-                                    return Text("No donation data available",
-                                        style: TextStyle(color: Colors.black));
-                                  }
-                                },
-                              ),
+                              Text("${(double.parse(persentaseDonasiController.text) / 100000000 * 100).toStringAsFixed(2)}%",
+                                  style: TextStyle(color: Colors.black)),
                             ],
                           ),
                           LinearProgressIndicator(
-                            value: 0.8,
+                            value: double.parse(persentaseDonasiController.text) / 100000000,
                             backgroundColor: Colors.grey[300],
                             color: const Color.fromARGB(255, 164, 196, 253),
                             minHeight: 12,
@@ -623,11 +665,13 @@ class _HomePageState extends State<HomePage> {
                 final orphanage = orphanages[index];
                 return GestureDetector(
                   onTap: () {
+                    // Navigasi ke DetailPanti dan mengirimkan id
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              const DetailPanti()), // Navigate to DetailPanti
+                        builder: (context) => DetailPanti(
+                            id: orphanage['id']), // Mengirimkan id panti
+                      ),
                     );
                   },
                   child: Padding(
@@ -642,6 +686,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
+
             const SizedBox(
                 height:
                     80), // Added space below to prevent navbar from covering cards
