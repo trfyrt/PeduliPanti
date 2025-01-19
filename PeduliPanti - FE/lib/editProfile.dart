@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'profile.dart'; // Import the profile page
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -12,12 +13,12 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController childrenCountController = TextEditingController();
   File? pickedFile;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Define _formKey
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(); // Define _formKey
 
   final ImagePicker _picker = ImagePicker();
 
@@ -41,7 +42,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
     return null;
   }
-
 
   static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
 
@@ -146,7 +146,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
           // Update controller values dengan data yang diambil
           setState(() {
-            nameController.text = data['data']['name'] ?? "Unknown";
             descriptionController.text =
                 pantiDetails['description'] ?? "No description";
             addressController.text = pantiDetails['address'] ?? "No address";
@@ -184,6 +183,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 // Jika form valid, perbarui data pengguna
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
               }
             },
           ),
@@ -197,84 +200,75 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: Column(
               children: [
                 GestureDetector(
-                onTap: _pickImage,
-                child: Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 112, 112, 112),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: FutureBuilder<String?>(
-                    future:
-                        _getProfileImageUrl(), // Fungsi untuk mendapatkan URL gambar dari SharedPreferences
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return const Center(child: Icon(Icons.error));
-                      } else if (snapshot.hasData && snapshot.data != null) {
-                        // Menampilkan gambar profil dari URL yang diambil
-                        return Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: ColorFiltered(
-                                colorFilter: ColorFilter.mode(
-                                  Colors.black
-                                      .withOpacity(0.5), // Menggelapkan gambar
-                                  BlendMode.darken,
-                                ),
-                                child: Image.network(
-                                  snapshot
-                                      .data!, // URL gambar profil yang diambil dari SharedPreferences
-                                  width: 120,
-                                  height: 120,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            // Ikon edit di atas gambar
-                            Positioned(
-                              bottom: 2,
-                              right: 0,
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 147, 181, 255),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: const Icon(
-                                  FontAwesomeIcons.solidPenToSquare,
-                                  color: Colors.white,
+                  onTap: _pickImage,
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 112, 112, 112),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: FutureBuilder<String?>(
+                      future:
+                          _getProfileImageUrl(), // Fungsi untuk mendapatkan URL gambar dari SharedPreferences
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return const Center(child: Icon(Icons.error));
+                        } else if (snapshot.hasData && snapshot.data != null) {
+                          // Menampilkan gambar profil dari URL yang diambil
+                          return Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: ColorFiltered(
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(
+                                        0.5), // Menggelapkan gambar
+                                    BlendMode.darken,
+                                  ),
+                                  child: Image.network(
+                                    snapshot
+                                        .data!, // URL gambar profil yang diambil dari SharedPreferences
+                                    width: 120,
+                                    height: 120,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return const Center(
-                            child: Icon(FontAwesomeIcons
-                                .solidPenToSquare)); // Jika tidak ada URL
-                      }
-                    },
+                              // Ikon edit di atas gambar
+                              Positioned(
+                                bottom: 2,
+                                right: 0,
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 147, 181, 255),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: const Icon(
+                                    FontAwesomeIcons.solidPenToSquare,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return const Center(
+                              child: Icon(FontAwesomeIcons
+                                  .solidPenToSquare)); // Jika tidak ada URL
+                        }
+                      },
+                    ),
                   ),
                 ),
-              ),
                 SizedBox(height: 30),
-                _buildTextField(
-                  label: "Nama Pengurus",
-                  controller: nameController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Nama Pengurus tidak boleh kosong';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 20),
                 _buildTextField(
                   label: "Deskripsi",
                   controller: descriptionController,
