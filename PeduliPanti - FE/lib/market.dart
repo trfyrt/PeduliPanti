@@ -1,7 +1,7 @@
 import 'package:donatur_peduli_panti/Models/Bundle.dart';
 import 'package:donatur_peduli_panti/Services/api_service.dart';
 import 'package:donatur_peduli_panti/donasi.dart';
-// import 'package:donatur_peduli_panti/keranjang.dart';
+import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -745,17 +745,17 @@ class _MarketPage extends State<MarketPage> {
             right: 15,
             child: GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   PageRouteBuilder(
-                //     pageBuilder: (context, animation, secondaryAnimation) =>
-                //         const Keranjang(),
-                //     transitionsBuilder:
-                //         (context, animation, secondaryAnimation, child) {
-                //       return child;
-                //     },
-                //   ), // Halaman profil
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Keranjang(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
               },
               child: Container(
                 padding: const EdgeInsets.all(12),
@@ -863,6 +863,7 @@ class _MarketPage extends State<MarketPage> {
                       return CartRequest(
                         requestID: request.id,
                         quantity: quantity,
+                        pantiID: widget.pantiDetail?.id ?? 0,
                       );
                     }).toList(),
                   );

@@ -1,9 +1,12 @@
-import 'package:donatur_peduli_panti/donasi.dart';
+import 'package:donatur_peduli_panti/Models/Bundle.dart';
+import 'package:donatur_peduli_panti/Models/Cart.dart';
+import 'package:donatur_peduli_panti/Models/Panti.dart';
+import 'package:donatur_peduli_panti/Models/Product.dart';
+import 'package:donatur_peduli_panti/Models/RequestList.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
-import 'package:donatur_peduli_panti/market.dart';
-import 'package:donatur_peduli_panti/pesanan.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:donatur_peduli_panti/Services/api_service.dart';
+import 'package:intl/intl.dart';
 
 class Keranjang extends StatelessWidget {
   const Keranjang({super.key});
@@ -21,324 +24,532 @@ class Keranjang extends StatelessWidget {
   }
 }
 
-class Panti {
-  String nama;
-  bool isSelected;
-  List<Barang> barangList;
-
-  Panti(
-      {required this.nama, this.isSelected = false, required this.barangList});
-}
-
-class Barang {
-  String nama;
-  int harga;
-  int jumlah;
-  String gambar;
-
-  Barang({
-    required this.nama,
-    required this.harga,
-    this.jumlah = 0,
-    required this.gambar,
-  });
-}
-
 class KeranjangPage extends StatefulWidget {
-  const KeranjangPage({super.key});
+  const KeranjangPage({Key? key}) : super(key: key);
 
   @override
   State<KeranjangPage> createState() => _KeranjangPageState();
 }
 
 class _KeranjangPageState extends State<KeranjangPage> {
-  final List<Panti> daftarPanti = [
-    Panti(
-      nama: "Panti Asuhan A",
-      barangList: [
-        Barang(
-          nama: "Buku Tulis",
-          harga: 18000,
-          gambar: "assets/img/buku_tulis.png", // Path gambar
-        ),
-        Barang(
-          nama: "Pensil",
-          harga: 5000,
-          gambar: "assets/img/pensil.png", // Path gambar
-        ),
-      ],
-    ),
-    Panti(
-      nama: "Panti Asuhan B",
-      barangList: [
-        Barang(
-          nama: "Beras 5kg",
-          harga: 50000,
-          gambar: "assets/img/Beras.png",
-        ),
-        Barang(
-          nama: "Minyak Goreng",
-          harga: 25000,
-          gambar: "assets/img/MinyakGoreng.png",
-        ),
-      ],
-    ),
-  ];
-
-  // Fungsi hapus Panti
-  void hapusPanti(int index) {
-    setState(() {
-      daftarPanti.removeAt(index);
-    });
-  }
-
-  // Fungsi hapus Barang dari Panti tertentu
-  void hapusBarang(int pantiIndex, int barangIndex) {
-    setState(() {
-      daftarPanti[pantiIndex].barangList.removeAt(barangIndex);
-    });
-  }
-
-  int getTotalSelectedBarang() {
-    int total = 0;
-
-    for (var panti in daftarPanti) {
-      if (panti.isSelected) {
-        for (var barang in panti.barangList) {
-          total += barang
-              .jumlah; // Menambahkan jumlah barang dari panti yang dipilih
-        }
-      }
-    }
-
-    return total;
-  }
+  Cart? cart;
+  List<Product> _products = [];
+  List<Bundle> _bundles = [];
+  List<RequestList> _requests = [];
+  List<Panti> _pantiList = [];
+  bool isLoading = true;
+  Map<int, List<bool>> _selectedItems = {};
+  Map<int, bool> _selectedPanti = {};
+  Map<int, int> _productQuantities = {};
+  Map<int, int> _bundleQuantities = {};
+  Map<int, int> _requestQuantities = {};
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 147, 181, 255),
-        toolbarHeight: 65,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(21),
-            bottomRight: Radius.circular(21),
-          ),
-        ),
-        title: Stack(
-          children: [
-            Positioned(
-              left: 0,
-              child: GestureDetector(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   PageRouteBuilder(
-                  //     pageBuilder: (context, animation, secondaryAnimation) =>
-                  //         const Market(),
-                  //     transitionsBuilder:
-                  //         (context, animation, secondaryAnimation, child) {
-                  //       return child; // Tidak ada animasi
-                  //     },
-                  //   ),
-                  // );
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Icon(
-                    FontAwesomeIcons.angleLeft,
-                    color: Colors.white,
+  void initState() {
+    super.initState();
+    fetchCartData();
+  }
+
+  Future<void> fetchCartData() async {
+    try {
+      final fetchedCart = await ApiService.fetchCart();
+      if (fetchedCart == null) throw Exception('Keranjang kosong.');
+
+      final products = await ApiService.fetchProducts();
+      final bundles = await ApiService.fetchBundles();
+      final requests = await ApiService.fetchRequestLists();
+      final pantis = await ApiService.fetchPantiDetails();
+
+      Map<int, List<bool>> selectionStates = {};
+      Map<int, bool> pantiStates = {};
+      Map<int, int> productQty = {};
+      Map<int, int> bundleQty = {};
+      Map<int, int> requestQty = {};
+
+      Map<int, List<dynamic>> itemsByPanti = {};
+
+      // Group products
+      for (var product in fetchedCart.products) {
+        if (!itemsByPanti.containsKey(product.pantiID)) {
+          itemsByPanti[product.pantiID] = [];
+        }
+        itemsByPanti[product.pantiID]!.add(product);
+      }
+
+      // Group bundles
+      for (var bundle in fetchedCart.bundles) {
+        if (!itemsByPanti.containsKey(bundle.pantiID)) {
+          itemsByPanti[bundle.pantiID] = [];
+        }
+        itemsByPanti[bundle.pantiID]!.add(bundle);
+      }
+
+      // Group requests
+      for (var request in fetchedCart.requestLists) {
+        if (!itemsByPanti.containsKey(request.pantiID)) {
+          itemsByPanti[request.pantiID] = [];
+        }
+        itemsByPanti[request.pantiID]!.add(request);
+      }
+
+      // Initialize selection states
+      itemsByPanti.forEach((pantiID, items) {
+        selectionStates[pantiID] = List.filled(items.length, false);
+        pantiStates[pantiID] = false; // Initialize panti checkbox state
+      });
+
+      setState(() {
+        cart = fetchedCart;
+        _products = products;
+        _bundles = bundles;
+        _requests = requests;
+        _pantiList = pantis;
+        _selectedItems = selectionStates;
+        _selectedPanti = pantiStates;
+        _productQuantities = productQty;
+        _bundleQuantities = bundleQty;
+        _requestQuantities = requestQty;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print('Error fetching data: $e');
+    }
+  }
+
+  void updateItemQuantity(dynamic item, bool increase) {
+    setState(() {
+      if (item is CartProduct) {
+        int currentQty = _productQuantities[item.productID] ?? item.quantity;
+        if (increase) {
+          _productQuantities[item.productID] = currentQty + 1;
+        } else if (currentQty > 1) {
+          _productQuantities[item.productID] = currentQty - 1;
+        }
+      } else if (item is CartBundle) {
+        int currentQty = _bundleQuantities[item.bundleID] ?? item.quantity;
+        if (increase) {
+          _bundleQuantities[item.bundleID] = currentQty + 1;
+        } else if (currentQty > 1) {
+          _bundleQuantities[item.bundleID] = currentQty - 1;
+        }
+      } else if (item is CartRequest) {
+        int currentQty = _requestQuantities[item.requestID] ?? item.quantity;
+        if (increase) {
+          _requestQuantities[item.requestID] = currentQty + 1;
+        } else if (currentQty > 1) {
+          _requestQuantities[item.requestID] = currentQty - 1;
+        }
+      }
+    });
+  }
+
+  void _handlePantiSelection(int pantiID, bool? value) {
+    setState(() {
+      _selectedPanti[pantiID] = value ?? false;
+      if (_selectedItems.containsKey(pantiID)) {
+        _selectedItems[pantiID] =
+            List.filled(_selectedItems[pantiID]!.length, value ?? false);
+      }
+    });
+  }
+
+  // Update: Method to handle individual item selection
+  void _handleItemSelection(int pantiID, int itemIndex, bool? value) {
+    setState(() {
+      _selectedItems[pantiID]![itemIndex] = value ?? false;
+      // Check if all items are selected
+      bool allSelected = _selectedItems[pantiID]!.every((item) => item == true);
+      bool anySelected = _selectedItems[pantiID]!.any((item) => item == true);
+      _selectedPanti[pantiID] = allSelected;
+    });
+  }
+
+  Product? _getProductById(int productId) {
+    return _products.firstWhere((product) => product.id == productId);
+  }
+
+  Bundle? _getBundleById(int bundleId) {
+    return _bundles.firstWhere((bundle) => bundle.id == bundleId);
+  }
+
+  RequestList? _getRequestById(int requestId) {
+    return _requests.firstWhere((request) => request.id == requestId);
+  }
+
+  String _getPantiNameById(int pantiID) {
+    final panti = _pantiList.firstWhere(
+      (panti) => panti.id == pantiID,
+    );
+    return panti.name;
+  }
+
+  Widget _buildCartItem(dynamic item, int pantiID, int itemIndex) {
+    String name = '';
+    int quantity = 0;
+    int price = 0;
+
+    if (item is CartProduct) {
+      final product = _getProductById(item.productID);
+      name = product?.name ?? 'Produk tidak ditemukan';
+      quantity = _productQuantities[item.productID] ?? item.quantity;
+      price = (product?.price ?? 0) * quantity;
+    } else if (item is CartBundle) {
+      final bundle = _getBundleById(item.bundleID);
+      name = bundle?.name ?? 'Bundle tidak ditemukan';
+      quantity = _bundleQuantities[item.bundleID] ?? item.quantity;
+      price = (bundle?.price ?? 0) * quantity;
+    } else if (item is CartRequest) {
+      final request = _getRequestById(item.requestID);
+      final product =
+          request != null ? _getProductById(request.productID) : null;
+      name = product?.name ?? 'Produk tidak ditemukan';
+      quantity = _requestQuantities[item.requestID] ?? item.quantity;
+      price = (product?.price ?? 0) * quantity;
+    }
+
+    return Card(
+      color: Colors.white,
+      elevation: 2,
+      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 120,
+                  width: double.infinity,
+                  color: Colors.grey[300],
+                  child: Center(
+                    child: Text('Foto Barang',
+                        style: TextStyle(color: Colors.grey[600])),
                   ),
                 ),
-              ),
-            ),
-            Center(
-              child: Text(
-                'Keranjang',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: List.generate(daftarPanti.length, (pantiIndex) {
-                final panti = daftarPanti[pantiIndex];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(height: 8),
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Rp. ${NumberFormat("#,###", "id_ID").format(price)}',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      child: Column(
-                        children: [
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Checkbox(
-                                      value: panti.isSelected,
-                                      activeColor:
-                                          Color.fromARGB(255, 147, 181, 255),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          panti.isSelected = value!;
-                                        });
-                                      },
-                                    ),
-                                    Text(
-                                      panti.nama,
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                // Tombol Hapus Panti
-                                IconButton(
-                                  icon: const Icon(Icons.delete,
-                                      color: Colors.red),
-                                  onPressed: () {
-                                    hapusPanti(pantiIndex);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          // List Barang di bawah Header Panti
-                          ...List.generate(panti.barangList.length,
-                              (barangIndex) {
-                            final barang = panti.barangList[barangIndex];
-                            return Container(
-                              child: ListTile(
-                                leading: Image.asset(
-                                  barang.gambar,
-                                  width: 50,
-                                  height: 50,
-                                  fit: BoxFit.cover,
-                                ),
-                                title: Text(
-                                  barang.nama,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                subtitle: Text("Rp. ${barang.harga}"),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    // Tombol Kurang
-                                    IconButton(
-                                      icon: const Icon(Icons.remove),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (barang.jumlah > 0)
-                                            barang.jumlah--;
-                                        });
-                                      },
-                                    ),
-                                    Text(
-                                      '${barang.jumlah}',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    // Tombol Tambah
-                                    IconButton(
-                                      icon: const Icon(Icons.add),
-                                      onPressed: () {
-                                        setState(() {
-                                          barang.jumlah++;
-                                        });
-                                      },
-                                    ),
-                                    // Tombol Hapus Barang
-                                    IconButton(
-                                      icon: const Icon(Icons.delete,
-                                          color: Colors.red),
-                                      onPressed: () {
-                                        hapusBarang(pantiIndex, barangIndex);
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
-                          const Divider(),
-                        ],
-                      ),
+                    IconButton(
+                      icon: Icon(Icons.remove, size: 20),
+                      onPressed: () {
+                        updateItemQuantity(item, false);
+                      },
                     ),
-                    // Header Panti dengan Checkbox dan Hapus Icon
+                    Text(
+                      quantity.toString(),
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add, size: 20),
+                      onPressed: () {
+                        updateItemQuantity(item, true);
+                      },
+                    ),
                   ],
-                );
-              }),
+                ),
+              ],
+            ),
+          ),
+          // Checkbox positioned at top-right
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                ),
+              ),
+              child: Checkbox(
+                activeColor: Color.fromARGB(255, 26, 74, 230),
+                value: _selectedItems[pantiID]?[itemIndex] ?? false,
+                onChanged: (bool? value) {
+                  _handleItemSelection(pantiID, itemIndex, value);
+                },
+              ),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 5,
-              spreadRadius: 1,
-            ),
-          ],
-        ),
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment:
-              MainAxisAlignment.center, // Menyebarkan ruang antara elemen
-          children: [
-            // Teks "Jumlah Barang" di kiri, menggunakan Expanded agar memanfaatkan sisa ruang
-            Container(
-              width: MediaQuery.of(context).size.width * 0.5,
-              padding: EdgeInsets.symmetric(horizontal: 55, vertical: 25),
-              child: Text(
-                "${getTotalSelectedBarang()} Barang", // Menampilkan jumlah barang
-                style: TextStyle(
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (cart == null) {
+      return const Scaffold(
+        body: Center(child: Text('Keranjang Anda kosong.')),
+      );
+    }
+
+    final groupedItems = <int, List<dynamic>>{};
+
+    for (var item in cart!.products) {
+      if (!groupedItems.containsKey(item.pantiID)) {
+        groupedItems[item.pantiID] = [];
+      }
+      groupedItems[item.pantiID]!.add(item);
+    }
+
+    for (var item in cart!.bundles) {
+      if (!groupedItems.containsKey(item.pantiID)) {
+        groupedItems[item.pantiID] = [];
+      }
+      groupedItems[item.pantiID]!.add(item);
+    }
+
+    for (var item in cart!.requestLists) {
+      if (!groupedItems.containsKey(item.pantiID)) {
+        groupedItems[item.pantiID] = [];
+      }
+      groupedItems[item.pantiID]!.add(item);
+    }
+
+    int calculateTotalPrice() {
+      int total = 0;
+      if (cart != null) {
+        groupedItems.forEach((pantiID, items) {
+          items.asMap().entries.forEach((entry) {
+            int index = entry.key;
+            dynamic item = entry.value;
+
+            // Only calculate for selected items
+            if (_selectedItems[pantiID]?[index] ?? false) {
+              if (item is CartProduct) {
+                final product = _getProductById(item.productID);
+                final quantity =
+                    _productQuantities[item.productID] ?? item.quantity;
+                total += (product?.price ?? 0) * quantity;
+              } else if (item is CartBundle) {
+                final bundle = _getBundleById(item.bundleID);
+                final quantity =
+                    _bundleQuantities[item.bundleID] ?? item.quantity;
+                total += (bundle?.price ?? 0) * quantity;
+              } else if (item is CartRequest) {
+                final request = _getRequestById(item.requestID);
+                final product =
+                    request != null ? _getProductById(request.productID) : null;
+                final quantity =
+                    _requestQuantities[item.requestID] ?? item.quantity;
+                total += (product?.price ?? 0) * quantity;
+              }
+            }
+          });
+        });
+      }
+      return total;
+    }
+
+    int getSelectedItemsCount() {
+      int count = 0;
+      _selectedItems.forEach((pantiID, selections) {
+        count += selections.where((isSelected) => isSelected).length;
+      });
+      return count;
+    }
+
+    void _handlePantiSelection(int pantiID, bool? value) {
+      setState(() {
+        _selectedPanti[pantiID] = value ?? false;
+        if (_selectedItems.containsKey(pantiID)) {
+          // Update all items under this panti
+          _selectedItems[pantiID] =
+              List.filled(_selectedItems[pantiID]!.length, value ?? false);
+        }
+      });
+    }
+
+    final List<Widget> itemWidgets = [];
+    groupedItems.forEach((pantiID, items) {
+      // Add panti header with checkbox
+      itemWidgets.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            children: [
+              Checkbox(
+                activeColor: Color.fromARGB(255, 26, 74, 230),
+                value: _selectedPanti[pantiID] ?? false,
+                onChanged: (bool? value) {
+                  _handlePantiSelection(pantiID, value);
+                },
+              ),
+              Text(
+                'Panti ${_getPantiNameById(pantiID)}',
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 0, 0, 0),
                 ),
-                textAlign: TextAlign.left, // Teks di kiri
               ),
-            ),
-            // Tombol "Buat Pesanan" di kanan
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 147, 181, 255),
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const Pesanan(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child; // Tidak ada animasi
-                    },
-                  ),
-                );
-              },
-              child: const Text(
-                "Buat Pesanan",
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
+      );
+
+      itemWidgets.addAll(
+        items.asMap().entries.map((entry) {
+          return _buildCartItem(entry.value, pantiID, entry.key);
+        }),
+      );
+    });
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeDonaturApp()),
+            );
+          },
+        ),
+        title: const Text(
+          'Keranjang Saya',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Color(0xFF93B5FF),
+        elevation: 0,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...groupedItems.entries.map((entry) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: Text(
+                              'Panti ${_getPantiNameById(entry.key)}',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          GridView.count(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.75,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            children:
+                                entry.value.asMap().entries.map((itemEntry) {
+                              return _buildCartItem(
+                                itemEntry.value,
+                                entry.key,
+                                itemEntry.key,
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 4,
+                  offset: Offset(0, -2),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Rp. ${NumberFormat("#,###", "id_ID").format(calculateTotalPrice())}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    Text(
+                      '${getSelectedItemsCount()} Terpilih',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle order button press
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF93B5FF),
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    'Beli Sekarang',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

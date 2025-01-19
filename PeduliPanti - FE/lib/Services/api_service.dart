@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:donatur_peduli_panti/Models/Bundle.dart';
+import 'package:donatur_peduli_panti/Models/Cart.dart';
+import 'package:donatur_peduli_panti/Models/RequestList.dart';
 import 'package:http/http.dart' as http;
 import 'package:donatur_peduli_panti/Models/Product.dart';
 import 'package:donatur_peduli_panti/Models/Panti.dart';
@@ -46,6 +48,39 @@ class ApiService {
     }
   }
 
+  static Future<Product> fetchProductById(int id) async {
+    final response = await http.get(Uri.parse("$_baseUrl/product/$id"));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Product.fromJson(data);
+    } else {
+      throw Exception("Failed to load product with ID $id");
+    }
+  }
+
+  static Future<Bundle> fetchBundleById(int id) async {
+    final response = await http.get(Uri.parse("$_baseUrl/bundle/$id"));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Bundle.fromJson(data);
+    } else {
+      throw Exception("Failed to load bundle with ID $id");
+    }
+  }
+
+  static Future<RequestList> fetchRequestById(int id) async {
+    final response = await http.get(Uri.parse("$_baseUrl/request_list/$id"));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return RequestList.fromJson(data);
+    } else {
+      throw Exception("Failed to load request list with ID $id");
+    }
+  }
+
   // // Fungsi untuk mengambil data RAB berdasarkan pantiID dan status "approved" secara lokal
   // static Future<List<RAB>> fetchRABByPantiId(int pantiId) async {
   //   final String apiUrl =
@@ -87,6 +122,20 @@ class ApiService {
     }
   }
 
+  // Fungsi untuk mengambil request list
+  static Future<List<RequestList>> fetchRequestLists() async {
+    final String apiUrl = '$_baseUrl/request_list';
+
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body)['data'] as List;
+      return data.map((json) => RequestList.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load products');
+    }
+  }
+
   // Fetch Bundles
   static Future<List<Bundle>> fetchBundles() async {
     final String apiUrl = '$_baseUrl/bundle';
@@ -110,6 +159,79 @@ class ApiService {
       }
     } else {
       throw Exception('Failed to load bundles');
+    }
+  }
+
+  // Fungsi untuk mengambil data cart berdasarkan userID
+  static Future<Cart?> fetchCart() async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/cart'));
+
+      if (response.statusCode == 200) {
+        final rawData = json.decode(response.body);
+
+        // Pastikan rawData['data'] adalah List
+        final dataList = rawData['data'] as List;
+
+        // Ambil keranjang untuk user tertentu, misalnya user ID = 1
+        final currentUserCart = dataList.firstWhere(
+          (item) => item['user']['id'] == 1, // Ganti sesuai logika user
+          orElse: () => null,
+        );
+
+        if (currentUserCart == null) {
+          throw Exception('No cart found for the current user');
+        }
+
+        // Parsing data keranjang untuk user saat ini
+        return Cart(
+          userID: int.parse(currentUserCart['user']['id'].toString()),
+          products: (currentUserCart['products'] as List).map((item) {
+            print('Processing product: $item'); // Debug tiap produk
+            final pivot = item['pivot'] as Map<String, dynamic>;
+            final productID = int.tryParse(item['id'].toString()) ??
+                0; // Berikan nilai default
+            final quantity = int.tryParse(pivot['quantity'].toString()) ?? 0;
+            final pantiID = int.tryParse(pivot['pantiID'].toString()) ?? 0;
+            return CartProduct(
+              productID: productID,
+              quantity: quantity,
+              pantiID: pantiID,
+            );
+          }).toList(),
+          bundles: (currentUserCart['bundles'] as List).map((item) {
+            print('Processing bundle: $item'); // Debug tiap bundle
+            final pivot = item['pivot'] as Map<String, dynamic>;
+            final bundleID = int.tryParse(item['id'].toString()) ??
+                0; // Berikan nilai default
+            final quantity = int.tryParse(pivot['quantity'].toString()) ?? 0;
+            final pantiID = int.tryParse(pivot['pantiID'].toString()) ?? 0;
+            return CartBundle(
+              bundleID: bundleID,
+              quantity: quantity,
+              pantiID: pantiID,
+            );
+          }).toList(),
+          requestLists: (currentUserCart['requestLists'] as List).map((item) {
+            print('Processing request list: $item'); // Debug tiap request list
+            final pivot = item['pivot'] as Map<String, dynamic>;
+            final requestID = int.tryParse(item['id'].toString()) ??
+                0; // Berikan nilai default
+            final quantity = int.tryParse(pivot['quantity'].toString()) ?? 0;
+            final pantiID = int.tryParse(pivot['pantiID'].toString()) ?? 0;
+            return CartRequest(
+              requestID: requestID,
+              quantity: quantity,
+              pantiID: pantiID,
+            );
+          }).toList(),
+        );
+      } else {
+        throw Exception('Failed to fetch cart data');
+      }
+    } catch (e) {
+      print('Error fetching cart: $e');
+      return null;
     }
   }
 
