@@ -33,6 +33,22 @@ class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> orphanages = [];
   TextEditingController persentaseDonasiController = TextEditingController();
 
+  String _getPercentageText(String input) {
+    double percentage = _getPercentageValue(input);
+    return "${(percentage).toStringAsFixed(0)}%";
+  }
+
+// Fungsi untuk mengonversi teks menjadi double dengan pengecekan
+  double _getPercentageValue(String input) {
+    try {
+      // Mengonversi input menjadi double
+      return double.parse(input) / 100000000;
+    } catch (e) {
+      // Jika terjadi error, kembalikan 0.0
+      return 0.0;
+    }
+  }
+
   int? pantiID;
 
   @override
@@ -88,8 +104,7 @@ class _HomePageState extends State<HomePage> {
 
           // Update controller values dengan data yang diambil
           setState(() {
-            persentaseDonasiController.text =
-                pantiDetails['donationTotal']?.toString() ?? "0";
+            persentaseDonasiController.text = pantiDetails['donationTotal'];
           });
 
           print("User data fetched and updated successfully.");
@@ -602,12 +617,18 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text("Presentase Donasi Bulan Ini",
                                   style: TextStyle(color: Colors.black)),
-                              Text("${(double.parse(persentaseDonasiController.text) / 100000000 * 100).toStringAsFixed(2)}%",
-                                  style: TextStyle(color: Colors.black)),
+                              Text(
+                                // Menggunakan fungsi untuk memeriksa apakah input valid
+                                _getPercentageText(
+                                    persentaseDonasiController.text),
+                                style: TextStyle(color: Colors.black),
+                              ),
                             ],
                           ),
                           LinearProgressIndicator(
-                            value: double.parse(persentaseDonasiController.text) / 100000000,
+                            // Menggunakan fungsi untuk memeriksa apakah input valid sebelum menghitung
+                            value: _getPercentageValue(
+                                persentaseDonasiController.text),
                             backgroundColor: Colors.grey[300],
                             color: const Color.fromARGB(255, 164, 196, 253),
                             minHeight: 12,

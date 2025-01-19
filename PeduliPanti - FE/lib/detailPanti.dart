@@ -7,7 +7,8 @@ import 'package:location/location.dart';
 import 'package:flutter_map/flutter_map.dart';
 
 class DetailPanti extends StatelessWidget {
-  const DetailPanti({super.key});
+  const DetailPanti({super.key, required this.id});
+  final int id;
 
   @override
   Widget build(BuildContext context) {
