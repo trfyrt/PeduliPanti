@@ -4,6 +4,9 @@ import 'editProfile.dart';
 import 'login.dart'; // Import the login page
 import 'homePanti.dart'; // Changed import to homePanti.dart
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -13,12 +16,87 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String description =
-      "Panti asuhan ini memberikan perlindungan dan pendidikan kepada anak-anak yang membutuhkan. Kami berkomitmen untuk menciptakan lingkungan yang aman dan mendukung bagi mereka.";
-  String address =
-      "Jl. Contoh Alamat No. 123, Kota, Provinsi"; // New address variable
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController childrenCountController = TextEditingController();
 
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    try {
+      final userId = await getUserId();
+      if (userId == null) {
+        print("User ID is null. Ensure _getUserId() returns a valid ID.");
+        return;
+      }
+
+      final url = Uri.parse('http://127.0.0.1:8000/api/v1/user/$userId');
+      final response = await http.get(
+        url,
+        headers: {"Authorization": "Bearer ${await getToken()}"},
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        print("Fetched data: $data");
+
+        // Validate JSON structure
+        if (data != null &&
+            data['data'] != null &&
+            data['data']['pantiDetails'] != null) {
+          final pantiDetails = data['data']['pantiDetails'];
+
+          // Update controller values with the fetched data
+          setState(() {
+            nameController.text = data['data']['name'];
+            descriptionController.text = pantiDetails['description'] ?? "No description";
+            addressController.text = pantiDetails['address'] ?? "No address";
+            childrenCountController.text = pantiDetails['childNumber']?.toInt().toString() ?? "0";
+          });
+
+          print("User data fetched and updated successfully.");
+        } else {
+          print("Invalid JSON structure: $data");
+        }
+      } else {
+        print("Failed to fetch user data. Status code: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
+    }
+  }
+
+   Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  Future<int?> getUserId() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userJson = prefs.getString('user');
+      if (userJson != null) {
+        final user = jsonDecode(userJson);
+        print("User ID: ${user['id']}");
+        return user['id'];
+      } else {
+        print("User data not found in SharedPreferences.");
+      }
+    } catch (e) {
+      print("Error retrieving user ID: $e");
+    }
+    return null;
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -180,18 +258,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                 'assets/pedulipanti.png'), // Updated asset path
                           ),
                           const SizedBox(height: 16),
-                          const Text(
-                            "Nama Pengurus: John Doe",
+                          Text(
+                            "Nama Pengurus: ${nameController.text}",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 8),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.child_care),
                               SizedBox(width: 8),
-                              Text("Jumlah Anak: 25"),
+                              Text("Jumlah Anak: ${childrenCountController.text}"),
                             ],
                           ),
                           const SizedBox(
@@ -398,7 +476,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                description,
+                                descriptionController.text,
                                 style: const TextStyle(fontSize: 14),
                               ),
                             ],
@@ -433,7 +511,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                address,
+                                addressController.text,
                                 style: const TextStyle(fontSize: 14),
                               ),
                             ],
