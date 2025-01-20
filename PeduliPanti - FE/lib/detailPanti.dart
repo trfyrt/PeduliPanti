@@ -221,8 +221,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Container(
                                   margin: const EdgeInsets.only(right: 5),
-                                  child: const Text(
-                                    'Rp.10.000.000',
+                                  child: Text(
+                                    pantiData != null ? 'Rp. ' + pantiData!['donationTotal'].toString() : 'Loading...',
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 107, 125, 167),
                                       fontWeight: FontWeight.bold,
@@ -241,7 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 Container(
                                   child: const Text(
-                                    'Rp.100.000.000',
+                                    'Rp.100000000',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15,
@@ -260,8 +260,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     borderRadius: BorderRadius.circular(10),
                                     child: SizedBox(
                                       height: 15,
-                                      child: const LinearProgressIndicator(
-                                        value: 0.1,
+                                      child: LinearProgressIndicator(
+                                        value: pantiData != null 
+                                            ? (pantiData!['donationTotal'] / 100000000).toDouble() 
+                                            : 0.0,
                                         backgroundColor:
                                             Color.fromARGB(255, 229, 229, 229),
                                         color:
