@@ -33,20 +33,15 @@ class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> orphanages = [];
   TextEditingController persentaseDonasiController = TextEditingController();
 
-  String _getPercentageText(String input) {
-    double percentage = _getPercentageValue(input);
+  String _getPercentageText(double donationTotal, double targetDonation) {
+    double percentage = _getPercentageValue(donationTotal, targetDonation);
     return "${(percentage).toStringAsFixed(0)}%";
   }
 
-// Fungsi untuk mengonversi teks menjadi double dengan pengecekan
-  double _getPercentageValue(String input) {
-    try {
-      // Mengonversi input menjadi double
-      return double.parse(input) / 100000000;
-    } catch (e) {
-      // Jika terjadi error, kembalikan 0.0
-      return 0.0;
-    }
+  // Fungsi untuk menghitung persentase donasi
+  double _getPercentageValue(double donationTotal, double targetDonation) {
+    if (targetDonation == 0) return 0.0; // Menghindari pembagian dengan nol
+    return (donationTotal / targetDonation) * 100;
   }
 
   int? pantiID;
@@ -104,7 +99,8 @@ class _HomePageState extends State<HomePage> {
 
           // Update controller values dengan data yang diambil
           setState(() {
-            persentaseDonasiController.text = pantiDetails['donationTotal'];
+            // Ensure donationTotal is a String
+            persentaseDonasiController.text = pantiDetails['donationTotal'].toString();
           });
 
           print("User data fetched and updated successfully.");
@@ -620,7 +616,8 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 // Menggunakan fungsi untuk memeriksa apakah input valid
                                 _getPercentageText(
-                                    persentaseDonasiController.text),
+                                    double.tryParse(persentaseDonasiController.text) ?? 0.0, 
+                                    100000000.0), // Assuming 100000 is the target donation
                                 style: TextStyle(color: Colors.black),
                               ),
                             ],
@@ -628,7 +625,8 @@ class _HomePageState extends State<HomePage> {
                           LinearProgressIndicator(
                             // Menggunakan fungsi untuk memeriksa apakah input valid sebelum menghitung
                             value: _getPercentageValue(
-                                persentaseDonasiController.text),
+                                double.tryParse(persentaseDonasiController.text) ?? 0.0, 
+                                100000000.0) / 100.0, // Dividing by 100 to show the correct progress
                             backgroundColor: Colors.grey[300],
                             color: const Color.fromARGB(255, 164, 196, 253),
                             minHeight: 12,
