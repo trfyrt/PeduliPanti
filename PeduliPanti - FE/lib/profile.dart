@@ -316,11 +316,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset(
-                                      'assets/pedulipanti.png', // Updated asset path
-                                      width: 60,
-                                      height: 60,
-                                      alignment: Alignment.center),
                                   const SizedBox(width: 8),
                                   const Column(
                                     crossAxisAlignment:
@@ -366,11 +361,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset(
-                                      'assets/pedulipanti.png', // Updated asset path
-                                      width: 60,
-                                      height: 60,
-                                      alignment: Alignment.center),
                                   const SizedBox(width: 8),
                                   const Column(
                                     crossAxisAlignment:
@@ -416,11 +406,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
                                 children: [
-                                  Image.asset(
-                                      'assets/pedulipanti.png', // Updated asset path
-                                      width: 60,
-                                      height: 60,
-                                      alignment: Alignment.center),
                                   const SizedBox(width: 8),
                                   const Column(
                                     crossAxisAlignment:
