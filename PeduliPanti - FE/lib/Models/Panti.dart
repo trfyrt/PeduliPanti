@@ -44,6 +44,14 @@ class Panti {
       rabs: (json['rabs'] as List).map((item) => RAB.fromJson(item)).toList(),
     );
   }
+
+  double get progress {
+    if (donationTotal != null && childNumber != null && childNumber > 0) {
+      return donationTotal / (686000 * childNumber); // Rumus untuk menghitung progress
+    } else {
+      return 0.0; // Jika tidak ada data atau tidak valid
+    }
+  }
 }
 
 class Origin {

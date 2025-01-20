@@ -1,5 +1,4 @@
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
-import 'package:donatur_peduli_panti/market.dart';
 import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:donatur_peduli_panti/profileDonatur.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
@@ -7,57 +6,93 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
+import 'package:donatur_peduli_panti/Services/auth_service.dart';
+import 'package:donatur_peduli_panti/Services/api_service.dart';
+import 'package:donatur_peduli_panti/Models/Panti.dart';
 
-class Donasi extends StatelessWidget {
+class Donasi extends StatefulWidget {
   const Donasi({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<Donasi> createState() => _DonasiAppState();
+}
+
+class _DonasiAppState extends State<Donasi> {
+  Map<String, dynamic>? user; // Variabel untuk menyimpan data user
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final userData = await AuthService.getUser(); // Ambil data user
+    if (userData != null) {
+      setState(() {
+        user = userData; // Perbarui state dengan data user
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Peduli Panti',
       theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 254)),
-      home: const MyHomePage(title: 'Peduli Panti'),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 254),
+      ),
+      home: const DonasiPage(title: 'Peduli Panti'),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class DonasiPage extends StatefulWidget {
+  const DonasiPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<DonasiPage> createState() => _DonasiPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  // Daftar data panti asuhan
-  final List<Map<String, dynamic>> data = [
-    {"nama": "Panti Asuhan 1", "jumlah": 50, "progress": 0.5},
-    {"nama": "Panti Asuhan 2", "jumlah": 30, "progress": 0.3},
-    {"nama": "Panti Asuhan 3", "jumlah": 70, "progress": 0.7},
-    {"nama": "Panti Asuhan 4", "jumlah": 90, "progress": 0.9},
-    {"nama": "Panti Asuhan 5", "jumlah": 40, "progress": 0.4},
-    {"nama": "Panti Asuhan 6", "jumlah": 80, "progress": 0.8},
-    {"nama": "Panti Asuhan 7", "jumlah": 60, "progress": 0.6},
-  ];
+class _DonasiPageState extends State<DonasiPage> {
+  List<Panti> recommendedPantis = []; // Data dengan filter
+  List<Panti> rawPantis = []; // Data tanpa filter
+  bool isLoading = true;
 
-  final List<Map<String, dynamic>> data1 = [
-    {"nama": "Panti Asuhan 1", "jumlah": 50, "progress": 0.5},
-    {"nama": "Panti Asuhan 2", "jumlah": 30, "progress": 0.3},
-    {"nama": "Panti Asuhan 3", "jumlah": 70, "progress": 0.7},
-    {"nama": "Panti Asuhan 4", "jumlah": 90, "progress": 0.9},
-    {"nama": "Panti Asuhan 5", "jumlah": 40, "progress": 0.4},
-    {"nama": "Panti Asuhan 6", "jumlah": 80, "progress": 0.8},
-    {"nama": "Panti Asuhan 7", "jumlah": 60, "progress": 0.6},
-    {"nama": "Panti Asuhan 8", "jumlah": 20, "progress": 0.1},
-    {"nama": "Panti Asuhan 9", "jumlah": 30, "progress": 0.2},
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _fetchPantis(filterByProgress: true); // Untuk Rekomendasi
+    _fetchPantis(filterByProgress: false); // Untuk Data Mentah
+  }
 
-  int _currentPage = 0;
+  Future<void> _fetchPantis({bool filterByProgress = false}) async {
+    try {
+      final data = await ApiService.fetchPantiDetails();
+      setState(() {
+        if (filterByProgress) {
+          recommendedPantis = List.from(data)
+            ..sort((a, b) {
+              double progressA = a.donationTotal / (686000 * a.childNumber);
+              double progressB = b.donationTotal / (686000 * b.childNumber);
+              return progressA.compareTo(progressB);
+            });
+        } else {
+          rawPantis = data;
+        }
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching pantis: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   int _currentIndex = 2;
 
   @override
@@ -254,45 +289,34 @@ class _MyHomePageState extends State<MyHomePage> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   ),
-                  // Membuat PageView untuk menampilkan data
                   Container(
                     height: 400,
                     child: PageView.builder(
-                      onPageChanged: (index) {
-                        setState(() {
-                          _currentPage = index;
-                        });
-                      },
-                      itemCount: (data.length / 3)
-                          .ceil(), // Menghitung jumlah halaman berdasarkan data
+                      itemCount: (recommendedPantis.length / 3).ceil(),
                       itemBuilder: (context, pageIndex) {
                         int startIndex = pageIndex * 3;
-                        int endIndex = (startIndex + 3 > data.length)
-                            ? data.length
-                            : startIndex + 3;
-                        List<Map<String, dynamic>> currentItems =
-                            data.sublist(startIndex, endIndex);
+                        int endIndex =
+                            (startIndex + 3 > recommendedPantis.length)
+                                ? recommendedPantis.length
+                                : startIndex + 3;
+                        List<Panti> currentItems =
+                            recommendedPantis.sublist(startIndex, endIndex);
 
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: currentItems.map((item) {
+                            final double progress = item.donationTotal /
+                                (686000 * item.childNumber);
+
                             return GestureDetector(
                               onTap: () {
-                                // Misalnya, ketika item diklik, Anda bisa menampilkan snackbar atau melanjutkan ke halaman lain
-                                print('Item ${item['nama']} tapped');
-                                // Anda bisa menambahkan aksi lain di sini, seperti navigasi atau perubahan status
-                                // Navigator.push(
-                                //   context,
-                                //   PageRouteBuilder(
-                                //     pageBuilder: (context, animation,
-                                //             secondaryAnimation) =>
-                                //         const DetailPantiApp(),
-                                //     transitionsBuilder: (context, animation,
-                                //         secondaryAnimation, child) {
-                                //       return child;
-                                //     },
-                                //   ),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        DetailPantiApp(pantiId: item.id),
+                                  ),
+                                );
                               },
                               child: Container(
                                 height: 110,
@@ -321,7 +345,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Row(
                                           children: [
                                             Text(
-                                              item['nama'],
+                                              item.name,
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 17,
@@ -353,7 +377,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               margin: const EdgeInsets.only(
                                                   left: 5),
                                               child: Text(
-                                                '${item['jumlah']}',
+                                                '${item.childNumber}',
                                                 style: const TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 107, 125, 167),
@@ -373,10 +397,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                              child: Container(
+                                              child: SizedBox(
                                                 height: 15,
                                                 child: LinearProgressIndicator(
-                                                  value: item['progress'],
+                                                  value:
+                                                      progress.clamp(0.0, 1.0),
                                                   backgroundColor:
                                                       const Color.fromARGB(
                                                           255, 229, 229, 229),
@@ -390,7 +415,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             margin:
                                                 const EdgeInsets.only(left: 8),
                                             child: Text(
-                                              '${(item['progress'] * 100).toInt()}%',
+                                              '${(progress * 100).toInt()}%',
                                               style: const TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 107, 125, 167),
@@ -409,28 +434,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       },
                     ),
-                  ),
-                  // Indikator halaman untuk PageView
-                  Container(
-                    margin: EdgeInsets.only(bottom: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        (data.length / 3).ceil(),
-                        (index) => Container(
-                          width: 8,
-                          height: 8,
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _currentPage == index
-                                ? Colors.blue
-                                : Colors.grey.withOpacity(0.5),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -453,21 +457,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: data1.map((item) {
+                      children: rawPantis.map((panti) {
+                        final double progress =
+                            panti.donationTotal / (686000 * panti.childNumber);
+
                         return GestureDetector(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   PageRouteBuilder(
-                            //     pageBuilder:
-                            //         (context, animation, secondaryAnimation) =>
-                            //             const DetailPantiApp(),
-                            //     transitionsBuilder: (context, animation,
-                            //         secondaryAnimation, child) {
-                            //       return child;
-                            //     },
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailPantiApp(pantiId: panti.id),
+                              ),
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.all(16),
@@ -497,7 +499,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Row(
                                       children: [
                                         Text(
-                                          item['nama'],
+                                          panti.name,
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 17,
@@ -508,25 +510,29 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Container(
                                           margin:
                                               const EdgeInsets.only(left: 8),
-                                          child: const Icon(Icons.verified,
-                                              color: Color.fromARGB(
-                                                  255, 107, 125, 167),
-                                              size: 18),
+                                          child: const Icon(
+                                            Icons.verified,
+                                            color: Color.fromARGB(
+                                                255, 107, 125, 167),
+                                            size: 18,
+                                          ),
                                         ),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        const Icon(Icons.person,
-                                            size: 18,
-                                            color: Color.fromARGB(
-                                                255, 107, 125, 167)),
+                                        const Icon(
+                                          Icons.person,
+                                          size: 18,
+                                          color: Color.fromARGB(
+                                              255, 107, 125, 167),
+                                        ),
                                         Container(
                                           margin:
                                               const EdgeInsets.only(left: 5),
-                                          child: Text(
-                                            '${item['jumlah']}',
-                                            style: const TextStyle(
+                                          child: const Text(
+                                            '0', // Jumlah diatur ke 0 untuk sekarang
+                                            style: TextStyle(
                                               color: Color.fromARGB(
                                                   255, 107, 125, 167),
                                               fontSize: 16,
@@ -545,10 +551,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          child: Container(
+                                          child: SizedBox(
                                             height: 15,
                                             child: LinearProgressIndicator(
-                                              value: item['progress'],
+                                              value: progress.clamp(0.0, 1.0),
                                               backgroundColor:
                                                   const Color.fromARGB(
                                                       255, 229, 229, 229),
@@ -561,7 +567,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       Container(
                                         margin: const EdgeInsets.only(left: 8),
                                         child: Text(
-                                          '${(item['progress'] * 100).toInt()}%',
+                                          '${(progress * 100).toInt()}%',
                                           style: const TextStyle(
                                             color: Color.fromARGB(
                                                 255, 107, 125, 167),
