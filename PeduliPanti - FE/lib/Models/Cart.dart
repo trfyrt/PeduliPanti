@@ -67,16 +67,19 @@ class CartBundle {
 class CartRequest {
   final int requestID;
   final int quantity;
+  final int pantiID;
 
   CartRequest({
     required this.requestID,
     required this.quantity,
+    required this.pantiID,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'requestID': requestID,
       'quantity': quantity,
+      'pantiID': pantiID,
     };
   }
 }

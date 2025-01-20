@@ -1,5 +1,6 @@
 import 'package:donatur_peduli_panti/Services/api_service.dart';
 import 'package:donatur_peduli_panti/donasi.dart';
+import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:donatur_peduli_panti/search.dart';
 import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
@@ -665,17 +666,17 @@ class _MyHomePageState extends State<MyHomePage> {
           right: 15,
           child: GestureDetector(
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   PageRouteBuilder(
-              //     pageBuilder: (context, animation, secondaryAnimation) =>
-              //         const Keranjang(),
-              //     transitionsBuilder:
-              //         (context, animation, secondaryAnimation, child) {
-              //       return child;
-              //     },
-              //   ), // Halaman profil
-              // );
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const Keranjang(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return child;
+                  },
+                ),
+              );
             },
             child: Container(
               padding: const EdgeInsets.all(12),

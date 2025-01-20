@@ -2,6 +2,7 @@ import 'package:donatur_peduli_panti/Services/api_service.dart';
 import 'package:donatur_peduli_panti/Models/Panti.dart';
 import 'package:donatur_peduli_panti/historiRABDonatur.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
+import 'package:donatur_peduli_panti/keranjang.dart';
 // import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:donatur_peduli_panti/market.dart';
 import 'package:flutter/material.dart';
@@ -688,17 +689,17 @@ class _MyHomePageState extends State<MyHomePage> {
             child: GestureDetector(
               onTap: () {
                 print("Masuk ke keranjang");
-                // Navigator.push(
-                //   context,
-                //   PageRouteBuilder(
-                //     pageBuilder: (context, animation, secondaryAnimation) =>
-                //         const Keranjang(),
-                //     transitionsBuilder:
-                //         (context, animation, secondaryAnimation, child) {
-                //       return child;
-                //     },
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Keranjang(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
               },
               child: Container(
                 padding: const EdgeInsets.all(12),

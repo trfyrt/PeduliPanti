@@ -17,12 +17,12 @@ class RequestList {
 
   factory RequestList.fromJson(Map<String, dynamic> json) {
     return RequestList(
-      id: json['id'],
-      pantiID: json['pantiID'],
-      productID: json['productID'],
-      requestedQty: json['requested_qty'],
-      donatedQty: json['donated_qty'],
-      statusApproval: json['status_approval'],
+      id: json['id'] ?? 0,
+      pantiID: json['pantiID'] ?? 0,
+      productID: json['productID'] ?? 0,
+      requestedQty: json['requested_qty'] ?? 0,
+      donatedQty: json['donated_qty'] ?? 0,
+      statusApproval: json['status_approval'] ?? 'rejected',
     );
   }
 

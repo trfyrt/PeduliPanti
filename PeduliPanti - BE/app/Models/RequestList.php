@@ -28,7 +28,7 @@ class RequestList extends Model
 
     public function products()
     {
-        return $this->belongsTo(Product::class, 'productsID', 'productID');
+        return $this->belongsTo(Product::class, 'productID', 'productID');
     }
     
 }
