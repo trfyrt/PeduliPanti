@@ -69,11 +69,11 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> _fetchPantis() async {
     try {
-      final data = await ApiService.fetchPantiDetails(); // Fetch data from API
+      final data = await ApiService.fetchPantiDetails();
       setState(() {
-        pantis = data; // Update pantis list with API data
+        pantis = data;
         filteredData =
-            List.from(pantis); // Initialize filtered data with all pantis
+            List.from(pantis);
         isLoading = false;
       });
     } catch (e) {
