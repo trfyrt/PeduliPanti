@@ -1,8 +1,8 @@
-const API_BASE_URL = 'https://127.0.0.1:8000';
+const API_BASE_URL = 'http://127.0.0.1:8000';
 
 async function fetchRequestList() {
   try {
-    const response = await fetch('${https://127.0.0.1:8000}/api/v1/request-list');
+    const response = await fetch('${http://127.0.0.1:8000}/api/v1/request_list');
     const data = await response.json();
     displayRequestList(data.data);
   } catch (error) {
@@ -35,7 +35,7 @@ function displayRequestList(requests) {
 // Add new request
 async function addRequest(formData) {
   try {
-      const response = await fetch(`${'https://127.0.0.1:8000'}/api/v1/request-list`, {
+      const response = await fetch(`${'http://127.0.0.1:8000'}/api/v1/request_list`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ async function addRequest(formData) {
 // Update request status
 async function updateStatus(id, status) {
   try {
-      const response = await fetch(`${'https://127.0.0.1:8000'}/api/v1/request-list/${id}/status`, {
+      const response = await fetch(`${'http://127.0.0.1:8000'}/api/v1/request_list/${id}/status`, {
           method: 'PUT',
           headers: {
               'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ async function updateStatus(id, status) {
 async function deleteRequest(id) {
   if (confirm('Are you sure you want to delete this request?')) {
       try {
-          const response = await fetch(`${'https://127.0.0.1:8000'}/api/v1/request-list/${id}`, {
+          const response = await fetch(`${'http://127.0.0.1:8000'}/api/v1/request_list/${id}`, {
               method: 'DELETE'
           });
 

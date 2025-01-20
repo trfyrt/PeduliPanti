@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
         // Fetch Data API (Jika Diperlukan)
         const rabId = button.getAttribute("data-id");
-        fetch(`https://127.0.0.1:8000/rab/${rabId}`)
+        fetch(`http://127.0.0.1:8000/api/v1/rab/${rabId}`)
           .then(response => response.json())
           .then(data => {
             document.getElementById("rab-title").textContent = data.panti_name;

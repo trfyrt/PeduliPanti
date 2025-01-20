@@ -16,7 +16,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
   const fullName = `${firstName} ${lastName}`;
 
   try {
-    const response = await fetch('https://127.0.0.1:8000/api/users', {
+    const response = await fetch('http://127.0.0.1:8000/api/v1', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
