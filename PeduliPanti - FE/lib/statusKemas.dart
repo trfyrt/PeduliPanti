@@ -119,22 +119,22 @@ class _StatusKemasPageState extends State<StatusKemasPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 0),
+                          right: 18, top: 20, bottom: 0),
                       child: Column(
                         children: [
                           Container(
                             margin: EdgeInsets.only(bottom: 10),
                             child: Icon(
                               FontAwesomeIcons.wallet,
-                              color: Color.fromARGB(255, 82, 104, 157),
-                              size: 18,
+                              color: Color.fromARGB(255, 254, 254, 254),
+                              size: 19,
                             ),
                           ),
                           Text(
                             'Bayar',
                             style: TextStyle(
-                                color: Color.fromARGB(255, 82, 104, 157),
-                                fontSize: 16),
+                                color: Color.fromARGB(255, 254, 254, 254),
+                                fontSize: 17),
                           ),
                         ],
                       ),
@@ -158,22 +158,22 @@ class _StatusKemasPageState extends State<StatusKemasPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 0),
+                          right: 18, left: 20, top: 20, bottom: 0),
                       child: Column(
                         children: [
                           Container(
                             margin: EdgeInsets.only(bottom: 10),
                             child: Icon(
                               FontAwesomeIcons.boxesPacking,
-                              color: Color.fromARGB(255, 254, 254, 254),
-                              size: 19,
+                              color: Color.fromARGB(255, 82, 104, 157),
+                              size: 18,
                             ),
                           ),
                           Text(
                             'Dikemas',
                             style: TextStyle(
-                                color: Color.fromARGB(255, 254, 254, 254),
-                                fontSize: 17),
+                                color: Color.fromARGB(255, 82, 104, 157),
+                                fontSize: 16),
                           )
                         ],
                       ),
@@ -197,7 +197,7 @@ class _StatusKemasPageState extends State<StatusKemasPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 0),
+                          right: 18, left: 20, top: 20, bottom: 0),
                       child: Column(
                         children: [
                           Container(
@@ -236,7 +236,7 @@ class _StatusKemasPageState extends State<StatusKemasPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 0),
+                          left: 20, top: 20, bottom: 0),
                       child: Column(
                         children: [
                           Container(

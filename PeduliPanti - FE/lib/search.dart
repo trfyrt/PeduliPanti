@@ -125,7 +125,7 @@ class _SearchPageState extends State<SearchPage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 45),
+          margin: const EdgeInsets.only(right: 16, left: 16, top: 45),
           child: Column(
             children: [
               TextField(

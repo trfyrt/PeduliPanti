@@ -119,7 +119,7 @@ class _StatusBayarPageState extends State<StatusBayarPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 0),
+                          right: 18, top: 20, bottom: 0),
                       child: Column(
                         children: [
                           Container(
@@ -158,7 +158,7 @@ class _StatusBayarPageState extends State<StatusBayarPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 0),
+                          right: 18, left: 20, top: 20, bottom: 0),
                       child: Column(
                         children: [
                           Container(
@@ -197,7 +197,7 @@ class _StatusBayarPageState extends State<StatusBayarPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 0),
+                          right: 18, left: 20, top: 20, bottom: 0),
                       child: Column(
                         children: [
                           Container(
@@ -236,7 +236,7 @@ class _StatusBayarPageState extends State<StatusBayarPage> {
                     },
                     child: Container(
                       padding: EdgeInsets.only(
-                          right: 20, left: 20, top: 20, bottom: 0),
+                          left: 20, top: 20, bottom: 0),
                       child: Column(
                         children: [
                           Container(

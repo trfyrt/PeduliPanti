@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.donatur_peduli_panti.app-mergeDebugResources-41:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.donatur_peduli_panti.app-mergeDebugResources-42:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ASUS\\.gradle\\caches\\transforms-3\\4d07cb36d13b0ebf9dffc17582130141\\transformed\\appcompat-1.1.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "C:\\Users\\ASUS\\.gradle\\caches\\transforms-3\\605e2b0f06d7774f0d1da901ebae6110\\transformed\\appcompat-1.1.0\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "D:\\Kuliah\\Programming\\Semester 3\\ALP\\donatur_peduli_panti\\PeduliPanti - FE\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "D:\\Kuliah\\Programming\\Semester 3\\ALP\\main\\PeduliPanti - FE\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

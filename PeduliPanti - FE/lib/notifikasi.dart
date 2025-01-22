@@ -250,7 +250,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                       ),
                       child: Container(
                         padding: const EdgeInsets.only(
-                            left: 90, right: 8, top: 11, bottom: 11),
+                            left: 90, right: 8, top: 11, bottom: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,

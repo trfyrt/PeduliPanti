@@ -53,7 +53,11 @@
     <string name="common_signin_button_text">உள்நுழைக</string>
     <string name="common_signin_button_text_long">Google மூலம் உள்நுழைக</string>
     <string msgid="6083905920877235314" name="copy">"நகலெடு"</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"கிளிப்-போர்டுக்கு இணைப்பு நகலெடுக்கப்பட்டது"</string>
     <string msgid="2427401033573778270" name="expand_button_title">"மேம்பட்டவை"</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"இணைப்பை நகலெடு"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"உலாவியில் திற"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"இணைப்பைப் பகிர்"</string>
     <string msgid="6573031135582639649" name="not_set">"அமைக்கப்படவில்லை"</string>
     <string msgid="6685851473431805375" name="preference_copied">"\"<ns1:g id="SUMMARY">%1$s</ns1:g>\" கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது."</string>
     <string msgid="730395136688082741" name="search_menu_title">"தேடல்"</string>

@@ -1,26 +1,26 @@
 [
     {
-        "merged": "com.example.donatur_peduli_panti.app-merged_res-43:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.example.donatur_peduli_panti.app-main-37:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "com.example.donatur_peduli_panti.app-merged_res-44:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.example.donatur_peduli_panti.app-main-38:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.donatur_peduli_panti.app-merged_res-43:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.example.donatur_peduli_panti.app-main-37:/mipmap-hdpi/ic_launcher.png"
+        "merged": "com.example.donatur_peduli_panti.app-merged_res-44:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.example.donatur_peduli_panti.app-main-38:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.donatur_peduli_panti.app-merged_res-43:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.example.donatur_peduli_panti.app-main-37:/mipmap-mdpi/ic_launcher.png"
+        "merged": "com.example.donatur_peduli_panti.app-merged_res-44:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.example.donatur_peduli_panti.app-main-38:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.donatur_peduli_panti.app-merged_res-43:/drawable-v21_launch_background.xml.flat",
-        "source": "com.example.donatur_peduli_panti.app-main-37:/drawable-v21/launch_background.xml"
+        "merged": "com.example.donatur_peduli_panti.app-merged_res-44:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.example.donatur_peduli_panti.app-main-38:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.donatur_peduli_panti.app-merged_res-43:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.example.donatur_peduli_panti.app-main-37:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "com.example.donatur_peduli_panti.app-merged_res-44:/drawable-v21_launch_background.xml.flat",
+        "source": "com.example.donatur_peduli_panti.app-main-38:/drawable-v21/launch_background.xml"
     },
     {
-        "merged": "com.example.donatur_peduli_panti.app-merged_res-43:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.example.donatur_peduli_panti.app-main-37:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "com.example.donatur_peduli_panti.app-merged_res-44:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.example.donatur_peduli_panti.app-main-38:/mipmap-hdpi/ic_launcher.png"
     }
 ]

@@ -35,7 +35,11 @@
     <string msgid="8623827134497363134" name="call_notification_ongoing_text">"On-going call"</string>
     <string msgid="59049573811482460" name="call_notification_screening_text">"Screening an incoming call"</string>
     <string msgid="6083905920877235314" name="copy">"Copy"</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Link copied to clipboard"</string>
     <string msgid="2427401033573778270" name="expand_button_title">"Advanced"</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Copy link"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Open in browser"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Share link"</string>
     <string msgid="6573031135582639649" name="not_set">"Not set"</string>
     <string msgid="6685851473431805375" name="preference_copied">"\'<ns1:g id="SUMMARY">%1$s</ns1:g>\' copied to clipboard."</string>
     <string msgid="730395136688082741" name="search_menu_title">"Search"</string>

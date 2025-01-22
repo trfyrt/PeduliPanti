@@ -1,3 +1,4 @@
+import 'package:donatur_peduli_panti/regist.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/gestures.dart';
@@ -41,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.symmetric(
-                  vertical: 20,
+                  vertical: 80,
                   horizontal: 20), // Reduced vertical margin to move content up
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment
@@ -192,37 +193,39 @@ class _MyHomePageState extends State<MyHomePage> {
                           .center, // Pusatkan secara horizontal
                       children: [
                         Container(
-                          margin:
-                              const EdgeInsets.only(top: 15), // Reduced margin
+                          margin: const EdgeInsets.only(top: 15),
                           child: RichText(
-                            textAlign: TextAlign
-                                .center, // Pastikan teks dalam RichText diratakan ke tengah
+                            textAlign: TextAlign.center,
                             text: TextSpan(
                               children: [
                                 const TextSpan(
-                                  text:
-                                      "Belum punya akun? ", // Teks biasa dengan warna 1
+                                  text: "Belum punya akun? ",
                                   style: TextStyle(
-                                    color: Colors.black, // Warna 1
-                                    fontSize: 14, // Reduced font size
+                                    color: Colors.black,
+                                    fontSize: 14,
                                   ),
                                 ),
                                 TextSpan(
-                                  text:
-                                      "Daftar", // Teks dengan warna 2 yang dapat diklik
+                                  text: "Daftar",
                                   style: const TextStyle(
-                                    color: Colors.blue, // Warna 2
-                                    fontSize: 14, // Reduced font size
+                                    color: Colors.blue,
+                                    fontSize: 14,
+                                    decoration: TextDecoration.underline,
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      // Aksi navigasi
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RegistApp()),
+                                      );
                                     },
                                 ),
                               ],
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),

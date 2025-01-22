@@ -74,89 +74,92 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // Logo
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(top: 50),
-                child: Image.asset(
-                  'assets/img/pedulipanti.png',
-                  height: 100,
-                ),
-              ),
-            ),
-
-            // Title and Subtitle
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Login dan nikmati pengalaman donasi tanpa batas',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Color(0xff2979ff),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                        ),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    'Masukkan email dan password.',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Color.fromARGB(255, 72, 78, 90),
-                          fontSize: 14,
-                        ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
-            ),
-
-            // Email Field
-            _buildTextField(
-              controller: emailController,
-              hintText: 'Email',
-              icon: FontAwesomeIcons.solidUser,
-            ),
-
-            // Password Field
-            _buildTextField(
-              controller: passwordController,
-              hintText: 'Password',
-              icon: Icons.lock,
-              obscureText: true,
-            ),
-
-            // Login Button
-            Container(
-              margin: EdgeInsets.only(top: 15, bottom: 10),
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _login,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+        body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // Logo
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 50),
+                  child: 
+                  Image.asset(
+                    'assets/img/pedulipanti.png',
+                    height: 100,
                   ),
                 ),
-                child: _isLoading
-                    ? CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                    : Text("Masuk"),
               ),
-            ),
-          ],
+
+              // Title and Subtitle
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Login dan nikmati pengalaman donasi tanpa batas',
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                            color: Color(0xff2979ff),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      'Masukkan email dan password.',
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                            color: Color.fromARGB(255, 72, 78, 90),
+                            fontSize: 14,
+                          ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ),
+
+              // Email Field
+              _buildTextField(
+                controller: emailController,
+                hintText: 'Email',
+                icon: FontAwesomeIcons.solidUser,
+              ),
+
+              // Password Field
+              _buildTextField(
+                controller: passwordController,
+                hintText: 'Password',
+                icon: Icons.lock,
+                obscureText: true,
+              ),
+
+              // Login Button
+              Container(
+                margin: EdgeInsets.only(top: 15, bottom: 10),
+                child: ElevatedButton(
+                  onPressed: _isLoading ? null : _login,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 50),
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: _isLoading
+                      ? CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : Text("Masuk"),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 

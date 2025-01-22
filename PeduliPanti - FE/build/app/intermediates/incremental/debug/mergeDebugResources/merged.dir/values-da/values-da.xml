@@ -53,7 +53,11 @@
     <string name="common_signin_button_text">Log ind</string>
     <string name="common_signin_button_text_long">Log ind med Google</string>
     <string msgid="6083905920877235314" name="copy">"Kopiér"</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Linket er kopieret til udklipsholderen"</string>
     <string msgid="2427401033573778270" name="expand_button_title">"Avanceret"</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Kopiér link"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Åbn i browser"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Del link"</string>
     <string msgid="6573031135582639649" name="not_set">"Ikke angivet"</string>
     <string msgid="6685851473431805375" name="preference_copied">"\"<ns1:g id="SUMMARY">%1$s</ns1:g>\" blev kopieret til udklipsholderen."</string>
     <string msgid="730395136688082741" name="search_menu_title">"Søg"</string>

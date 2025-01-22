@@ -197,30 +197,32 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                 ),
                 const SizedBox(height: 20),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: "Sudah punya akun? ",
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                      ),
-                      TextSpan(
-                        text: "Masuk Disini",
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 16,
+                Center(
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: "Sudah punya akun? ",
+                          style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginApp()),
-                            );
-                          },
-                      ),
-                    ],
+                        TextSpan(
+                          text: "Masuk Disini",
+                          style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 16,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginApp()),
+                              );
+                            },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

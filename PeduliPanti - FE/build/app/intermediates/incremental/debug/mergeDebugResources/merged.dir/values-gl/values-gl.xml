@@ -53,7 +53,11 @@
     <string name="common_signin_button_text">Iniciar sesión</string>
     <string name="common_signin_button_text_long">Iniciar sesión con Google</string>
     <string msgid="6083905920877235314" name="copy">"Copiar"</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Copiouse a ligazón no portapapeis"</string>
     <string msgid="2427401033573778270" name="expand_button_title">"Configuración avanzada"</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Copiar ligazón"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Abrir no navegador"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Compartir ligazón"</string>
     <string msgid="6573031135582639649" name="not_set">"Sen configurar"</string>
     <string msgid="6685851473431805375" name="preference_copied">"Copiouse \"<ns1:g id="SUMMARY">%1$s</ns1:g>\" no portapapeis."</string>
     <string msgid="730395136688082741" name="search_menu_title">"Buscar"</string>
