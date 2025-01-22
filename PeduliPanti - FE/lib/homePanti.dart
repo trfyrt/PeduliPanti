@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     _fetchUserData();
   }
 
-  static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
+  static const String _baseUrl = 'http://192.168.5.112:8000/api/v1';
 
   static Future<int?> getUserId() async {
     try {
@@ -100,7 +100,8 @@ class _HomePageState extends State<HomePage> {
           // Update controller values dengan data yang diambil
           setState(() {
             // Ensure donationTotal is a String
-            persentaseDonasiController.text = pantiDetails['donationTotal'].toString();
+            persentaseDonasiController.text =
+                pantiDetails['donationTotal'].toString();
           });
 
           print("User data fetched and updated successfully.");
@@ -616,7 +617,9 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 // Menggunakan fungsi untuk memeriksa apakah input valid
                                 _getPercentageText(
-                                    double.tryParse(persentaseDonasiController.text) ?? 0.0, 
+                                    double.tryParse(
+                                            persentaseDonasiController.text) ??
+                                        0.0,
                                     100000000.0), // Assuming 100000 is the target donation
                                 style: TextStyle(color: Colors.black),
                               ),
@@ -625,8 +628,11 @@ class _HomePageState extends State<HomePage> {
                           LinearProgressIndicator(
                             // Menggunakan fungsi untuk memeriksa apakah input valid sebelum menghitung
                             value: _getPercentageValue(
-                                double.tryParse(persentaseDonasiController.text) ?? 0.0, 
-                                100000000.0) / 100.0, // Dividing by 100 to show the correct progress
+                                    double.tryParse(
+                                            persentaseDonasiController.text) ??
+                                        0.0,
+                                    100000000.0) /
+                                100.0, // Dividing by 100 to show the correct progress
                             backgroundColor: Colors.grey[300],
                             color: const Color.fromARGB(255, 164, 196, 253),
                             minHeight: 12,
@@ -639,10 +645,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 25),
+            const SizedBox(
+                height: 10), // Reduced space between the title and cards
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 30.0), // Added horizontal padding
+                  horizontal: 20.0, vertical: 5.0), // Added horizontal padding
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -663,10 +670,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 15),
             const Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 30.0), // Added horizontal padding
+              padding: EdgeInsets.only(
+                  left: 25.0,
+                  right: 25.0,
+                  top: 5.0), // Reduced vertical padding
               child: Text(
                 "Panti Asuhan",
                 style: TextStyle(
@@ -675,8 +684,8 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.black),
               ),
             ),
-            const SizedBox(height: 5),
             ListView.builder(
+              padding: EdgeInsets.only(top: 10),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: orphanages.length,
@@ -694,8 +703,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0), // Added horizontal padding
+                     padding: const EdgeInsets.only(left: 15, right: 15.0, bottom: 4.0), // Added horizontal padding
                     child: DonationCard(
                       name: orphanage["name"],
                       targetDonation: orphanage["targetDonation"],
@@ -704,11 +712,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-            ),
-
-            const SizedBox(
-                height:
-                    80), // Added space below to prevent navbar from covering cards
+            ), // Added space below to prevent navbar from covering cards
           ],
         ),
       ),
@@ -731,7 +735,7 @@ class DonationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.only(bottom: 8),
       elevation: 8,
       shadowColor: Colors.black.withOpacity(0.3),
       child: Container(

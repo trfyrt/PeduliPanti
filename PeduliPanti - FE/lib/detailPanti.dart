@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> fetchPantiData(int id) async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/v1/panti_detail/$id'));
+    final response = await http.get(Uri.parse('http://192.168.5.112:8000/api/v1/panti_detail/$id'));
 
     if (response.statusCode == 200) {
       setState(() {
