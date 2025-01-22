@@ -3,9 +3,18 @@ import 'package:donatur_peduli_panti/succesPay.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 
 class Pesanan extends StatelessWidget {
-  const Pesanan({super.key});
+  final List<SelectedItem> selectedItems;
+
+  const Pesanan({
+    super.key,
+    required this.selectedItems,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,44 +24,160 @@ class Pesanan extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 254),
       ),
-      home: const PesananPage(),
+      home: PesananPage(selectedItems: selectedItems),
     );
   }
 }
 
-class Panti {
-  String nama;
-  bool isSelected;
-  List<Barang> barangList;
+// selected_items.dart
+class SelectedItem {
+  final String pantiName;
+  final String itemName;
+  final int quantity;
+  final int price;
+  final int totalPrice;
 
-  Panti(
-      {required this.nama, this.isSelected = false, required this.barangList});
-}
-
-class Barang {
-  String nama;
-  int harga;
-  int jumlah;
-  String gambar;
-
-  Barang({
-    required this.nama,
-    required this.harga,
-    this.jumlah = 0,
-    required this.gambar,
+  SelectedItem({
+    required this.pantiName,
+    required this.itemName,
+    required this.quantity,
+    required this.price,
+    required this.totalPrice,
   });
 }
 
-class PesananPage extends StatefulWidget {
-  const PesananPage({super.key});
+class PaymentMethod {
+  final String id;
+  final String name;
+  final String imageUrl;
+  final double balance;
+  final String userId; // Tambah field userId
 
+  PaymentMethod({
+    required this.id,
+    required this.name,
+    required this.imageUrl,
+    required this.balance,
+    required this.userId,
+  });
+
+  factory PaymentMethod.fromJson(Map<String, dynamic> json) {
+    return PaymentMethod(
+      id: json['id'],
+      name: json['name'],
+      imageUrl: json['image_url'],
+      balance: json['balance'].toDouble(),
+      userId: json['user_id'],
+    );
+  }
+}
+
+class PesananPage extends StatefulWidget {
+  final List<SelectedItem> selectedItems;
+
+  const PesananPage({
+    Key? key,
+    required this.selectedItems,
+  }) : super(key: key);
   @override
   State<PesananPage> createState() => _PesananPageState();
 }
 
 class _PesananPageState extends State<PesananPage> {
-  String _selectedMethod = "Gopay";
+  // String _selectedMethod = "Gopay";
   String _selectedAmount = "Rp.100.000";
+  String _selectedMethod = 'Pilih Metode Pembayaran';
+  final String baseUrl = 'http://192.168.1.7:8000/api/v1';
+
+  Widget _buildPaymentMethod(String method, String icon, String amount) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        leading: Image.asset(
+          icon,
+          width: 40,
+          height: 40,
+        ),
+        title: Text(
+          method,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        subtitle: Text(
+          'Rp $amount',
+          style: TextStyle(
+            color: Colors.blue,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        trailing: Icon(Icons.arrow_forward_ios, size: 18),
+        onTap: () => _initiatePayment(method, amount),
+      ),
+    );
+  }
+
+  void _initiatePayment(String method, String amount) async {
+    try {
+      // Show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+
+      final response = await http.post(
+        Uri.parse('$baseUrl/orders/payment'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode({
+          'name': 'User Name', // Get this from user data
+          'payment_method': method.toLowerCase(),
+          'amount': int.parse(amount.replaceAll('.', '')),
+        }),
+      );
+
+      // Hide loading indicator
+      Navigator.pop(context);
+
+      final responseData = json.decode(response.body);
+      if (responseData['status'] == 'success' &&
+          responseData['deeplink_url'] != null) {
+        final Uri url = Uri.parse(responseData['deeplink_url']);
+        if (await canLaunchUrl(url)) {
+          await launchUrl(url, mode: LaunchMode.externalApplication);
+        } else {
+          throw 'Could not launch payment app';
+        }
+      } else {
+        throw 'Invalid response from server';
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Gagal memproses pembayaran. Silakan coba lagi.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   final Map<String, String> paymentIcons = {
     "Gopay": 'assets/img/gopay.png',
@@ -68,31 +193,40 @@ class _PesananPageState extends State<PesananPage> {
     Navigator.pop(context); // Menutup modal setelah memilih metode
   }
 
-  final List<Map<String, String>> dataBarang = [
-    {
-      "namaBarang": "Minyak Goreng 1L",
-      "jumlah": "2",
-      "harga": "Rp.18.000",
-      "jumlahHarga": "Rp.36.000"
-    },
-    {
-      "namaBarang": "Gula Pasir 1kg",
-      "jumlah": "1",
-      "harga": "Rp.12.000",
-      "jumlahHarga": "Rp.12.000"
-    },
-    {
-      "namaBarang": "Beras 5kg",
-      "jumlah": "1",
-      "harga": "Rp.60.000",
-      "jumlahHarga": "Rp.60.000"
-    },
-  ];
+  Map<String, List<Map<String, String>>> getDataBarangByPanti() {
+    Map<String, List<Map<String, String>>> groupedData = {};
+
+    for (var item in widget.selectedItems) {
+      if (!groupedData.containsKey(item.pantiName)) {
+        groupedData[item.pantiName] = [];
+      }
+
+      groupedData[item.pantiName]!.add({
+        "namaBarang": item.itemName,
+        "jumlah": item.quantity.toString(),
+        "harga": "Rp.${NumberFormat("#,###", "id_ID").format(item.price)}",
+        "jumlahHarga":
+            "Rp.${NumberFormat("#,###", "id_ID").format(item.totalPrice)}"
+      });
+    }
+
+    return groupedData;
+  }
+
+  // Calculate total price for all items
+  int calculateTotalPrice() {
+    return widget.selectedItems.fold(0, (sum, item) => sum + item.totalPrice);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final groupedData = getDataBarangByPanti();
+    final totalPrice = calculateTotalPrice();
+    final feeTransaksi = (totalPrice * 0.05).round();
+    final totalPembayaran = totalPrice + feeTransaksi;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color.fromARGB(255, 147, 181, 255),
         toolbarHeight: 65,
         shape: const RoundedRectangleBorder(
@@ -188,48 +322,12 @@ class _PesananPageState extends State<PesananPage> {
                                       ),
                                     ),
                                   ),
-                                  ListTile(
-                                    leading:
-                                        _buildImageIcon('assets/img/ovo.png'),
-                                    title:
-                                        _buildPaymentInfo('OVO', 'Rp.200.000'),
-                                    onTap: () => _updatePaymentMethod(
-                                        'OVO', 'Rp.200.000'),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 5),
-                                    width: double.infinity,
-                                    height: 1,
-                                    decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 176, 176, 176)),
-                                  ),
-                                  ListTile(
-                                    leading:
-                                        _buildImageIcon('assets/img/gopay.png'),
-                                    title: _buildPaymentInfo(
-                                        'Gopay', 'Rp.100.000'),
-                                    onTap: () => _updatePaymentMethod(
-                                        'Gopay', 'Rp.100.000'),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 5),
-                                    width: double.infinity,
-                                    height: 1,
-                                    decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 176, 176, 176)),
-                                  ),
-                                  ListTile(
-                                    leading:
-                                        _buildImageIcon('assets/img/dana.png'),
-                                    title:
-                                        _buildPaymentInfo('Dana', 'Rp.50.000'),
-                                    onTap: () => _updatePaymentMethod(
-                                        'Dana', 'Rp.50.000'),
-                                  ),
+                                  _buildPaymentMethod(
+                                      'OVO', 'assets/img/ovo.png', '500.000'),
+                                  _buildPaymentMethod('Gopay',
+                                      'assets/img/gopay.png', '400.000'),
+                                  _buildPaymentMethod('Dana',
+                                      'assets/img/dana.png', '1.000.000'),
                                 ],
                               ),
                             );
@@ -245,7 +343,7 @@ class _PesananPageState extends State<PesananPage> {
                                 borderRadius: BorderRadius.circular(30),
                                 child: Image.asset(
                                     paymentIcons[_selectedMethod] ??
-                                        'assets/img/default.png'),
+                                        'assets/img/ovo.png'),
                               ),
                               Container(
                                 margin: EdgeInsets.only(left: 15),
@@ -325,121 +423,155 @@ class _PesananPageState extends State<PesananPage> {
                             ],
                           ),
                         ),
-                        Container(
-                          child: SingleChildScrollView(
-                            scrollDirection:
-                                Axis.horizontal, // Aktifkan scroll horizontal
-                            child: Table(
-                              border: TableBorder(
-                                top: BorderSide(width: 1),
-                                left: BorderSide.none,
-                                right: BorderSide.none,
-                                bottom: BorderSide(width: 1),
-                              ),
-                              columnWidths: const {
-                                0: FixedColumnWidth(120),
-                                1: FixedColumnWidth(100),
-                                2: FixedColumnWidth(100),
-                                3: FixedColumnWidth(100),
-                              },
-                              children: [
-                                TableRow(
-                                  children: const [
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 2, horizontal: 6),
-                                      child: Text(
-                                        'Nama Barang',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(2),
-                                      child: Text(
-                                        'Jumlah',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(2),
-                                      child: Text(
-                                        'Harga',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(2),
-                                      child: Text(
-                                        'Jumlah Harga',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ],
+                        ...groupedData.entries.map((entry) {
+                          double totalPembayaran =
+                              entry.value.fold(0.0, (sum, item) {
+                            double itemTotal =
+                                double.tryParse(item["jumlahHarga"] ?? "0") ??
+                                    0.0;
+                            return sum + itemTotal;
+                          });
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 5,
+                                  spreadRadius: 1,
                                 ),
-                                ...dataBarang.map((barang) {
-                                  return TableRow(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          barang["namaBarang"]!,
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          barang["jumlah"]!,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          barang["harga"]!,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          barang["jumlahHarga"]!,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }).toList(),
                               ],
                             ),
-                          ),
-                        ),
+                            padding: EdgeInsets.all(15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  entry.key, // Nama Panti
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 15),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Table(
+                                    border: TableBorder(
+                                      horizontalInside: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey.shade300),
+                                      top: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey.shade300),
+                                      bottom: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey.shade300),
+                                    ),
+                                    columnWidths: const {
+                                      0: FixedColumnWidth(120),
+                                      1: FixedColumnWidth(100),
+                                      2: FixedColumnWidth(100),
+                                      3: FixedColumnWidth(100),
+                                    },
+                                    children: [
+                                      TableRow(
+                                        children: const [
+                                          Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Nama Barang',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Jumlah',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Harga',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Total',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      ...entry.value
+                                          .map((item) => TableRow(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Text(
+                                                        item["namaBarang"]!),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Text(
+                                                      item["jumlah"]!,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Text(
+                                                      item["harga"]!,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Text(
+                                                      item["jumlahHarga"]!,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ))
+                                          .toList(),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
                         Container(
                           margin: EdgeInsets.only(top: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                child: Text('Fee Transaksi (10%)'),
+                                child: Text('Fee Transaksi (5%)'),
                               ),
                               Container(
-                                child: Text('Rp.20.000'),
+                                child: Text(
+                                    'Rp.${NumberFormat("#,###", "id_ID").format(feeTransaksi)}'),
                               ),
                             ],
                           ),
@@ -461,7 +593,7 @@ class _PesananPageState extends State<PesananPage> {
                               ),
                               Container(
                                 child: Text(
-                                  'Rp.100.000',
+                                  'Rp.${NumberFormat("#,###", "id_ID").format(totalPembayaran)}',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -636,7 +768,7 @@ class _PesananPageState extends State<PesananPage> {
             top: 37, // Posisi teks di bawah "Total Harga"
             right: 215, // Penyesuaian posisi horizontal sesuai kebutuhan
             child: Text(
-              "Rp.100.000",
+              'Rp.${NumberFormat("#,###", "id_ID").format(totalPembayaran)}',
               style: TextStyle(
                 fontSize: 18,
                 color: const Color.fromARGB(255, 147, 181, 255),

@@ -9,7 +9,7 @@ import 'package:donatur_peduli_panti/Services/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
+  static const String _baseUrl = 'http://192.168.1.7:8000/api/v1';
 
   // Fungsi untuk mengambil data Panti Asuhan
   static Future<List<Panti>> fetchPantiDetails() async {

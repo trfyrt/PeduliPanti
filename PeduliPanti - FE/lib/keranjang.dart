@@ -160,7 +160,6 @@ class _KeranjangPageState extends State<KeranjangPage> {
   void _handleItemSelection(int pantiID, int itemIndex, bool? value) {
     setState(() {
       _selectedItems[pantiID]![itemIndex] = value ?? false;
-      // Check if all items are selected
       bool allSelected = _selectedItems[pantiID]!.every((item) => item == true);
       bool anySelected = _selectedItems[pantiID]!.any((item) => item == true);
       _selectedPanti[pantiID] = allSelected;
@@ -190,17 +189,80 @@ class _KeranjangPageState extends State<KeranjangPage> {
     String name = '';
     int quantity = 0;
     int price = 0;
+    Widget? imageWidget;
 
     if (item is CartProduct) {
       final product = _getProductById(item.productID);
       name = product?.name ?? 'Produk tidak ditemukan';
       quantity = _productQuantities[item.productID] ?? item.quantity;
       price = (product?.price ?? 0) * quantity;
+      imageWidget = Image.network(
+        product?.image ?? 'https://via.placeholder.com/150',
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: Colors.grey[200],
+            child: const Icon(
+              Icons.image_not_supported_sharp,
+              color: Colors.grey,
+              size: 50,
+            ),
+          );
+        },
+      );
     } else if (item is CartBundle) {
       final bundle = _getBundleById(item.bundleID);
       name = bundle?.name ?? 'Bundle tidak ditemukan';
       quantity = _bundleQuantities[item.bundleID] ?? item.quantity;
       price = (bundle?.price ?? 0) * quantity;
+
+      // Calculate remaining items for overlay
+      final remainingItems = bundle?.products.length ?? 0;
+      final hasAdditionalItems = remainingItems > 1;
+
+      imageWidget = Stack(
+        fit: StackFit.expand,
+        children: [
+          // Main image
+          Image.network(
+            bundle?.products.isNotEmpty == true
+                ? bundle!.products[0].image ?? 'https://via.placeholder.com/150'
+                : 'https://via.placeholder.com/150',
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey[200],
+                child: const Icon(
+                  Icons.image_not_supported_sharp,
+                  color: Colors.grey,
+                  size: 50,
+                ),
+              );
+            },
+          ),
+          // Overlay for additional items
+          if (hasAdditionalItems)
+            Positioned(
+              bottom: 8,
+              right: 8,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  '${remainingItems - 1}+',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+        ],
+      );
     } else if (item is CartRequest) {
       final request = _getRequestById(item.requestID);
       final product =
@@ -208,91 +270,121 @@ class _KeranjangPageState extends State<KeranjangPage> {
       name = product?.name ?? 'Produk tidak ditemukan';
       quantity = _requestQuantities[item.requestID] ?? item.quantity;
       price = (product?.price ?? 0) * quantity;
+      imageWidget = Image.network(
+        product?.image ?? 'https://via.placeholder.com/150',
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: Colors.grey[200],
+            child: const Icon(
+              Icons.image_not_supported_sharp,
+              color: Colors.grey,
+              size: 50,
+            ),
+          );
+        },
+      );
     }
 
-    return Card(
-      color: Colors.white,
-      elevation: 2,
-      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 120,
-                  width: double.infinity,
-                  color: Colors.grey[300],
-                  child: Center(
-                    child: Text('Foto Barang',
-                        style: TextStyle(color: Colors.grey[600])),
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  'Rp. ${NumberFormat("#,###", "id_ID").format(price)}',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                  ),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final itemWidth = (screenWidth - 42) / 2;
+        final aspectRatio = itemWidth / (itemWidth * 1.2);
+
+        return Card(
+          color: Colors.white,
+          elevation: 2,
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.remove, size: 20),
-                      onPressed: () {
-                        updateItemQuantity(item, false);
-                      },
+                    AspectRatio(
+                      aspectRatio: 1.2,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: imageWidget,
+                      ),
                     ),
-                    Text(
-                      quantity.toString(),
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.add, size: 20),
-                      onPressed: () {
-                        updateItemQuantity(item, true);
-                      },
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Rp. ${NumberFormat("#,###", "id_ID").format(price)}',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.remove, size: 20),
+                                onPressed: () {
+                                  updateItemQuantity(item, false);
+                                },
+                              ),
+                              Text(
+                                quantity.toString(),
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.add, size: 20),
+                                onPressed: () {
+                                  updateItemQuantity(item, true);
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          // Checkbox positioned at top-right
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(8),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: Container(
+                  height: 35,
+                  width: 35,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                    ),
+                  ),
+                  child: Checkbox(
+                    activeColor: const Color.fromARGB(255, 26, 74, 230),
+                    value: _selectedItems[pantiID]?[itemIndex] ?? false,
+                    onChanged: (bool? value) {
+                      _handleItemSelection(pantiID, itemIndex, value);
+                    },
+                  ),
                 ),
               ),
-              child: Checkbox(
-                activeColor: Color.fromARGB(255, 26, 74, 230),
-                value: _selectedItems[pantiID]?[itemIndex] ?? false,
-                onChanged: (bool? value) {
-                  _handleItemSelection(pantiID, itemIndex, value);
-                },
-              ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -387,40 +479,6 @@ class _KeranjangPageState extends State<KeranjangPage> {
       });
     }
 
-    final List<Widget> itemWidgets = [];
-    groupedItems.forEach((pantiID, items) {
-      // Add panti header with checkbox
-      itemWidgets.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            children: [
-              Checkbox(
-                activeColor: Color.fromARGB(255, 26, 74, 230),
-                value: _selectedPanti[pantiID] ?? false,
-                onChanged: (bool? value) {
-                  _handlePantiSelection(pantiID, value);
-                },
-              ),
-              Text(
-                'Panti ${_getPantiNameById(pantiID)}',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-      itemWidgets.addAll(
-        items.asMap().entries.map((entry) {
-          return _buildCartItem(entry.value, pantiID, entry.key);
-        }),
-      );
-    });
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -437,12 +495,17 @@ class _KeranjangPageState extends State<KeranjangPage> {
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         backgroundColor: Color(0xFF93B5FF),
         elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(16),
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -453,35 +516,62 @@ class _KeranjangPageState extends State<KeranjangPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // First, let's update the section in your build method where you create the panti headers:
                     ...groupedItems.entries.map((entry) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: Text(
-                              'Panti ${_getPantiNameById(entry.key)}',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Row(
+                              children: [
+                                // This checkbox will control all items under this panti
+                                Icon(
+                                  Icons.auto_awesome,
+                                  size: 16,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  'Panti ${_getPantiNameById(entry.key)}',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Checkbox(
+                                  activeColor:
+                                      const Color.fromARGB(255, 26, 74, 230),
+                                  value: _selectedPanti[entry.key] ?? false,
+                                  onChanged: (bool? value) {
+                                    _handlePantiSelection(entry.key, value);
+                                  },
+                                ),
+                              ],
                             ),
                           ),
-                          GridView.count(
+                          GridView.builder(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.75,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            children:
-                                entry.value.asMap().entries.map((itemEntry) {
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio:
+                                  MediaQuery.of(context).size.width > 600
+                                      ? 0.8
+                                      : 0.68,
+                            ),
+                            itemCount: entry.value.length,
+                            itemBuilder: (context, index) {
                               return _buildCartItem(
-                                itemEntry.value,
+                                entry.value[index],
                                 entry.key,
-                                itemEntry.key,
+                                index,
                               );
-                            }).toList(),
+                            },
                           ),
                         ],
                       );
@@ -502,53 +592,63 @@ class _KeranjangPageState extends State<KeranjangPage> {
                 ),
               ],
             ),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: EdgeInsets.zero, // Remove all padding
+            height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Rp. ${NumberFormat("#,###", "id_ID").format(calculateTotalPrice())}',
+                Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Rp. ${NumberFormat("#,###", "id_ID").format(calculateTotalPrice())}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      Text(
+                        '${getSelectedItemsCount()} Terpilih',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle order button press
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF93B5FF),
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    child: Text(
+                      'Beli Sekarang',
                       style: TextStyle(
                         fontSize: 16,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
                       ),
-                    ),
-                    Text(
-                      '${getSelectedItemsCount()} Terpilih',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle order button press
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF93B5FF),
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    'Beli Sekarang',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );

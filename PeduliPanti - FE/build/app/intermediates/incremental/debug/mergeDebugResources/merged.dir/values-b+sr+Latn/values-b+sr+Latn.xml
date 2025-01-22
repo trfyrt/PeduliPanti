@@ -53,7 +53,11 @@
     <string name="common_signin_button_text">Prijavi me</string>
     <string name="common_signin_button_text_long">Prijavi me na Google</string>
     <string msgid="6083905920877235314" name="copy">"Kopiraj"</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Link je kopiran u privremenu memoriju"</string>
     <string msgid="2427401033573778270" name="expand_button_title">"Napredno"</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Kopiraj link"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Otvori u pregledaču"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Deli link"</string>
     <string msgid="6573031135582639649" name="not_set">"Nije podešeno"</string>
     <string msgid="6685851473431805375" name="preference_copied">"Rezime „<ns1:g id="SUMMARY">%1$s</ns1:g>“ je kopiran u privremenu memoriju."</string>
     <string msgid="730395136688082741" name="search_menu_title">"Pretražite"</string>

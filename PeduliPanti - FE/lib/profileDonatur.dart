@@ -1,5 +1,6 @@
 import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:donatur_peduli_panti/keranjang.dart';
+import 'package:donatur_peduli_panti/login.dart';
 import 'package:donatur_peduli_panti/notifikasi.dart';
 import 'package:donatur_peduli_panti/regist.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
@@ -384,7 +385,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           onTap: () {
                             showDialog(
                               context: context,
-                              builder: (BuildContext context) {
+                              builder: (BuildContext dialogContext) {
                                 return AlertDialog(
                                   title: const Text("Konfirmasi Keluar"),
                                   content: const Text(
@@ -392,7 +393,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   actions: [
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.of(context).pop();
+                                        Navigator.of(dialogContext)
+                                            .pop(); // Tutup dialog
                                       },
                                       child: const Text(
                                         "Batal",
@@ -403,18 +405,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     TextButton(
                                       onPressed: () {
+                                        Navigator.of(dialogContext)
+                                            .pop(); // Tutup dialog
                                         Navigator.push(
                                           context,
                                           PageRouteBuilder(
                                             pageBuilder: (context, animation,
                                                     secondaryAnimation) =>
-                                                RegistApp(),
-                                            transitionsBuilder: (context,
-                                                animation,
-                                                secondaryAnimation,
-                                                child) {
-                                              return child;
-                                            },
+                                                LoginApp(),
                                           ),
                                         );
                                       },
@@ -430,10 +428,30 @@ class _MyHomePageState extends State<MyHomePage> {
                               },
                             );
                           },
-                          child: _buildListItem(
-                            context,
-                            icon: FontAwesomeIcons.arrowRightFromBracket,
-                            label: 'Keluar',
+                          child: Container(
+                            margin: const EdgeInsets.all(13),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(right: 10),
+                                  child: Icon(
+                                    FontAwesomeIcons.arrowRightFromBracket,
+                                    size: 20,
+                                    color:
+                                        const Color.fromARGB(255, 82, 104, 157),
+                                  ),
+                                ),
+                                const Text(
+                                  'Keluar',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Color.fromARGB(255, 82, 104, 157),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -507,7 +525,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
         child: Column(
           children: [
             Container(
