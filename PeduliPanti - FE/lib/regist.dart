@@ -196,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(fontSize: 18),
                         ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 Center(
                   child: RichText(
                     textAlign: TextAlign.center,

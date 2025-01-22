@@ -4,6 +4,7 @@ import 'package:donatur_peduli_panti/Models/Panti.dart';
 import 'package:donatur_peduli_panti/Models/Product.dart';
 import 'package:donatur_peduli_panti/Models/RequestList.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
+import 'package:donatur_peduli_panti/pesanan.dart';
 import 'package:flutter/material.dart';
 import 'package:donatur_peduli_panti/Services/api_service.dart';
 import 'package:intl/intl.dart';
@@ -626,7 +627,68 @@ class _KeranjangPageState extends State<KeranjangPage> {
                   height: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle order button press
+                      List<SelectedItem> selectedItems = [];
+
+                      groupedItems.forEach((pantiID, items) {
+                        String pantiName = _getPantiNameById(pantiID);
+
+                        items.asMap().entries.forEach((entry) {
+                          int index = entry.key;
+                          dynamic item = entry.value;
+
+                          if (_selectedItems[pantiID]?[index] ?? false) {
+                            String itemName = '';
+                            int quantity = 0;
+                            int price = 0;
+                            int totalPrice = 0;
+
+                            if (item is CartProduct) {
+                              final product = _getProductById(item.productID);
+                              itemName =
+                                  product?.name ?? 'Produk tidak ditemukan';
+                              quantity = _productQuantities[item.productID] ??
+                                  item.quantity;
+                              price = product?.price ?? 0;
+                              totalPrice = price * quantity;
+                            } else if (item is CartBundle) {
+                              final bundle = _getBundleById(item.bundleID);
+                              itemName =
+                                  bundle?.name ?? 'Bundle tidak ditemukan';
+                              quantity = _bundleQuantities[item.bundleID] ??
+                                  item.quantity;
+                              price = bundle?.price ?? 0;
+                              totalPrice = price * quantity;
+                            } else if (item is CartRequest) {
+                              final request = _getRequestById(item.requestID);
+                              final product = request != null
+                                  ? _getProductById(request.productID)
+                                  : null;
+                              itemName =
+                                  product?.name ?? 'Produk tidak ditemukan';
+                              quantity = _requestQuantities[item.requestID] ??
+                                  item.quantity;
+                              price = product?.price ?? 0;
+                              totalPrice = price * quantity;
+                            }
+
+                            selectedItems.add(SelectedItem(
+                              pantiName: pantiName,
+                              itemName: itemName,
+                              quantity: quantity,
+                              price: price,
+                              totalPrice: totalPrice,
+                            ));
+                          }
+                        });
+                      });
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PesananPage(selectedItems: selectedItems),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF93B5FF),

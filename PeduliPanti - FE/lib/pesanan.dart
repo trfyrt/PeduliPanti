@@ -89,7 +89,12 @@ class _PesananPageState extends State<PesananPage> {
   String _selectedMethod = 'Pilih Metode Pembayaran';
   final String baseUrl = 'http://192.168.1.7:8000/api/v1';
 
-  Widget _buildPaymentMethod(String method, String icon, String amount) {
+  Widget _buildPaymentMethod(
+      String method, String icon, String amount, double totalPembayaran) {
+    // Convert amount string to double for comparison
+    double balance = double.parse(amount.replaceAll('.', ''));
+    bool isSufficient = balance >= totalPembayaran;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
@@ -104,6 +109,7 @@ class _PesananPageState extends State<PesananPage> {
         ],
       ),
       child: ListTile(
+        enabled: isSufficient, // Disable if balance insufficient
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         leading: Image.asset(
           icon,
@@ -115,17 +121,32 @@ class _PesananPageState extends State<PesananPage> {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
+            color: isSufficient ? Colors.black : Colors.grey,
           ),
         ),
-        subtitle: Text(
-          'Rp $amount',
-          style: TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.w500,
-          ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Rp $amount',
+              style: TextStyle(
+                color: isSufficient ? Colors.blue : Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            if (!isSufficient)
+              Text(
+                'Saldo tidak mencukupi',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 12,
+                ),
+              ),
+          ],
         ),
-        trailing: Icon(Icons.arrow_forward_ios, size: 18),
-        onTap: () => _initiatePayment(method, amount),
+        trailing: Icon(Icons.arrow_forward_ios,
+            size: 18, color: isSufficient ? Colors.black : Colors.grey),
+        onTap: isSufficient ? () => _initiatePayment(method, amount) : null,
       ),
     );
   }
@@ -219,6 +240,35 @@ class _PesananPageState extends State<PesananPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    // Set default payment method based on total payment
+    double totalPayment =
+        calculateTotalPrice() + (calculateTotalPrice() * 0.05);
+
+    // Check each payment method's balance
+    Map<String, double> balances = {
+      'OVO': 1000000,
+      'Gopay': 1000000,
+      'Dana': 1000000,
+    };
+
+    // Find first payment method with sufficient balance
+    String? defaultMethod = balances.entries
+        .where((entry) => entry.value >= totalPayment)
+        .map((entry) => entry.key)
+        .firstOrNull;
+
+    if (defaultMethod != null) {
+      setState(() {
+        _selectedMethod = defaultMethod;
+        _selectedAmount =
+            'Rp.${NumberFormat("#,###", "id_ID").format(balances[defaultMethod])}';
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final groupedData = getDataBarangByPanti();
     final totalPrice = calculateTotalPrice();
@@ -283,7 +333,7 @@ class _PesananPageState extends State<PesananPage> {
                 children: [
                   Container(
                     child: Text(
-                      'Panti Asuhan A',
+                      'Metode Pembayaran',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -323,11 +373,20 @@ class _PesananPageState extends State<PesananPage> {
                                     ),
                                   ),
                                   _buildPaymentMethod(
-                                      'OVO', 'assets/img/ovo.png', '500.000'),
-                                  _buildPaymentMethod('Gopay',
-                                      'assets/img/gopay.png', '400.000'),
-                                  _buildPaymentMethod('Dana',
-                                      'assets/img/dana.png', '1.000.000'),
+                                      'OVO',
+                                      'assets/img/ovo.png',
+                                      '1000000',
+                                      totalPembayaran.toDouble()),
+                                  _buildPaymentMethod(
+                                      'Gopay',
+                                      'assets/img/gopay.png',
+                                      '1000000',
+                                      totalPembayaran.toDouble()),
+                                  _buildPaymentMethod(
+                                      'Dana',
+                                      'assets/img/dana.png',
+                                      '1000000',
+                                      totalPembayaran.toDouble()),
                                 ],
                               ),
                             );
@@ -720,28 +779,126 @@ class _PesananPageState extends State<PesananPage> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                                onPressed: () {
-                                  // Tambahkan logika pembayaran di sini
-                                  // Navigator.pop(context); // Tutup modal
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //   SnackBar(
-                                  //     content: Text("Pembayaran berhasil!"),
-                                  //     backgroundColor: Colors.green,
-                                  //   ),
-                                  // );
-
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
-                                          const SuccesPayPage(),
-                                      transitionsBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        return child; // Tidak ada animasi
+                                onPressed: () async {
+                                  try {
+                                    // Show loading indicator
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
                                       },
-                                    ),
-                                  );
+                                    );
+
+                                    // Prepare payment data
+                                    final paymentData = {
+                                      'name':
+                                          'User Name', // Bisa disesuaikan dengan data user yang login
+                                      'qty': widget.selectedItems
+                                          .length, // Jumlah total item yang dibeli
+                                      'price':
+                                          totalPrice, // Total harga sebelum fee
+                                      'grand_total':
+                                          totalPembayaran, // Total pembayaran termasuk fee
+                                    };
+
+                                    // Send payment data to API
+                                    final response = await http.post(
+                                      Uri.parse(
+                                          'http://172.20.10.4:8000/api/v1/orders/payment'),
+                                      headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json',
+                                      },
+                                      body: jsonEncode(paymentData),
+                                    );
+
+                                    // Hide loading indicator
+                                    Navigator.pop(context);
+
+                                    // Handle response
+                                    final responseData =
+                                        json.decode(response.body);
+                                    if (response.statusCode == 200 &&
+                                        responseData['status'] == 'success') {
+                                      // Jika ada deeplink URL dari Midtrans, buka aplikasi pembayaran
+                                      if (responseData['deeplink_url'] !=
+                                          null) {
+                                        final Uri url = Uri.parse(
+                                            responseData['deeplink_url']);
+                                        if (await canLaunchUrl(url)) {
+                                          await launchUrl(url,
+                                              mode: LaunchMode
+                                                  .externalApplication);
+
+                                          // Navigate to success page after launching payment app
+                                          Navigator.push(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, animation,
+                                                      secondaryAnimation) =>
+                                                  const SuccesPayPage(),
+                                              transitionsBuilder: (context,
+                                                  animation,
+                                                  secondaryAnimation,
+                                                  child) {
+                                                return child;
+                                              },
+                                            ),
+                                          );
+                                        } else {
+                                          throw 'Could not launch payment app';
+                                        }
+                                      } else if (responseData['qr_code_url'] !=
+                                          null) {
+                                        // Handle QR Code payment if provided
+                                        // Tampilkan QR Code untuk di scan
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Scan QR Code'),
+                                              content: Image.network(
+                                                  responseData['qr_code_url']),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('Close'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    } else {
+                                      // Handle error
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              responseData['message'] ??
+                                                  'Terjadi kesalahan'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
+                                  } catch (e) {
+                                    // Hide loading indicator if still showing
+                                    Navigator.pop(context);
+
+                                    // Show error message
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                            'Terjadi kesalahan: ${e.toString()}'),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
                                 },
                                 child: const Text(
                                   "Lanjutkan Pembayaran",
