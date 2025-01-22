@@ -1,4 +1,8 @@
-![Peduli Panti Logo](https://github.com/trfyrt/PeduliPanti/blob/main/PeduliPanti%20-%20FE/assets/img/pedulipanti.png)  
+<p align="center">
+  <img src="https://github.com/trfyrt/PeduliPanti/blob/main/PeduliPanti%20-%20FE/assets/img/pedulipanti.png" alt="Peduli Panti Logo" width="300px">
+</p>
+
+
 # Peduli Panti  
 
 **Peduli Panti** adalah sebuah inisiatif yang bertujuan untuk mendukung panti asuhan melalui penyaluran donasi yang lebih adil dan transparan. Dengan memprioritaskan panti asuhan yang paling membutuhkan, program ini memastikan bahwa bantuan dapat diterima secara merata.  
@@ -10,10 +14,12 @@ Aplikasi ini adalah proyek akhir semester 3 yang bertujuan untuk membantu pencap
 - **SDG 10**: Mengurangi Ketimpangan, dengan memastikan donasi disalurkan secara adil berdasarkan kebutuhan.  
 - **SDG 16**: Perdamaian, Keadilan, dan Kelembagaan yang Kuat, dengan menciptakan transparansi dalam pengelolaan dan distribusi donasi.  
 
+
 ## Fitur Utama  
 - **Sistem Prioritas Panti**: Menggunakan sistem ranking untuk menentukan tingkat kebutuhan setiap panti, sehingga distribusi bantuan dapat dilakukan dengan adil dan tepat sasaran.  
 - **Sistem Permintaan Barang**: Fasilitas bagi panti untuk mengajukan kebutuhan barang secara langsung.  
 - **AI RAB Checker**: Alat berbasis kecerdasan buatan untuk memeriksa Rencana Anggaran Biaya (RAB) dan laporan keuangan. Bekerja sebagai screening untuk meminimalisir kesalahan. 
+
 
 ## Cara Instalasi  
 1. **Clone Repository**  
@@ -47,9 +53,11 @@ Aplikasi ini adalah proyek akhir semester 3 yang bertujuan untuk membantu pencap
 4. **Halaman Website**:  
    - Akses halaman web admin melalui browser untuk pengelolaan data dan pemantauan oleh dinas sosial.
 
+
 ## Lebih Lanjut Tentang **PeduliPanti**
-1. [Board Miro](https://miro.com/app/board/uXjVLFhK5Xc=/)
-2. [Presentasi Canva](https://www.canva.com/design/DAGc61XmmNM/GoK7CKIxDid5JfY4FRMHow/edit?utm_content=DAGc61XmmNM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- [Board Miro](https://miro.com/app/board/uXjVLFhK5Xc=/)
+- [Presentasi Canva](https://www.canva.com/design/DAGc61XmmNM/GoK7CKIxDid5JfY4FRMHow/edit?utm_content=DAGc61XmmNM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
 
 ## Tim Pengembang  
 **By Group PeduliPanti | IMT UCM '23**  
