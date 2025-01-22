@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'editProfile.dart';
 import 'login.dart'; // Import the login page
 import 'homePanti.dart'; // Changed import to homePanti.dart
+import 'cekRab.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController childrenCountController = TextEditingController();
 
-  int _currentIndex = 0;
+  int _currentIndex = 2;
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
         return;
       }
 
-      final url = Uri.parse('http://127.0.0.1:8000/api/v1/user/$userId');
+      final url = Uri.parse('http://192.168.5.112:8000/api/v1/user/$userId');
       final response = await http.get(
         url,
         headers: {"Authorization": "Bearer ${await getToken()}"},
@@ -124,12 +125,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            const HomePage(),
+                            const CekRabPage(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
-                          return child;
+                          return child; // Tidak ada animasi
                         },
-                      ), // Halaman profil
+                      ), // Halaman CekRab
                     );
                   },
                 ),
@@ -188,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        const HomePage(),
+                        const CekRabPage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return child; // Tidak ada animasi
@@ -200,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        const ProfilePage(),
+                        ProfilePage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return child;

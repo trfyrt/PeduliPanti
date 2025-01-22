@@ -43,7 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return null;
   }
 
-  static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
+  static const String _baseUrl = 'http://192.168.5.112:8000/api/v1';
 
   // Login Function
   static Future<void> login({
