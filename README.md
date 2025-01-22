@@ -45,7 +45,7 @@ Aplikasi ini adalah proyek akhir semester 3 yang bertujuan untuk membantu pencap
      cd '.\PeduliPanti - BE\'
      composer install
      cp .env.example .env
-     php artisa key:generate
+     php artisan key:generate
      php artisan migrate:fresh --seed
      php artisan serve
      ```  
