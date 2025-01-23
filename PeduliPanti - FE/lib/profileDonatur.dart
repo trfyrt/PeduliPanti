@@ -263,31 +263,37 @@ class _MyHomePageState extends State<MyHomePage> {
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 child: Container(
-                                    width: 45,
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 138, 138, 138),
-                                      borderRadius: BorderRadius.circular(50),
+                                  width: 45,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 138, 138, 138),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: CachedNetworkImage(
+                                      imageUrl: proxyUrl ?? '',
+                                      width: 90,
+                                      height: 90,
+                                      placeholder: (context, url) =>
+                                          const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Center(
+                                        // Added Center widget
+                                        child: Icon(
+                                          Icons.person,
+                                          size:
+                                              45, // Adjusted to fit within the container
+                                          color: Colors
+                                              .white, // Changed to white for better visibility
+                                        ),
+                                      ),
+                                      fit: BoxFit.cover,
                                     ),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: CachedNetworkImage(
-                                          imageUrl: proxyUrl,
-                                          width: 90,
-                                          height: 90,
-                                          placeholder: (context, url) =>
-                                              const CircularProgressIndicator(),
-                                          // errorWidget: (context, url, error) {
-                                          //   print('Error: $error');
-                                          //   return const Icon(
-                                          //       Icons.broken_image,
-                                          //       size: 50);
-                                          // },
-                                          fit: BoxFit.cover,
-                                        ))
-                                    // Default ikon jika image kosong
-                                    ),
+                                  ),
+                                  // Default ikon jika image kosong
+                                ),
                               ),
                             ),
                             Container(

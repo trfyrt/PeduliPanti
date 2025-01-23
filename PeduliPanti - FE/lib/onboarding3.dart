@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.symmetric(
-                  vertical: 50, horizontal: 30), // Reduced vertical margin
+                  vertical: 70, horizontal: 30), // Reduced vertical margin
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment
                     .start, // Rata kiri untuk teks di dalam Column
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         TextSpan(
-                          text: ' yang blablalblablalb',
+                          text: ' yang adil, transparan, dan tepat sasaran, memastikan setiap kontribusi Anda sampai ke tangan yang membutuhkan dengan cara yang terbaik.',
                           style: TextStyle(
                             color: Colors.black, // Warna untuk "dan"
                             fontSize: 20,
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Lottie.asset(
                       'assets/animation/asset3.json',
                       fit: BoxFit.contain,
-                      height: 450, // Set a specific height for the animation
+                      height: 400, // Set a specific height for the animation
                     ),
                   ),
                   Container(

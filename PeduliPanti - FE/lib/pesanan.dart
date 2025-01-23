@@ -787,30 +787,18 @@ class _PesananPageState extends State<PesananPage> {
                                 ),
                                 onPressed: () async {
                                   try {
-                                    // Show loading indicator
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      },
-                                    );
-
-                                    // Prepare payment data
+                                    // Siapkan data pembayaran
                                     final paymentData = {
-                                      'name':
-                                          'User Name', // Bisa disesuaikan dengan data user yang login
-                                      'qty': widget.selectedItems
-                                          .length, // Jumlah total item yang dibeli
-                                      'price':
-                                          totalPrice, // Total harga sebelum fee
-                                      'grand_total':
-                                          totalPembayaran, // Total pembayaran termasuk fee
+                                      'name': 'User Name',
+                                      'qty': widget.selectedItems.length,
+                                      'price': totalPrice,
+                                      'grand_total': totalPembayaran * 1,
                                     };
 
-                                    // Send payment data to API
+                                    // Debug: Cetak data pembayaran untuk memverifikasi
+                                    print('Sending Payment Data: $paymentData');
+
+                                    // Kirim data ke API
                                     final response = await http.post(
                                       Uri.parse(
                                           'http://172.20.10.4:8000/api/v1/orders/payment'),
@@ -821,86 +809,49 @@ class _PesananPageState extends State<PesananPage> {
                                       body: jsonEncode(paymentData),
                                     );
 
-                                    // Hide loading indicator
-                                    Navigator.pop(context);
+                                    // Debug: Cetak respons untuk memverifikasi
+                                    print(
+                                        'Response Status Code: ${response.statusCode}');
+                                    print('Response Body: ${response.body}');
 
-                                    // Handle response
+                                    // Parsing data dari respons API
                                     final responseData =
                                         json.decode(response.body);
+
+                                    // Jika respons sukses
                                     if (response.statusCode == 200 &&
                                         responseData['status'] == 'success') {
-                                      // Jika ada deeplink URL dari Midtrans, buka aplikasi pembayaran
-                                      if (responseData['deeplink_url'] !=
-                                          null) {
-                                        final Uri url = Uri.parse(
-                                            responseData['deeplink_url']);
-                                        if (await canLaunchUrl(url)) {
-                                          await launchUrl(url,
-                                              mode: LaunchMode
-                                                  .externalApplication);
-
-                                          // Navigate to success page after launching payment app
-                                          Navigator.push(
-                                            context,
-                                            PageRouteBuilder(
-                                              pageBuilder: (context, animation,
-                                                      secondaryAnimation) =>
-                                                  const SuccesPayPage(),
-                                              transitionsBuilder: (context,
-                                                  animation,
-                                                  secondaryAnimation,
-                                                  child) {
-                                                return child;
-                                              },
-                                            ),
-                                          );
-                                        } else {
-                                          throw 'Could not launch payment app';
-                                        }
-                                      } else if (responseData['qr_code_url'] !=
-                                          null) {
-                                        // Handle QR Code payment if provided
-                                        // Tampilkan QR Code untuk di scan
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text('Scan QR Code'),
-                                              content: Image.network(
-                                                  responseData['qr_code_url']),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text('Close'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      }
+                                      // Navigasi ke halaman sukses tanpa dialog loading
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SuccesPayPage(),
+                                        ),
+                                      );
                                     } else {
-                                      // Handle error
+                                      // Tampilkan error jika status tidak success
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                              responseData['message'] ??
-                                                  'Terjadi kesalahan'),
+                                            'Payment Error: ${responseData['message'] ?? 'Unknown error occurred'}',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
                                           backgroundColor: Colors.red,
                                         ),
                                       );
                                     }
                                   } catch (e) {
-                                    // Hide loading indicator if still showing
-                                    Navigator.pop(context);
+                                    // Tangani error jika terjadi kesalahan
+                                    print('Error: $e');
 
-                                    // Show error message
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                            'Terjadi kesalahan: ${e.toString()}'),
+                                          'Error: ${e.toString()}',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                         backgroundColor: Colors.red,
                                       ),
                                     );

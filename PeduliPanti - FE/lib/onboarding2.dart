@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Container(
                     margin: const EdgeInsets.only(
-                        top: 10), // Menambahkan jarak atas di sini
+                        top: 40), // Menambahkan jarak atas di sini
                     child: const Text(
                       'menghubungkan mereka yang memberi dengan penuh kasih dan mereka yang menerima dengan penuh harapan. Bersama, kita menciptakan jembatan kebaikan yang mengubah bantuan menjadi senyuman, dan kepedulian menjadi peluang untuk masa depan yang lebih cerah.',
                       textAlign: TextAlign.center,

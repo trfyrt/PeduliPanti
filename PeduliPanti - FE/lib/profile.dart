@@ -1,3 +1,4 @@
+import 'package:donatur_peduli_panti/RABAI.dart';
 import 'package:donatur_peduli_panti/notifikasiPAN.dart';
 import 'package:flutter/material.dart';
 import 'editProfile.dart';
@@ -40,7 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
         return;
       }
 
-      final url = Uri.parse('http://192.168.134.112:8000/api/v1/user/$userId');
+      final url = Uri.parse('http://192.168.177.165:8000/api/v1/user/$userId');
       final response = await http.get(
         url,
         headers: {"Authorization": "Bearer ${await getToken()}"},
@@ -158,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            const CekRabPage(),
+                            const PdfEvaluatorScreen(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
                           return child; // No animation
@@ -332,11 +333,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
                                         child: CachedNetworkImage(
-                                          imageUrl: proxyUrl,
+                                          imageUrl: proxyUrl ?? '',
                                           width: 90,
                                           height: 90,
                                           placeholder: (context, url) =>
                                               const CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              Center(
+                                            // Added Center widget
+                                            child: Icon(
+                                              Icons.person,
+                                              size:
+                                                  45, // Adjusted to fit within the container
+                                              color: Colors
+                                                  .white, // Changed to white for better visibility
+                                            ),
+                                          ),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -628,7 +640,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                   ),
                   Positioned(
-                    right:5,
+                    right: 5,
                     top: 5,
                     child: Container(
                       padding: const EdgeInsets.all(2),

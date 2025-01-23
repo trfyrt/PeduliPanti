@@ -1,4 +1,5 @@
 import 'package:donatur_peduli_panti/homeDonatur.dart';
+import 'package:donatur_peduli_panti/statusBayar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
@@ -132,7 +133,7 @@ class _SuccesPayPageState extends State<SuccesPayPage> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    const SuccesPayPage(),
+                                    const StatusBayar(),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               return child; // Tidak ada animasi
