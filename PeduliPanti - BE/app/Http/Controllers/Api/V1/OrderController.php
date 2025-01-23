@@ -9,9 +9,12 @@ use App\Models\Order;
 use Midtrans\CoreApi;
 use Midtrans\Notification;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
+
+    private $request;
 
     public function __construct(Request $request)
     {
@@ -38,21 +41,20 @@ class OrderController extends Controller
             'grand_total' => 'required|integer|min:1',
         ]);
 
-        // Create a new transaction
+        // Buat transaksi baru
         $no_transaction = 'Trx-' . Str::upper(mt_rand(100000, 999999));
         $order = new Order();
         $order->no_transaction = $no_transaction;
         $order->name = $validated['name'];
         $order->qty = $validated['qty'];
         $order->price = $validated['price'];
-        $order->grand_total = $validated['grand_total'];
+        $order->grand_total = $validated['price'] * $validated['qty']; // Perhitungan langsung
 
-        // Prepare transaction data for Midtrans Core API
         $transaction_details = [
             'order_id' => $order->no_transaction,
             'gross_amount' => $order->grand_total,
         ];
-
+        
         $item_details = [
             [
                 'id' => $order->no_transaction,
@@ -61,6 +63,11 @@ class OrderController extends Controller
                 'name' => 'Item - ' . $order->name,
             ],
         ];
+        
+        // Debug log untuk memastikan konsistensi
+        Log::info('Transaction Details:', $transaction_details);
+        Log::info('Item Details:', $item_details);
+        
 
         $customer_details = [
             'first_name' => $order->name,
@@ -89,7 +96,7 @@ class OrderController extends Controller
             ]);
         } catch (Exception $e) {
             // Log the error and return a failure response
-            \Log::error('Payment error: ' . $e->getMessage());
+            Log::error('Payment error: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
                 'message' => 'Payment could not be processed. Please try again.',

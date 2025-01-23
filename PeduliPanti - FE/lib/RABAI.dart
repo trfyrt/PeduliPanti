@@ -1,191 +1,236 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:intl/intl.dart';
-import 'package:mysql1/mysql1.dart';
-import 'package:pdf_gemini/pdf_gemini.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-// void main() async {
-//   runApp(MyApp());
-// }
-
-class PdfSummarizerService {
-  final String geminiApiKey = 'AIzaSyBXFEkG5KtdfqEloxrXQu0SD56e4E33F58'; // Replace with your API key
-  final GenaiClient _genaiService;
-  final MySqlConnection _dbConnection;
-
-  PdfSummarizerService(this._dbConnection)
-      : _genaiService = GenaiClient(geminiApiKey: 'AIzaSyBXFEkG5KtdfqEloxrXQu0SD56e4E33F58');
-
-  String _generateUniqueFileName() {
-    final dateTime = DateTime.now();
-    final formatter = DateFormat('yyyyMMdd_HHmmss');
-    return 'pdf_${formatter.format(dateTime)}.pdf';
-  }
-
-  Future<void> _storeEvaluationInDatabase(String fileName, Uint8List pdfBytes, int pantiID, String status) async {
-    try {
-      final date = DateTime.now().toIso8601String().split('T').first;
-      await _dbConnection.query(
-        '''
-        INSERT INTO rab (pantiID, status, date, pdf)
-        VALUES (?, ?, ?, ?)
-        ''',
-        [pantiID, status, date, pdfBytes],
-      );
-      print("RAB evaluation successfully stored in the database.");
-    } catch (e) {
-      print("Failed to store RAB evaluation: $e");
-    }
-  }
-
-  Future<String?> evaluateRab(int pantiID) async {
-    try {
-      final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['pdf'],
-      );
-
-      if (result != null && result.files.first.bytes != null) {
-        final bytes = result.files.first.bytes!;
-        final uniqueFileName = _generateUniqueFileName();
-        const prompt = '''
-          Evaluasi RAB berikut ini dari segi integritas dan akuntabilitas. Identifikasi potensi kesalahan perhitungan, ketidaksesuaian harga satuan, atau item yang mencurigakan.
-          Berikan dalam format JSON, dengan field 'evaluasi' yang berisi hasil evaluasi secara keseluruhan dalam format sebuah paragraf atau teks, dan field 'valid'.
-          Jika hasil evaluasi sudah cukup sesuai maka atur field 'valid' menjadi true. Jika hasil evaluasi tidak sesuai maka atur field 'valid' menjadi false.
-        ''';
-
-        final response = await _genaiService.promptDocument(
-          uniqueFileName,
-          'pdf',
-          bytes,
-          prompt,
-        );
-
-        final parsedResponse = json.decode(response.text);
-        if (parsedResponse['valid'] == true) {
-          await _storeEvaluationInDatabase(uniqueFileName, bytes, pantiID, 'approved');
-          return parsedResponse['evaluasi'];
-        } else {
-          await _storeEvaluationInDatabase(uniqueFileName, bytes, pantiID, 'rejected');
-          return "The RAB evaluation was not valid due to exceeding error tolerance.";
-        }
-      }
-    } catch (e) {
-      return 'An error occurred: $e';
-    }
-    return null;
-  }
-}
-
-Future<MySqlConnection> createDatabaseConnection() async {
-  final conn = await MySqlConnection.connect(
-    ConnectionSettings(
-      host: '127.0.0.1', // Replace with your MySQL host
-      port: 3306, // Default MySQL port
-      user: 'root', // Replace with your MySQL username
-      password: '', // Replace with your MySQL password
-      db: 'testgeminipdf', // Replace with your database name
-    ),
-  );
-  return conn;
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PDF Evaluator',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PdfEvaluatorScreen(),
-    );
-  }
-}
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:donatur_peduli_panti/Services/pdf_summarizer_service.dart';
+import 'package:donatur_peduli_panti/Services/auth_service.dart';
 
 class PdfEvaluatorScreen extends StatefulWidget {
+  const PdfEvaluatorScreen({Key? key}) : super(key: key);
+
   @override
   _PdfEvaluatorScreenState createState() => _PdfEvaluatorScreenState();
 }
 
 class _PdfEvaluatorScreenState extends State<PdfEvaluatorScreen> {
-  final _controller = TextEditingController();
   String _evaluationResult = '';
   String _statusMessage = '';
+  bool _isValid = false;
+  int? _pantiID;
+  String? _pantiName;
 
-  Future<void> _evaluatePdf(int pantiID) async {
-    final dbConnection = await createDatabaseConnection(); // This will now work
-    final pdfService = PdfSummarizerService(dbConnection);
+  @override
+  void initState() {
+    super.initState();
+    _fetchPantiID();
+  }
 
-    final evaluation = await pdfService.evaluateRab(pantiID);
-    if (evaluation != null) {
-      setState(() {
-        _evaluationResult = evaluation;
-        _statusMessage = "Evaluation completed successfully.";
-      });
-    } else {
-      setState(() {
-        _evaluationResult = "No evaluation result found.";
-        _statusMessage = "Evaluation failed.";
-      });
+  Future<void> _fetchPantiID() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final pantiDetailsJson = prefs.getString('pantiDetails');
+
+      if (pantiDetailsJson != null) {
+        final pantiDetails = jsonDecode(pantiDetailsJson);
+        setState(() {
+          _pantiID = pantiDetails['id'];
+          _pantiName = pantiDetails['name'];
+        });
+      } else {
+        await AuthService.fetchPantiDetails();
+        final updatedPrefs = await SharedPreferences.getInstance();
+        final updatedPantiDetailsJson = updatedPrefs.getString('pantiDetails');
+
+        if (updatedPantiDetailsJson != null) {
+          final pantiDetails = jsonDecode(updatedPantiDetailsJson);
+          setState(() {
+            _pantiID = pantiDetails['id'];
+            _pantiName = pantiDetails['name'];
+          });
+        }
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'Error fetching Panti ID: ${e.toString()}');
+    }
+  }
+
+  Future<void> _evaluatePdf() async {
+    if (_pantiID == null) {
+      Fluttertoast.showToast(msg: 'Panti ID not available.');
+      return;
     }
 
-    await dbConnection.close();
+    final pdfService = PdfSummarizerService();
+
+    final result = await pdfService.evaluateRab(_pantiID!);
+    setState(() {
+      _evaluationResult = result['evaluation'];
+      _isValid = result['isValid'];
+      _statusMessage = result['isValid']
+          ? "Evaluation completed successfully. Document is valid and has been uploaded."
+          : "Evaluation completed. Document is invalid and was not uploaded.";
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('PDF Evaluator'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: Stack(
+      children: [
+        Column(
           children: [
-            TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: 'Enter Panti ID',
-                border: OutlineInputBorder(),
+            // Top Blue Container
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25),
               ),
-              keyboardType: TextInputType.number,
+              child: Container(
+                height: 100,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 147, 181, 255),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 40,
+                      left: 15,
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 50),
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Audit Mate',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                final pantiID = int.tryParse(_controller.text);
-                if (pantiID != null) {
-                  _evaluatePdf(pantiID);
-                } else {
-                  Fluttertoast.showToast(msg: 'Please enter a valid Panti ID.');
-                }
-              },
-              child: Text('Evaluate PDF'),
+
+            // Main Content
+            Expanded(
+              child: SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Status Message
+                    if (_statusMessage.isNotEmpty)
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: _isValid
+                              ? Colors.green.shade50
+                              : Colors.red.shade50,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: _isValid
+                                ? Colors.green.shade200
+                                : Colors.red.shade200,
+                          ),
+                        ),
+                        child: Text(
+                          _statusMessage,
+                          style: TextStyle(
+                            color: _isValid
+                                ? Colors.green.shade800
+                                : Colors.red.shade800,
+                          ),
+                        ),
+                      ),
+
+                    // Evaluation Result
+                    if (_evaluationResult.isNotEmpty)
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Evaluation Result:',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 107, 125, 167),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              _evaluationResult,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    // Evaluate PDF Button
+                  ],
+                ),
+              ),
             ),
-            SizedBox(height: 20),
-            if (_statusMessage.isNotEmpty) ...[
-              Text(
-                _statusMessage,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-            ],
-            if (_evaluationResult.isNotEmpty) ...[
-              Text(
-                'Evaluation Result:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Text(_evaluationResult),
-            ],
           ],
         ),
-      ),
-    );
+        Positioned(
+          bottom: 20,
+          left: 10,
+          right: 10,
+          child: ElevatedButton(
+            onPressed: _pantiID != null ? _evaluatePdf : null,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 107, 125, 167),
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            child: Text(
+              _pantiID != null
+                  ? 'Evaluate PDF for Panti $_pantiName'
+                  : 'Loading Panti ID...',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ));
   }
 }

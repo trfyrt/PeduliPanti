@@ -23,16 +23,17 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 194, 236, 255),
+        backgroundColor: const Color.fromARGB(255, 147, 181, 255),
         title: const Text(
           'Notifikasi',
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white
           ),
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios), // Changed to arrow_back_ios
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white,), // Changed to arrow_back_ios
           onPressed: () {
             Navigator.pop(context); // Navigate back
           },
@@ -75,7 +76,7 @@ class NotificationCard extends StatelessWidget {
           Icon(
             Icons.notifications,
             size: 36,
-            color: Colors.lightBlue,
+            color: Colors.black,
           ),
           SizedBox(width: 12.0),
           Expanded(

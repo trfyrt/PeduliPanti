@@ -1,3 +1,4 @@
+import 'package:donatur_peduli_panti/RABAI.dart';
 import 'package:donatur_peduli_panti/notifikasiPAN.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
     _fetchUserData();
   }
 
-  static const String _baseUrl = 'http://127.0.0.1:8000/api/v1';
+  static const String _baseUrl = 'http://192.168.177.165:8000/api/v1';
 
   static Future<int?> getUserId() async {
     try {
@@ -100,7 +101,8 @@ class _HomePageState extends State<HomePage> {
           // Update controller values dengan data yang diambil
           setState(() {
             // Ensure donationTotal is a String
-            persentaseDonasiController.text = pantiDetails['donationTotal'].toString();
+            persentaseDonasiController.text =
+                pantiDetails['donationTotal'].toString();
           });
 
           print("User data fetched and updated successfully.");
@@ -112,56 +114,6 @@ class _HomePageState extends State<HomePage> {
       }
     } catch (e) {
       print("Error fetching user data: $e");
-    }
-  }
-
-  // Login Function
-  static Future<void> login({
-    required String email,
-    required String password,
-    required Function(String role)
-        onLoginSuccess, // Callback for role-based navigation
-    required Function(String error) onError, // Callback for handling errors
-  }) async {
-    final url = Uri.parse('$_baseUrl/login');
-    final body = {
-      "email": email,
-      "password": password,
-    };
-
-    try {
-      final response = await http.post(
-        url,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(body),
-      );
-
-      if (response.statusCode == 200) {
-        // Parse the response
-        final data = jsonDecode(response.body);
-        final token = data['token'];
-        final user = data['user'];
-        final role = user['role'];
-
-        // Store the token securely
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', token);
-        await prefs.setString(
-            'user', jsonEncode(user)); // Store user info for reuse
-
-        print("Login successful. Token stored: $token");
-
-        // Trigger role-based navigation
-        onLoginSuccess(role);
-      } else {
-        final errorMessage =
-            jsonDecode(response.body)['message'] ?? "Unknown error occurred";
-        print("Login failed: $errorMessage");
-        onError(errorMessage);
-      }
-    } catch (e) {
-      print("An error occurred during login: ${e.toString()}");
-      onError("An unexpected error occurred. Please try again.");
     }
   }
 
@@ -306,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            const CekRabPage(),
+                            PdfEvaluatorScreen(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
                           return child; // Tidak ada animasi
@@ -422,7 +374,7 @@ class _HomePageState extends State<HomePage> {
             // Added missing children list
             Container(
               decoration: BoxDecoration(
-                color: Colors.blue[50], // Background color
+                color: Color.fromARGB(255, 147, 181, 255), // Background color
                 borderRadius: BorderRadius.circular(15.0), // Rounded corners
               ),
               child: Padding(
@@ -504,7 +456,7 @@ class _HomePageState extends State<HomePage> {
                           const Text(
                             "Grafik Donasi Tiap Bulan",
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
@@ -515,7 +467,6 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(color: Colors.black),
                             ),
                             child: BarChart(
                               BarChartData(
@@ -608,30 +559,55 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Presentase Donasi Bulan Ini",
-                                  style: TextStyle(color: Colors.black)),
-                              Text(
-                                // Menggunakan fungsi untuk memeriksa apakah input valid
-                                _getPercentageText(
-                                    double.tryParse(persentaseDonasiController.text) ?? 0.0, 
-                                    100000000.0), // Assuming 100000 is the target donation
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ],
-                          ),
-                          LinearProgressIndicator(
-                            // Menggunakan fungsi untuk memeriksa apakah input valid sebelum menghitung
-                            value: _getPercentageValue(
-                                double.tryParse(persentaseDonasiController.text) ?? 0.0, 
-                                100000000.0) / 100.0, // Dividing by 100 to show the correct progress
-                            backgroundColor: Colors.grey[300],
-                            color: const Color.fromARGB(255, 164, 196, 253),
-                            minHeight: 12,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Presentase Donasi Bulan Ini",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold)),
+                                    Text(
+                                      // Menggunakan fungsi untuk memeriksa apakah input valid
+                                      _getPercentageText(
+                                          double.tryParse(
+                                                  persentaseDonasiController
+                                                      .text) ??
+                                              0.0,
+                                          100000000.0), // Assuming 100000 is the target donation
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                LinearProgressIndicator(
+                                  // Menggunakan fungsi untuk memeriksa apakah input valid sebelum menghitung
+                                  value: _getPercentageValue(
+                                          double.tryParse(
+                                                  persentaseDonasiController
+                                                      .text) ??
+                                              0.0,
+                                          100000000.0) /
+                                      100.0, // Dividing by 100 to show the correct progress
+                                  backgroundColor: Colors.grey[300],
+                                  color:
+                                      const Color.fromARGB(255, 164, 196, 253),
+                                  minHeight: 12,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -639,10 +615,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 25),
+            const SizedBox(
+                height: 10), // Reduced space between the title and cards
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 30.0), // Added horizontal padding
+                  horizontal: 20.0, vertical: 5.0), // Added horizontal padding
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -663,10 +640,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 15),
             const Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 30.0), // Added horizontal padding
+              padding: EdgeInsets.only(
+                  left: 25.0,
+                  right: 25.0,
+                  top: 5.0), // Reduced vertical padding
               child: Text(
                 "Panti Asuhan",
                 style: TextStyle(
@@ -675,8 +654,8 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.black),
               ),
             ),
-            const SizedBox(height: 5),
             ListView.builder(
+              padding: EdgeInsets.only(top: 10),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: orphanages.length,
@@ -694,8 +673,10 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0), // Added horizontal padding
+                    padding: const EdgeInsets.only(
+                        left: 15,
+                        right: 15.0,
+                        bottom: 4.0), // Added horizontal padding
                     child: DonationCard(
                       name: orphanage["name"],
                       targetDonation: orphanage["targetDonation"],
@@ -704,11 +685,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-            ),
-
-            const SizedBox(
-                height:
-                    80), // Added space below to prevent navbar from covering cards
+            ), // Added space below to prevent navbar from covering cards
           ],
         ),
       ),
@@ -731,7 +708,7 @@ class DonationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.only(bottom: 8),
       elevation: 8,
       shadowColor: Colors.black.withOpacity(0.3),
       child: Container(
