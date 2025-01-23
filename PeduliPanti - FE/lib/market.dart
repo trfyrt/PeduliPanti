@@ -2,6 +2,7 @@ import 'package:donatur_peduli_panti/Models/Bundle.dart';
 import 'package:donatur_peduli_panti/Services/api_service.dart';
 import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:donatur_peduli_panti/keranjang.dart';
+import 'package:donatur_peduli_panti/pesanan.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -929,13 +930,96 @@ class _MarketPage extends State<MarketPage> {
                   ),
                 ],
               ),
-              child: Center(
-                child: Text(
-                  'Beli Sekarang',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 147, 181, 255),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+              child: GestureDetector(
+                onTap: () {
+                  List<SelectedItem> selectedItems = [];
+
+                  // Filter items with quantity > 0
+                  if (_productQuantities.any((qty) => qty > 0) ||
+                      _bundleQuantities.any((qty) => qty > 0) ||
+                      _requestQuantities.any((qty) => qty > 0)) {
+                    // Product quantities
+                    _productQuantities
+                        .asMap()
+                        .entries
+                        .where((entry) => entry.value > 0)
+                        .forEach((entry) {
+                      int index = entry.key;
+                      int quantity = entry.value;
+                      final product = _products[index];
+
+                      selectedItems.add(SelectedItem(
+                        pantiName: widget.pantiDetail?.name ?? 'Panti',
+                        itemName: product.name,
+                        quantity: quantity,
+                        price: product.price,
+                        totalPrice: product.price * quantity,
+                      ));
+                    });
+
+                    // Bundle quantities
+                    _bundleQuantities
+                        .asMap()
+                        .entries
+                        .where((entry) => entry.value > 0)
+                        .forEach((entry) {
+                      int index = entry.key;
+                      int quantity = entry.value;
+                      final bundle = _bundles[index];
+
+                      selectedItems.add(SelectedItem(
+                        pantiName: widget.pantiDetail?.name ?? 'Panti',
+                        itemName: bundle.name,
+                        quantity: quantity,
+                        price: bundle.price,
+                        totalPrice: bundle.price * quantity,
+                      ));
+                    });
+
+                    // Request quantities
+                    _requestQuantities
+                        .asMap()
+                        .entries
+                        .where((entry) => entry.value > 0)
+                        .forEach((entry) {
+                      int index = entry.key;
+                      int quantity = entry.value;
+                      final request = widget.pantiDetail!.requestLists[index];
+                      final product = _getProductById(request.productID);
+
+                      selectedItems.add(SelectedItem(
+                        pantiName: widget.pantiDetail?.name ?? 'Panti',
+                        itemName: product?.name ?? 'Produk',
+                        quantity: quantity,
+                        price: product?.price ?? 0,
+                        totalPrice: (product?.price ?? 0) * quantity,
+                      ));
+                    });
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            Pesanan(selectedItems: selectedItems),
+                      ),
+                    );
+                  } else {
+                    // Show a message if no items are selected
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content:
+                              Text('Silakan pilih barang terlebih dahulu')),
+                    );
+                  }
+                },
+                child: Center(
+                  child: Text(
+                    'Beli Sekarang',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 147, 181, 255),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
