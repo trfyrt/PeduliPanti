@@ -200,74 +200,72 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: _pickImage,
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 112, 112, 112),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: FutureBuilder<String?>(
-                      future:
-                          _getProfileImageUrl(), // Fungsi untuk mendapatkan URL gambar dari SharedPreferences
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return const Center(child: Icon(Icons.error));
-                        } else if (snapshot.hasData && snapshot.data != null) {
-                          // Menampilkan gambar profil dari URL yang diambil
-                          return Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: ColorFiltered(
-                                  colorFilter: ColorFilter.mode(
-                                    Colors.black.withOpacity(
-                                        0.5), // Menggelapkan gambar
-                                    BlendMode.darken,
-                                  ),
-                                  child: Image.network(
-                                    snapshot
-                                        .data!, // URL gambar profil yang diambil dari SharedPreferences
-                                    width: 120,
-                                    height: 120,
-                                    fit: BoxFit.cover,
-                                  ),
+                onTap: _pickImage,
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 112, 112, 112),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: FutureBuilder<String?>(
+                    future:
+                        _getProfileImageUrl(), // Fungsi untuk mendapatkan URL gambar dari SharedPreferences
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return const Center(child: Icon(Icons.error));
+                      } else if (snapshot.hasData && snapshot.data != null) {
+                        // Menampilkan gambar profil dari URL yang diambil
+                        return Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: ColorFiltered(
+                                colorFilter: ColorFilter.mode(
+                                  Colors.black
+                                      .withOpacity(0.5), // Menggelapkan gambar
+                                  BlendMode.darken,
+                                ),
+                                child: Image.network(
+                                  snapshot
+                                      .data!, // URL gambar profil yang diambil dari SharedPreferences
+                                  width: 120,
+                                  height: 120,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              // Ikon edit di atas gambar
-                              Positioned(
-                                bottom: 2,
-                                right: 0,
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 147, 181, 255),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: const Icon(
-                                    FontAwesomeIcons.solidPenToSquare,
-                                    color: Colors.white,
-                                  ),
+                            ),
+                            // Ikon edit di atas gambar
+                            Positioned(
+                              bottom: 2,
+                              right: 0,
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 147, 181, 255),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: const Icon(
+                                  FontAwesomeIcons.solidPenToSquare,
+                                  color: Colors.white,
                                 ),
                               ),
-                            ],
-                          );
-                        } else {
-                          return const Center(
-                              child: Icon(FontAwesomeIcons
-                                  .solidPenToSquare)); // Jika tidak ada URL
-                        }
-                      },
-                    ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return const Center(
+                            child: Icon(FontAwesomeIcons
+                                .solidPenToSquare)); // Jika tidak ada URL
+                      }
+                    },
                   ),
                 ),
+              ),
                 SizedBox(height: 30),
                 _buildTextField(
                   label: "Deskripsi",
