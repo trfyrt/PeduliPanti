@@ -8,6 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:donatur_peduli_panti/Services/auth_service.dart';
+import 'package:cached_network_image/cached_network_image.dart'; // Import CachedNetworkImage
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,10 +19,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController childrenCountController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController childrenCountController = TextEditingController();
 
   int _currentIndex = 2;
 
@@ -34,11 +36,11 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       final userId = await getUserId();
       if (userId == null) {
-        print("User ID is null. Ensure _getUserId() returns a valid ID.");
+        print("User ID is null. Ensure getUserId() returns a valid ID.");
         return;
       }
 
-      final url = Uri.parse('http://192.168.5.112:8000/api/v1/user/$userId');
+      final url = Uri.parse('http://192.168.134.112:8000/api/v1/user/$userId');
       final response = await http.get(
         url,
         headers: {"Authorization": "Bearer ${await getToken()}"},
@@ -58,9 +60,11 @@ class _ProfilePageState extends State<ProfilePage> {
           // Update controller values with the fetched data
           setState(() {
             nameController.text = data['data']['name'];
-            descriptionController.text = pantiDetails['description'] ?? "No description";
+            descriptionController.text =
+                pantiDetails['description'] ?? "No description";
             addressController.text = pantiDetails['address'] ?? "No address";
-            childrenCountController.text = pantiDetails['childNumber']?.toInt().toString() ?? "0";
+            childrenCountController.text =
+                pantiDetails['childNumber']?.toString() ?? "0";
           });
 
           print("User data fetched and updated successfully.");
@@ -75,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-   Future<String?> getToken() async {
+  Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
   }
@@ -96,8 +100,6 @@ class _ProfilePageState extends State<ProfilePage> {
     }
     return null;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +130,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             const CekRabPage(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
-                          return child; // Tidak ada animasi
+                          return child; // No animation
                         },
-                      ), // Halaman CekRab
+                      ), // CekRab page
                     );
                   },
                 ),
@@ -163,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ClipRRect(
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
-              topRight: Radius.circular(20)), // Radius sudut untuk isi
+              topRight: Radius.circular(20)), // Rounded corners for the bottom
           child: BottomNavigationBar(
             backgroundColor: Colors.white,
             selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
@@ -171,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
             type: BottomNavigationBarType.fixed,
             currentIndex: _currentIndex,
             onTap: (index) {
-              // Navigasi berdasarkan index item yang dipilih
+              // Navigation based on selected index
               if (index == 0) {
                 Navigator.push(
                   context,
@@ -180,9 +182,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         const HomePage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
-                      return child; // Tidak ada animasi
+                      return child; // No animation
                     },
-                  ), // Halaman utama
+                  ), // Main page
                 );
               } else if (index == 1) {
                 Navigator.push(
@@ -192,9 +194,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         const CekRabPage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
-                      return child; // Tidak ada animasi
+                      return child; // No animation
                     },
-                  ), // Halaman utama
+                  ), // CekRab page
                 );
               } else if (index == 2) {
                 Navigator.push(
@@ -206,7 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         (context, animation, secondaryAnimation, child) {
                       return child;
                     },
-                  ), // Halaman profil
+                  ), // Profile page
                 );
               }
             },
@@ -235,61 +237,118 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       backgroundColor: const Color.fromARGB(255, 255, 251, 251),
       body: SingleChildScrollView(
-        // Changed to SingleChildScrollView for overall scrolling
         child: Stack(
           children: [
             Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    decoration: BoxDecoration(
-                      color: Colors.blue[50], // Background color
-                      borderRadius: const BorderRadius.vertical(
-                          bottom: Radius.circular(16.0)),
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CircleAvatar(
-                            radius: 50,
-                            backgroundImage: AssetImage(
-                                'assets/pedulipanti.png'), // Updated asset path
+                  FutureBuilder<Map<String, dynamic>?>(
+                    future: AuthService.getUser(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                            child:
+                                CircularProgressIndicator()); // Loading indicator
+                      } else if (snapshot.hasError || snapshot.data == null) {
+                        return const Center(
+                            child: Text(
+                                'Failed to load user data')); // Error message
+                      } else {
+                        final user = snapshot.data!;
+                        final imageUrl = user['image'] as String? ?? '';
+                        final proxyUrl = '$imageUrl';
+                        final isValidUrl =
+                            Uri.tryParse(imageUrl)?.hasAbsolutePath ?? false;
+
+                        if (!isValidUrl) {
+                          print('Invalid image URL: $imageUrl');
+                        }
+                        return ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(25),
+                            bottomRight: Radius.circular(25),
                           ),
-                          const SizedBox(height: 16),
-                          Text(
-                            "Nama Pengurus: ${nameController.text}",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.child_care),
-                              SizedBox(width: 8),
-                              Text("Jumlah Anak: ${childrenCountController.text}"),
-                            ],
-                          ),
-                          const SizedBox(
-                              height: 8), // Add space before the button
-                          ElevatedButton(
-                            onPressed: () {
-                              // Navigate to EditProfilePage when pressed
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditProfilePage(),
+                          child: Container(
+                            height: 270,
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 147, 181, 255),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 30),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(6),
+                                    width: 90,
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 255, 255, 255),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: Container(
+                                      width: 45,
+                                      height: 45,
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 138, 138, 138),
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: CachedNetworkImage(
+                                          imageUrl: proxyUrl,
+                                          width: 90,
+                                          height: 90,
+                                          placeholder: (context, url) =>
+                                              const CircularProgressIndicator(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              );
-                            },
-                            child: const Text("Edit Profile"),
+                                const SizedBox(height: 16),
+                                Text(
+                                  "Nama Pengurus: ${nameController.text}",
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.child_care),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                        "Jumlah Anak: ${childrenCountController.text}"),
+                                  ],
+                                ),
+                                const SizedBox(
+                                    height: 8), // Space before the button
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Navigate to EditProfilePage when pressed
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => EditProfilePage(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text("Edit Profile"),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
+                        );
+                      }
+                    },
                   ),
                   const SizedBox(height: 16),
                   const Padding(
@@ -316,9 +375,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               contentPadding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
-                                children: [
-                                  const SizedBox(width: 8),
-                                  const Column(
+                                children: const [
+                                  SizedBox(width: 8),
+                                  Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -361,9 +420,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               contentPadding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
-                                children: [
-                                  const SizedBox(width: 8),
-                                  const Column(
+                                children: const [
+                                  SizedBox(width: 8),
+                                  Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -406,9 +465,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               contentPadding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               title: Row(
-                                children: [
-                                  const SizedBox(width: 8),
-                                  const Column(
+                                children: const [
+                                  SizedBox(width: 8),
+                                  Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -437,10 +496,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(height: 8),
                   // New Card for Description at the bottom
-                  // Card untuk Deskripsi Panti Asuhan
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0), // Tambahkan padding horizontal
+                        horizontal: 20.0), // Add horizontal padding
                     child: Container(
                       constraints: const BoxConstraints(
                         minHeight: 100, // Minimum height for description card
@@ -471,11 +529,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-
-                  const SizedBox(height: 8), // Jarak sebelum card alamat
+                  const SizedBox(height: 8), // Space before address card
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0), // Tambahkan padding horizontal
+                        horizontal: 20.0), // Add horizontal padding
                     child: Container(
                       constraints: const BoxConstraints(
                         minHeight: 100, // Minimum height for address card
@@ -506,8 +563,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                      height: 25), // Added space after the address card
+                  const SizedBox(height: 25), // Space after the address card
                 ],
               ),
             ),
