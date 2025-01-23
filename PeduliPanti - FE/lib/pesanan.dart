@@ -85,9 +85,9 @@ class PesananPage extends StatefulWidget {
 
 class _PesananPageState extends State<PesananPage> {
   // String _selectedMethod = "Gopay";
-  String _selectedAmount = "Rp.100.000";
+  String _selectedAmount = "Jumlah Isi Saldo (Rupiah)";
   String _selectedMethod = 'Pilih Metode Pembayaran';
-  final String baseUrl = 'http://192.168.1.7:8000/api/v1';
+  final String baseUrl = 'http://172.20.10.4:8000/api/v1';
 
   Widget _buildPaymentMethod(
       String method, String icon, String amount, double totalPembayaran) {
@@ -146,7 +146,9 @@ class _PesananPageState extends State<PesananPage> {
         ),
         trailing: Icon(Icons.arrow_forward_ios,
             size: 18, color: isSufficient ? Colors.black : Colors.grey),
-        onTap: isSufficient ? () => _initiatePayment(method, amount) : null,
+        onTap: isSufficient
+            ? () => _updatePaymentMethod(method, 'Rp $amount')
+            : null,
       ),
     );
   }
@@ -157,9 +159,7 @@ class _PesananPageState extends State<PesananPage> {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(
-          child: CircularProgressIndicator(),
-        ),
+        builder: (context) => Center(child: CircularProgressIndicator()),
       );
 
       final response = await http.post(
@@ -211,7 +211,7 @@ class _PesananPageState extends State<PesananPage> {
       _selectedMethod = method;
       _selectedAmount = amount;
     });
-    Navigator.pop(context); // Menutup modal setelah memilih metode
+    Navigator.pop(context);
   }
 
   Map<String, List<Map<String, String>>> getDataBarangByPanti() {
@@ -373,20 +373,23 @@ class _PesananPageState extends State<PesananPage> {
                                     ),
                                   ),
                                   _buildPaymentMethod(
-                                      'OVO',
-                                      'assets/img/ovo.png',
-                                      '1000000',
-                                      totalPembayaran.toDouble()),
+                                    'OVO',
+                                    'assets/img/ovo.png',
+                                    '1000000',
+                                    totalPembayaran.toDouble(),
+                                  ),
                                   _buildPaymentMethod(
-                                      'Gopay',
-                                      'assets/img/gopay.png',
-                                      '1000000',
-                                      totalPembayaran.toDouble()),
+                                    'Gopay',
+                                    'assets/img/gopay.png',
+                                    '1000000',
+                                    totalPembayaran.toDouble(),
+                                  ),
                                   _buildPaymentMethod(
-                                      'Dana',
-                                      'assets/img/dana.png',
-                                      '1000000',
-                                      totalPembayaran.toDouble()),
+                                    'Dana',
+                                    'assets/img/dana.png',
+                                    '1000000',
+                                    totalPembayaran.toDouble(),
+                                  ),
                                 ],
                               ),
                             );
@@ -401,8 +404,11 @@ class _PesananPageState extends State<PesananPage> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
                                 child: Image.asset(
-                                    paymentIcons[_selectedMethod] ??
-                                        'assets/img/ovo.png'),
+                                  paymentIcons[_selectedMethod] ??
+                                      'assets/img/ovo.png',
+                                  width: 40,
+                                  height: 40,
+                                ),
                               ),
                               Container(
                                 margin: EdgeInsets.only(left: 15),
@@ -774,7 +780,7 @@ class _PesananPageState extends State<PesananPage> {
                                   backgroundColor:
                                       const Color.fromARGB(255, 147, 181, 255),
                                   padding: EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 100),
+                                      vertical: 15, horizontal: 70),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),

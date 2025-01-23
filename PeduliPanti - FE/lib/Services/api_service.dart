@@ -163,19 +163,16 @@ class ApiService {
   }
 
   // Fungsi untuk mengambil data cart berdasarkan userID
-  static Future<Cart?> fetchCart() async {
+  static Future<Cart?> fetchCart(int userId) async {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/cart'));
 
       if (response.statusCode == 200) {
         final rawData = json.decode(response.body);
-
-        // Pastikan rawData['data'] adalah List
         final dataList = rawData['data'] as List;
 
-        // Ambil keranjang untuk user tertentu, misalnya user ID = 1
         final currentUserCart = dataList.firstWhere(
-          (item) => item['user']['id'] == 1, // Ganti sesuai logika user
+          (item) => item['user']['id'] == userId,
           orElse: () => null,
         );
 
@@ -183,14 +180,11 @@ class ApiService {
           throw Exception('No cart found for the current user');
         }
 
-        // Parsing data keranjang untuk user saat ini
         return Cart(
           userID: int.parse(currentUserCart['user']['id'].toString()),
           products: (currentUserCart['products'] as List).map((item) {
-            print('Processing product: $item'); // Debug tiap produk
             final pivot = item['pivot'] as Map<String, dynamic>;
-            final productID = int.tryParse(item['id'].toString()) ??
-                0; // Berikan nilai default
+            final productID = int.tryParse(item['id'].toString()) ?? 0;
             final quantity = int.tryParse(pivot['quantity'].toString()) ?? 0;
             final pantiID = int.tryParse(pivot['pantiID'].toString()) ?? 0;
             return CartProduct(
@@ -200,10 +194,8 @@ class ApiService {
             );
           }).toList(),
           bundles: (currentUserCart['bundles'] as List).map((item) {
-            print('Processing bundle: $item'); // Debug tiap bundle
             final pivot = item['pivot'] as Map<String, dynamic>;
-            final bundleID = int.tryParse(item['id'].toString()) ??
-                0; // Berikan nilai default
+            final bundleID = int.tryParse(item['id'].toString()) ?? 0;
             final quantity = int.tryParse(pivot['quantity'].toString()) ?? 0;
             final pantiID = int.tryParse(pivot['pantiID'].toString()) ?? 0;
             return CartBundle(
@@ -213,10 +205,8 @@ class ApiService {
             );
           }).toList(),
           requestLists: (currentUserCart['requestLists'] as List).map((item) {
-            print('Processing request list: $item'); // Debug tiap request list
             final pivot = item['pivot'] as Map<String, dynamic>;
-            final requestID = int.tryParse(item['id'].toString()) ??
-                0; // Berikan nilai default
+            final requestID = int.tryParse(item['id'].toString()) ?? 0;
             final quantity = int.tryParse(pivot['quantity'].toString()) ?? 0;
             final pantiID = int.tryParse(pivot['pantiID'].toString()) ?? 0;
             return CartRequest(

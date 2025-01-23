@@ -3,6 +3,7 @@ import 'package:donatur_peduli_panti/Models/Cart.dart';
 import 'package:donatur_peduli_panti/Models/Panti.dart';
 import 'package:donatur_peduli_panti/Models/Product.dart';
 import 'package:donatur_peduli_panti/Models/RequestList.dart';
+import 'package:donatur_peduli_panti/Services/auth_service.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
 import 'package:donatur_peduli_panti/pesanan.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,15 @@ class _KeranjangPageState extends State<KeranjangPage> {
 
   Future<void> fetchCartData() async {
     try {
-      final fetchedCart = await ApiService.fetchCart();
+      // Get the current user
+      final user = await AuthService.getUser();
+      if (user == null) {
+        throw Exception('User not logged in');
+      }
+
+      final int userId = user['id'];
+
+      final fetchedCart = await ApiService.fetchCart(userId);
       if (fetchedCart == null) throw Exception('Keranjang kosong.');
 
       final products = await ApiService.fetchProducts();
@@ -686,7 +695,7 @@ class _KeranjangPageState extends State<KeranjangPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              PesananPage(selectedItems: selectedItems),
+                              Pesanan(selectedItems: selectedItems),
                         ),
                       );
                     },
