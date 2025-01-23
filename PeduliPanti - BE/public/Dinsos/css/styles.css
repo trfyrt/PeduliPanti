@@ -1,0 +1,215 @@
+body {
+    margin: 0;
+    display: flex;
+    font-family: 'Outfit', sans-serif; /* Ganti font menjadi Outfit */
+  }
+  
+  .sidebar {
+    width: 240px;
+    background-color: #121212;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 20px 10px;
+    box-sizing: border-box;
+  }
+  
+  .sidebar .logo {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px; /* Memberikan jarak lebih ke menu */
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Memberikan jarak antar menu */
+  }
+  
+  .menu-item {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .menu-item:hover {
+    background-color: #1e1e1e;
+    transform: scale(1.02); /* Memberikan efek kecil pada hover */
+  }
+
+  .menu-item .icon {
+    font-size: 20px;
+    margin-right: 15px; /* Jarak ikon dengan teks */
+  }
+
+  .menu-item.active {
+    background-color: #333;
+  }
+
+  .settings {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Jarak antar menu di bagian settings */
+  }
+  
+  footer {
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header .profile-icon {
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  section {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    background-color: #2f3e46;
+    color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h3 {
+    margin-top: 0;
+  }
+
+  .card p {
+    margin: 5px 0;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .view {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .accept {
+    background-color: #4caf50;
+    color: #fff;
+  }
+
+  .reject {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .rab-details {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 600px;
+  }
+
+  .rab-details h2 {
+    margin-top: 0;
+  }
+
+  .close-overlay {
+    margin-top: 10px;
+    background: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+  }
+
+  .close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close-btn:hover,
+  .close-btn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .pdf-link {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .pdf-link:hover {
+    background-color: #45a049;
+  }

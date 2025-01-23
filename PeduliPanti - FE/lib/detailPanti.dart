@@ -1,5 +1,8 @@
+import 'package:donatur_peduli_panti/Models/Panti.dart';
+import 'package:donatur_peduli_panti/Services/api_service.dart';
 import 'package:donatur_peduli_panti/notifikasiPAN.dart';
 import 'homePanti.dart';
+import 'historiRABPanti.dart'; // Import the new page
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
@@ -47,14 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
   LocationData? _locationData;
 
   late MapController mapController;
-  Map<String, dynamic>? pantiData;
+  Panti? pantiData;
 
   @override
   void initState() {
     super.initState();
     initLocation();
     mapController = MapController();
-    fetchPantiData(widget.pantiId); // Fetch panti data
+    fetchPantiDetails(); // Fetch panti data
   }
 
   initLocation() async {
@@ -81,15 +84,20 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Future<void> fetchPantiData(int id) async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/v1/panti_detail/$id'));
+  fetchPantiDetails() async {
+    try {
+      final fetchedPanti = await ApiService.fetchPantiDetails(); // Panggil API
+      final panti = fetchedPanti.firstWhere(
+        (panti) => panti.id == widget.pantiId,
+        orElse: () => throw Exception(
+            'Panti dengan ID ${widget.pantiId} tidak ditemukan'),
+      );
 
-    if (response.statusCode == 200) {
       setState(() {
-        pantiData = json.decode(response.body)['data'];
+        pantiData = panti;
       });
-    } else {
-      throw Exception('Failed to load panti data');
+    } catch (e) {
+      print("Error fetching panti details: $e");
     }
   }
 
@@ -116,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
-                      'panti1.png',
+                      'assets/img/panti1.png', // Corrected path to assets folder
                       width: double.infinity, // Full width
                       fit: BoxFit.cover, // Cover the area
                     ),
@@ -124,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.only(
                           right: 15, left: 15, top: 20, bottom: 3),
                       child: Text(
-                        pantiData != null ? pantiData!['name'] : 'Loading...',
+                        pantiData != null ? pantiData!.name : 'Loading...',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -135,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding:
                           const EdgeInsets.only(right: 15, left: 15, bottom: 5),
                       child: Text(
-                        pantiData != null ? pantiData!['address'] : 'Loading...',
+                        pantiData != null ? pantiData!.address : 'Loading...',
                         style: const TextStyle(
                           color: Color.fromARGB(60, 33, 33, 33),
                           fontSize: 14,
@@ -174,9 +182,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ],
                             ),
-                          ),
-                          Container(
-                            child: const Icon(FontAwesomeIcons.angleRight),
                           ),
                         ],
                       ),
@@ -222,7 +227,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Container(
                                   margin: const EdgeInsets.only(right: 5),
                                   child: Text(
-                                    pantiData != null ? 'Rp. ' + pantiData!['donationTotal'].toString() : 'Loading...',
+                                    pantiData != null
+                                        ? 'Rp. ' +
+                                            pantiData!.donationTotal.toString()
+                                        : 'Loading...',
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 107, 125, 167),
                                       fontWeight: FontWeight.bold,
@@ -261,8 +269,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     child: SizedBox(
                                       height: 15,
                                       child: LinearProgressIndicator(
-                                        value: pantiData != null 
-                                            ? (pantiData!['donationTotal'] / 100000000).toDouble() 
+                                        value: pantiData != null
+                                            ? (pantiData!.donationTotal /
+                                                    100000000)
+                                                .toDouble()
                                             : 0.0,
                                         backgroundColor:
                                             Color.fromARGB(255, 229, 229, 229),
@@ -341,8 +351,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 child: const Text('pada'),
                                               ),
                                               Container(
-                                                child: Text(
-                                                    pantiData != null ? pantiData!['foundingDate'] : 'Loading...'),
+                                                child: Text(pantiData != null
+                                                    ? pantiData!.foundingDate
+                                                    : 'Loading...'),
                                               ),
                                             ],
                                           )
@@ -402,30 +413,42 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: const Icon(
                                             FontAwesomeIcons.clipboardCheck),
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Transparansi Bantuan',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => HistoriRABPage(
+                                    pantiDetail: pantiData), // Replace with your new page widget
                                             ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    right: 4),
-                                                child: const Text('13'),
+                                          );
+                                        },
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'Transparansi Bantuan',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                              Container(
-                                                child: const Text(
-                                                    'Laporan Keuangan'),
-                                              ),
-                                            ],
-                                          )
-                                        ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      right: 4),
+                                                  child:  Text(
+                                                    '${pantiData?.rabs.length ?? 0}'),
+                                                ),
+                                                Container(
+                                                  child: const Text(
+                                                      'Laporan Keuangan'),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -473,7 +496,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           Container(
                             margin: const EdgeInsets.only(top: 15),
                             child: Text(
-                              pantiData != null ? pantiData!['description'] : 'Loading...',
+                              pantiData != null
+                                  ? pantiData!.description
+                                  : 'Loading...',
                               style: TextStyle(
                                 fontSize: 14,
                               ),
@@ -566,7 +591,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           Container(
                             margin: const EdgeInsets.only(top: 5),
                             child: Text(
-                              pantiData != null ? pantiData!['address'] : 'Loading...',
+                              pantiData != null
+                                  ? pantiData!.address
+                                  : 'Loading...',
                               style: TextStyle(
                                 fontSize: 14,
                               ),

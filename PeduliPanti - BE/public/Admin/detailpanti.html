@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PeduliPanti</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/detail.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+          <h2>PeduliPanti</h2>
+        </div>
+        <nav class="menu">
+          <a href="index.html" class="menu-item">
+            <span class="icon">📋</span> Dashboard
+          </a>
+          <a href="detailpanti.html" class="menu-item active">
+            <span class="icon">🏠</span> Data Panti Asuhan
+          </a>
+          <a href="history.html" class="menu-item">
+            <span class="icon">⏰</span> History Pembayaran
+          </a>
+        </nav>
+        <div class="settings">
+          <a href="#" class="menu-item">
+            <span class="icon">⚙️</span> Settings
+          </a>
+          <a href="login.html" class="menu-item">
+            <span class="icon">↩️</span> Log Out
+          </a>
+        </div>
+        <footer>
+          <p>PeduliPanti (c) 2024</p>
+        </footer>
+      </div>
+      <div class="main-content">
+        <header>
+          <h1>Data Panti Asuhan</h1>
+          <div class="profile-icon">👤</div>
+        </header>
+        <section>
+            <div class="table-container">
+                <table id="requestListTable">
+                  <thead>
+                    <tr>
+                      <th>Panti ID's</th>
+                      <th>Panti Name</th>
+                      <th>Child Number</th>
+                      <th>Founding Date</th>
+                      <th>Priority Value</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="requestListBody">
+                    <!-- Data akan muncul disini -->
+                  </tbody>
+                </table>
+              </div>
+        </section>
+        <div class="modal" id="priority-modal"></div>
+        <script src="js/detail.js"></script>
+</body>
+</html>
