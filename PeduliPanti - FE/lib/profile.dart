@@ -101,6 +101,37 @@ class _ProfilePageState extends State<ProfilePage> {
     return null;
   }
 
+  void _showLogoutConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Konfirmasi Logout"),
+          content: const Text("Apakah Anda ingin keluar?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Batal"),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: const Text("Keluar"),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginApp(),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -569,24 +600,18 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Positioned(
               left: 16, // Position the logout icon to the left
-              top: 16,
+              top: 25,
               child: IconButton(
                 icon: const Icon(Icons.logout,
                     color: Colors.black), // Changed color to black
                 onPressed: () {
-                  // Navigate to LoginPage when pressed
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginApp(),
-                    ),
-                  );
+                  _showLogoutConfirmationDialog(); // Show confirmation dialog
                 },
               ),
             ),
             Positioned(
               right: 16,
-              top: 16,
+              top: 25,
               child: Stack(
                 children: [
                   IconButton(
@@ -603,8 +628,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                   ),
                   Positioned(
-                    right: 0,
-                    top: 0,
+                    right:5,
+                    top: 5,
                     child: Container(
                       padding: const EdgeInsets.all(2),
                       decoration: const BoxDecoration(
