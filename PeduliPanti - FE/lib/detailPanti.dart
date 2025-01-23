@@ -438,7 +438,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 Container(
                                                   margin: const EdgeInsets.only(
                                                       right: 4),
-                                                  child: const Text('13'),
+                                                  child:  Text(
+                                                    '${pantiData?.rabs.length ?? 0}'),
                                                 ),
                                                 Container(
                                                   child: const Text(
