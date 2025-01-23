@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PeduliPanti</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+          <h2>PeduliPanti</h2>
+        </div>
+        <nav class="menu">
+          <a href="index.html" class="menu-item active">
+            <span class="icon">📋</span> Dashboard
+          </a>
+          <a href="detailpanti.html" class="menu-item">
+            <span class="icon">🏠</span> Data Panti Asuhan
+          </a>
+          <a href="history.html" class="menu-item">
+            <span class="icon">⏰</span> History Pembayaran
+          </a>
+        </nav>
+        <div class="settings">
+          <a href="#" class="menu-item">
+            <span class="icon">⚙️</span> Settings
+          </a>
+          <a href="login.html" class="menu-item">
+            <span class="icon">↩️</span> Log Out
+          </a>
+        </div>
+        <footer>
+          <p>PeduliPanti (c) 2024</p>
+        </footer>
+      </div>
+      <div class="main-content">
+        <header>
+          <h1>Data Permintaan Panti</h1>
+          <div class="profile-icon">👤</div>
+        </header>
+        <section>
+          
+          <div class="actions-bar">
+            <div class="search-box">
+              <input type="text" id="searchInput" placeholder="Search....">
+            </div>
+            <button class="add-button" onclick="openAddModal()">+ Add New Request</button>
+          </div>
+
+          <div class="table-container">
+            <table id="requestListTable">
+              <thead>
+                <tr>
+                  <th>Panti Name</th>
+                  <th>Product</th>
+                  <th>Requested Qty</th>
+                  <th>Donated Qty</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="requestListBody">
+                <!-- Data akan muncul disini -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Add Modal -->
+           <div id="addModal" class="modal">
+            <div class="modal-content">
+              <h2>Add New Request</h2>
+              <form id="addRequestForm">
+                <div class="form-group">
+                  <label for="pantiID">Panti ID:</label>
+                  <input type="number" id="pantiID" required>
+                </div>
+                <div class="form-group">
+                  <label for="productID">Product ID:</label>
+                  <input type="number" id="productID" required>
+                </div>
+                <div class="form-group">
+                  <label for="requested_qty">Requested Quantity:</label>
+                  <input type="number" id="requested_qty" min="1" required>
+                </div>
+                <div class="modal-actions">
+                  <button type="submit">Submit</button>
+                  <button type="button" onclick="closeAddModal()">Cancel</button>
+                </div>
+              </form>
+            </div>
+           </div>
+           
+        </section>
+      <script src="js/script.js"></script>
+</body>
+</html>
