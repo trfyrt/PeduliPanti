@@ -50,20 +50,23 @@ pipeline {
 
                 // Eksekusi manual SSH/SCP secara LANGSUNG
                 sh """
-                # 1. Buat folder di home directory alvin (~/pedulipanti) bukan di /opt/
+                # 1. Buat folder di home directory alvin
                 sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
+                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     alvin@${LXC_IP} "mkdir -p ~/pedulipanti"
 
-                # 2. Copy file docker-compose.yml ke folder tersebut
-                sshpass -p "${CONTAINER_PASSWORD}" scp \
+                # 2. PERUBAHAN DI SINI: Gunakan 'scp -r ./*' untuk mengirim SEMUA FOLDER kodingan
+                sshpass -p "${CONTAINER_PASSWORD}" scp -r \
                     -o StrictHostKeyChecking=no \
-                    docker-compose.yml alvin@${LXC_IP}:~/pedulipanti/
+                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    ./* alvin@${LXC_IP}:~/pedulipanti/
 
-                # 3. Jalankan Docker Compose (Gunakan sudo -S untuk bypass prompt password)
+                # 3. Jalankan Docker Compose (Tambahkan --build agar resep dimasak ulang dengan bahan baru)
                 sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
-                    alvin@${LXC_IP} "cd ~/pedulipanti && echo '${CONTAINER_PASSWORD}' | sudo -S docker compose up -d"
+                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    alvin@${LXC_IP} "cd ~/pedulipanti && echo '${CONTAINER_PASSWORD}' | sudo -S docker compose up -d --build"
                 """
             }
         }
