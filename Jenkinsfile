@@ -38,7 +38,12 @@ pipeline {
         stage('Deploy ke Proxmox (via Ansible)') {
             steps {
                 echo 'Mendeploy aplikasi ke LXC Container menggunakan Ansible...'
-                sh 'ansible-playbook -i inventory.ini setup-docker.yml'
+                sh '''
+                # Mematikan pertanyaan "yes/no" dari SSH
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                
+                ansible-playbook -i inventory.ini setup-docker.yml
+                '''
 
                 sh '''
                 sshpass -p $PROXMOX_PASSWORD ssh \
