@@ -48,25 +48,28 @@ pipeline {
                     -e "ansible_become_pass=${CONTAINER_PASSWORD}"
                 """
 
-                // Eksekusi manual SSH/SCP secara LANGSUNG
+                // Eksekusi manual dengan trik kompresi (100x Lebih Cepat)
                 sh """
-                # 1. Buat folder di home directory alvin
+                # 1. Bungkus semua file menjadi satu file archive (karung) bernama app.tar.gz
+                tar -czf app.tar.gz ./
+
+                # 2. Buat folder di target LXC
                 sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
                     -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     alvin@${LXC_IP} "mkdir -p ~/pedulipanti"
 
-                # 2. PERUBAHAN DI SINI: Gunakan 'scp -r ./*' untuk mengirim SEMUA FOLDER kodingan
-                sshpass -p "${CONTAINER_PASSWORD}" scp -r \
+                # 3. Kirim HANYA SATU FILE karung tersebut (Sangat Cepat!)
+                sshpass -p "${CONTAINER_PASSWORD}" scp \
                     -o StrictHostKeyChecking=no \
                     -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
-                    ./* alvin@${LXC_IP}:~/pedulipanti/
+                    app.tar.gz alvin@${LXC_IP}:~/pedulipanti/
 
-                # 3. Jalankan Docker Compose (Tambahkan --build agar resep dimasak ulang dengan bahan baru)
+                # 4. Ekstrak karung tersebut di LXC, lalu jalankan Docker Compose
                 sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
                     -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
-                    alvin@${LXC_IP} "cd ~/pedulipanti && echo '${CONTAINER_PASSWORD}' | sudo -S docker compose up -d --build"
+                    alvin@${LXC_IP} "cd ~/pedulipanti && tar -xzf app.tar.gz && echo '${CONTAINER_PASSWORD}' | sudo -S docker compose up -d --build"
                 """
             }
         }
