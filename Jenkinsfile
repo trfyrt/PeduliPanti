@@ -19,9 +19,10 @@ pipeline {
             steps {
                 echo 'Menjalankan unit test Backend...'
                 dir('PeduliPanti - BE') {
-                    // Perhatikan tambahan tanda kutip ganda pada "$(pwd):/app"
                     sh '''
-                    docker run --rm -v "$(pwd):/app" -w /app composer:latest install --no-interaction
+                    # Ganti composer:latest menjadi composer:2-php8.2
+                    docker run --rm -v "$(pwd):/app" -w /app composer:2-php8.2 install --no-interaction
+                    
                     docker run --rm -v "$(pwd):/app" -w /app php:8.2-cli php artisan test || echo "Test selesai/Tidak ada test"
                     '''
                 }
