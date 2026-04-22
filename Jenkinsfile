@@ -39,33 +39,33 @@ pipeline {
             steps {
                 echo 'Mendeploy aplikasi ke LXC Container menggunakan Ansible...'
                 
-                // Menjalankan Ansible dan menyuntikkan password secara rahasia via parameter -e
-                sh '''
+                // PERHATIKAN: Sekarang menggunakan Kutip Ganda Tiga (""") 
+                sh """
                 export ANSIBLE_HOST_KEY_CHECKING=False
                 
                 ansible-playbook -i inventory.ini setup-docker.yml -vvv \
-                    -e "ansible_password=${NEW_CONTAINER_PASSWORD}" \
-                    -e "ansible_become_pass=${NEW_CONTAINER_PASSWORD}" \
-                    -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand=\"sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}\"'"
-                '''
+                    -e "ansible_password=${CONTAINER_PASSWORD}" \
+                    -e "ansible_become_pass=${CONTAINER_PASSWORD}" \
+                    -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand=\\"sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}\\"'"
+                """
 
-                // Eksekusi manual SSH/SCP
-                sh '''
-                sshpass -p "${NEW_CONTAINER_PASSWORD}" ssh \
+                // PERHATIKAN: Ini juga menggunakan Kutip Ganda Tiga (""")
+                sh """
+                sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p '${NEW_PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     alvin@${LXC_IP} "mkdir -p /opt/pedulipanti"
 
-                sshpass -p "${NEW_CONTAINER_PASSWORD}" scp \
+                sshpass -p "${CONTAINER_PASSWORD}" scp \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p '${NEW_PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     docker-compose.yml alvin@${LXC_IP}:/opt/pedulipanti/
 
-                sshpass -p "${NEW_CONTAINER_PASSWORD}" ssh \
+                sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p '${NEW_PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     alvin@${LXC_IP} "cd /opt/pedulipanti && sudo docker compose up -d"
-                '''
+                """
             }
         }
         
