@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:donatur_peduli_panti/Models/Product.dart';
-import 'package:donatur_peduli_panti/Services/api_service.dart';
-import 'package:donatur_peduli_panti/Services/auth_service.dart';
+import 'package:donatur_peduli_panti/services/api_service.dart';
+import 'package:donatur_peduli_panti/services/auth_service.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

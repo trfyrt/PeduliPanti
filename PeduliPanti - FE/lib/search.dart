@@ -1,6 +1,6 @@
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
-import 'package:donatur_peduli_panti/Services/auth_service.dart';
-import 'package:donatur_peduli_panti/Services/api_service.dart';
+import 'package:donatur_peduli_panti/services/auth_service.dart';
+import 'package:donatur_peduli_panti/services/api_service.dart';
 import 'package:donatur_peduli_panti/Models/Panti.dart';
 import 'package:donatur_peduli_panti/homeDonatur.dart';
 import 'package:flutter/material.dart';
