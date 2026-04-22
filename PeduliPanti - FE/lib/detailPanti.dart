@@ -1,4 +1,4 @@
-import 'package:donatur_peduli_panti/Models/Panti.dart';
+import 'package:donatur_peduli_panti/models/Panti.dart';
 import 'package:donatur_peduli_panti/services/api_service.dart';
 import 'package:donatur_peduli_panti/notifikasiPAN.dart';
 import 'homePanti.dart';
