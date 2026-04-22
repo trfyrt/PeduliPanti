@@ -1,5 +1,5 @@
 import 'package:donatur_peduli_panti/Models/Bundle.dart';
-import 'package:donatur_peduli_panti/Services/api_service.dart';
+import 'package:donatur_peduli_panti/services/api_service.dart';
 import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:donatur_peduli_panti/pesanan.dart';
@@ -10,7 +10,7 @@ import 'Models/Panti.dart';
 import 'Models/Product.dart';
 import 'Models/RequestList.dart';
 import 'Models/Cart.dart';
-import 'Services/auth_service.dart';
+import 'services/auth_service.dart';
 
 class Market extends StatefulWidget {
   Market({Key? key, required this.pantiDetail}) : super(key: key);

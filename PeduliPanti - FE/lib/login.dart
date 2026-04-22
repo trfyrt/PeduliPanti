@@ -1,4 +1,4 @@
-import 'package:donatur_peduli_panti/Services/auth_service.dart';
+import 'package:donatur_peduli_panti/services/auth_service.dart';
 import 'package:donatur_peduli_panti/regist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';

@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:donatur_peduli_panti/Services/pdf_summarizer_service.dart';
-import 'package:donatur_peduli_panti/Services/auth_service.dart';
+import 'package:donatur_peduli_panti/services/pdf_summarizer_service.dart';
+import 'package:donatur_peduli_panti/services/auth_service.dart';
 
 class PdfEvaluatorScreen extends StatefulWidget {
   const PdfEvaluatorScreen({Key? key}) : super(key: key);
