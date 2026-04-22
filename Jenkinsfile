@@ -39,31 +39,27 @@ pipeline {
             steps {
                 echo 'Mendeploy aplikasi ke LXC Container menggunakan Ansible...'
                 
-                // PERHATIKAN: Sekarang menggunakan Kutip Ganda Tiga (""") 
+                // Menjalankan Ansible TANPA ProxyCommand
                 sh """
                 export ANSIBLE_HOST_KEY_CHECKING=False
                 
                 ansible-playbook -i inventory.ini setup-docker.yml -vvv \
                     -e "ansible_password=${CONTAINER_PASSWORD}" \
-                    -e "ansible_become_pass=${CONTAINER_PASSWORD}" \
-                    -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand=\\"sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}\\"'"
+                    -e "ansible_become_pass=${CONTAINER_PASSWORD}"
                 """
 
-                // PERHATIKAN: Ini juga menggunakan Kutip Ganda Tiga (""")
+                // Eksekusi manual SSH/SCP secara LANGSUNG
                 sh """
                 sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     alvin@${LXC_IP} "mkdir -p /opt/pedulipanti"
 
                 sshpass -p "${CONTAINER_PASSWORD}" scp \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     docker-compose.yml alvin@${LXC_IP}:/opt/pedulipanti/
 
                 sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p '${PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     alvin@${LXC_IP} "cd /opt/pedulipanti && sudo docker compose up -d"
                 """
             }
