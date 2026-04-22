@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:donatur_peduli_panti/Models/Payment.dart';
+import 'package:donatur_peduli_panti/models/Payment.dart';
 
 class PaymentService {
   static const String baseUrl = 'YOUR_API_BASE_URL';

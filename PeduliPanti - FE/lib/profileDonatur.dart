@@ -2,7 +2,7 @@ import 'package:donatur_peduli_panti/donasi.dart';
 import 'package:donatur_peduli_panti/keranjang.dart';
 import 'package:donatur_peduli_panti/login.dart';
 import 'package:donatur_peduli_panti/notifikasi.dart';
-import 'package:donatur_peduli_panti/regist.dart';
+// import 'package:donatur_peduli_panti/regist.dart';
 import 'package:donatur_peduli_panti/statusBayar.dart';
 import 'package:donatur_peduli_panti/statusKemas.dart';
 import 'package:donatur_peduli_panti/statusKirim.dart';

@@ -1,4 +1,4 @@
-import 'package:donatur_peduli_panti/Models/Panti.dart';
+import 'package:donatur_peduli_panti/models/Panti.dart';
 import 'package:donatur_peduli_panti/detailPanti_donatur.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
