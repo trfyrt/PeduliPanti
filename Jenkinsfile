@@ -36,45 +36,47 @@ pipeline {
         }
 
         stage('Deploy ke Proxmox (via Ansible)') {
-    steps {
-        echo 'Mendeploy aplikasi ke LXC Container menggunakan Ansible...'
-        sh '''
-        # Generate inventory.ini
-        cat > inventory.ini << 'EOF'
-[webserver]
-10.10.10.140
+            steps {
+                echo 'Mendeploy aplikasi ke LXC Container menggunakan Ansible...'
+                
+                // Menjalankan Ansible dan menyuntikkan password secara rahasia via parameter -e
+                sh '''
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                
+                ansible-playbook -i inventory.ini setup-docker.yml -vvv \
+                    -e "ansible_password=${NEW_CONTAINER_PASSWORD}" \
+                    -e "ansible_become_pass=${NEW_CONTAINER_PASSWORD}" \
+                    -e "ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand=\"sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}\"'"
+                '''
 
-[webserver:vars]
-ansible_user=alvin
-ansible_connection=ssh
-EOF
+                // Eksekusi manual SSH/SCP
+                sh '''
+                sshpass -p "${NEW_CONTAINER_PASSWORD}" ssh \
+                    -o StrictHostKeyChecking=no \
+                    -o ProxyCommand="sshpass -p '${NEW_PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    alvin@${LXC_IP} "mkdir -p /opt/pedulipanti"
 
-        # Tambah password secara terpisah (hindari masalah quoting)
-        echo "ansible_password=${NEW_CONTAINER_PASSWORD}" >> inventory.ini
-        echo "ansible_become_pass=${NEW_CONTAINER_PASSWORD}" >> inventory.ini
-        echo "ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand=\"sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}\"'" >> inventory.ini
+                sshpass -p "${NEW_CONTAINER_PASSWORD}" scp \
+                    -o StrictHostKeyChecking=no \
+                    -o ProxyCommand="sshpass -p '${NEW_PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    docker-compose.yml alvin@${LXC_IP}:/opt/pedulipanti/
 
-        export ANSIBLE_HOST_KEY_CHECKING=False
-        ansible-playbook -i inventory.ini setup-docker.yml -vvv
-        '''
-
-        sh '''
-        sshpass -p ${NEW_PROXMOX_PASSWORD} ssh \
-            -o StrictHostKeyChecking=no \
-            -o ProxyCommand="sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
-            alvin@${LXC_IP} "mkdir -p /opt/pedulipanti"
-
-        sshpass -p ${NEW_CONTAINER_PASSWORD} scp \
-            -o StrictHostKeyChecking=no \
-            -o ProxyCommand="sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
-            docker-compose.yml alvin@${LXC_IP}:/opt/pedulipanti/
-
-        sshpass -p ${NEW_CONTAINER_PASSWORD} ssh \
-            -o StrictHostKeyChecking=no \
-            -o ProxyCommand="sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
-            alvin@${LXC_IP} "cd /opt/pedulipanti && sudo docker compose up -d"
-        '''
-    }
-}
+                sshpass -p "${NEW_CONTAINER_PASSWORD}" ssh \
+                    -o StrictHostKeyChecking=no \
+                    -o ProxyCommand="sshpass -p '${NEW_PROXMOX_PASSWORD}' ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    alvin@${LXC_IP} "cd /opt/pedulipanti && sudo docker compose up -d"
+                '''
+            }
+        }
+        
+        stage('Cleanup / Sapu Bersih') {
+            steps {
+                echo 'Membersihkan sampah Docker (Dangling Images & Cache)...'
+                sh '''
+                docker image prune -f
+                docker builder prune -f
+                '''
+            }
+        }
     }
 }
