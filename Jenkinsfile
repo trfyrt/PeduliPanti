@@ -2,8 +2,10 @@ pipeline {
     agent any
 
     environment {
-        PROXMOX_IP = '100.72.15.104'
-        LXC_IP = '10.10.10.140'
+        PROXMOX_IP         = '100.72.15.104'
+        LXC_IP             = '10.10.10.140'
+        PROXMOX_PASSWORD   = credentials('PROXMOX_PASSWORD')
+        CONTAINER_PASSWORD = credentials('CONTAINER_PASSWORD')
     }
 
     stages {
@@ -19,9 +21,7 @@ pipeline {
                 echo 'Menjalankan unit test Backend...'
                 dir('PeduliPanti - BE') {
                     sh '''
-                    # Gunakan tag yang benar
                     docker run --rm -v "$(pwd):/app" -w /app composer:2.7 install --no-interaction
-
                     docker run --rm -v "$(pwd):/app" -w /app php:8.2-cli php artisan test || echo "Test selesai/Tidak ada test"
                     '''
                 }
@@ -39,27 +39,38 @@ pipeline {
             steps {
                 echo 'Mendeploy aplikasi ke LXC Container menggunakan Ansible...'
                 sh '''
-                # Mematikan pertanyaan "yes/no" dari SSH
+                # Generate inventory.ini otomatis pakai credentials dari Jenkins
+                cat > inventory.ini << EOF
+[webserver]
+${LXC_IP}
+
+[webserver:vars]
+ansible_user=alvin
+ansible_password=${CONTAINER_PASSWORD}
+ansible_become_pass=${CONTAINER_PASSWORD}
+ansible_connection=ssh
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand="sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}"'
+EOF
+
                 export ANSIBLE_HOST_KEY_CHECKING=False
-                
                 ansible-playbook -i inventory.ini setup-docker.yml
                 '''
 
                 sh '''
-                sshpass -p $PROXMOX_PASSWORD ssh \
+                sshpass -p ${PROXMOX_PASSWORD} ssh \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p $PROXMOX_PASSWORD ssh -W %h:%p root@$PROXMOX_IP" \
-                    alvin@$LXC_IP "mkdir -p /opt/pedulipanti"
+                    -o ProxyCommand="sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    alvin@${LXC_IP} "mkdir -p /opt/pedulipanti"
 
-                scp \
+                sshpass -p ${CONTAINER_PASSWORD} scp \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p $PROXMOX_PASSWORD ssh -W %h:%p root@$PROXMOX_IP" \
-                    docker-compose.yml alvin@$LXC_IP:/opt/pedulipanti/
+                    -o ProxyCommand="sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    docker-compose.yml alvin@${LXC_IP}:/opt/pedulipanti/
 
-                sshpass -p $PROXMOX_PASSWORD ssh \
+                sshpass -p ${CONTAINER_PASSWORD} ssh \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p $PROXMOX_PASSWORD ssh -W %h:%p root@$PROXMOX_IP" \
-                    alvin@$LXC_IP "cd /opt/pedulipanti && sudo docker compose up -d"
+                    -o ProxyCommand="sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    alvin@${LXC_IP} "cd /opt/pedulipanti && sudo docker compose up -d"
                 '''
             }
         }
