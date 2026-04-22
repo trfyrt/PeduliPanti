@@ -4,8 +4,8 @@ pipeline {
     environment {
         PROXMOX_IP         = '100.72.15.104'
         LXC_IP             = '10.10.10.140'
-        PROXMOX_PASSWORD   = credentials('PROXMOX_PASSWORD')
-        CONTAINER_PASSWORD = credentials('CONTAINER_PASSWORD')
+        PROXMOX_PASSWORD   = credentials('NEW_PROXMOX_PASSWORD')
+        CONTAINER_PASSWORD = credentials('NEW_CONTAINER_PASSWORD')
     }
 
     stages {
@@ -46,10 +46,10 @@ ${LXC_IP}
 
 [webserver:vars]
 ansible_user=alvin
-ansible_password=${CONTAINER_PASSWORD}
-ansible_become_pass=${CONTAINER_PASSWORD}
+ansible_password=${NEW_CONTAINER_PASSWORD}
+ansible_become_pass=${NEW_CONTAINER_PASSWORD}
 ansible_connection=ssh
-ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand="sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}"'
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand="sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}"'
 EOF
 
                 export ANSIBLE_HOST_KEY_CHECKING=False
@@ -57,19 +57,19 @@ EOF
                 '''
 
                 sh '''
-                sshpass -p ${PROXMOX_PASSWORD} ssh \
+                sshpass -p ${NEW_PROXMOX_PASSWORD} ssh \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    -o ProxyCommand="sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     alvin@${LXC_IP} "mkdir -p /opt/pedulipanti"
 
                 sshpass -p ${CONTAINER_PASSWORD} scp \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    -o ProxyCommand="sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     docker-compose.yml alvin@${LXC_IP}:/opt/pedulipanti/
 
                 sshpass -p ${CONTAINER_PASSWORD} ssh \
                     -o StrictHostKeyChecking=no \
-                    -o ProxyCommand="sshpass -p ${PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
+                    -o ProxyCommand="sshpass -p ${NEW_PROXMOX_PASSWORD} ssh -o StrictHostKeyChecking=no -W %h:%p root@${PROXMOX_IP}" \
                     alvin@${LXC_IP} "cd /opt/pedulipanti && sudo docker compose up -d"
                 '''
             }
