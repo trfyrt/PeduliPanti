@@ -1,5 +1,5 @@
 # Tahap 1: Build Flutter Web menggunakan image resmi Flutter
-FROM ghcr.io/cirruslabs/flutter:3.24.0 AS build
+FROM ghcr.io/cirruslabs/flutter:3.24.3 AS build
 WORKDIR /app
 COPY . .
 # Jalankan perintah build ke web
