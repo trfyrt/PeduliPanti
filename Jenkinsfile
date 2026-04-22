@@ -50,17 +50,20 @@ pipeline {
 
                 // Eksekusi manual SSH/SCP secara LANGSUNG
                 sh """
+                # 1. Buat folder di home directory alvin (~/pedulipanti) bukan di /opt/
                 sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
-                    alvin@${LXC_IP} "mkdir -p /opt/pedulipanti"
+                    alvin@${LXC_IP} "mkdir -p ~/pedulipanti"
 
+                # 2. Copy file docker-compose.yml ke folder tersebut
                 sshpass -p "${CONTAINER_PASSWORD}" scp \
                     -o StrictHostKeyChecking=no \
-                    docker-compose.yml alvin@${LXC_IP}:/opt/pedulipanti/
+                    docker-compose.yml alvin@${LXC_IP}:~/pedulipanti/
 
+                # 3. Jalankan Docker Compose (Gunakan sudo -S untuk bypass prompt password)
                 sshpass -p "${CONTAINER_PASSWORD}" ssh \
                     -o StrictHostKeyChecking=no \
-                    alvin@${LXC_IP} "cd /opt/pedulipanti && sudo docker compose up -d"
+                    alvin@${LXC_IP} "cd ~/pedulipanti && echo '${CONTAINER_PASSWORD}' | sudo -S docker compose up -d"
                 """
             }
         }
